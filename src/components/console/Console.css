@@ -1,0 +1,16 @@
+.console-ribbon-design {
+    background-color: #fffefd;
+    border-left: 2px solid #d7d0cc;
+    border-bottom: 2px solid #d7d0cc;
+    border-radius: 0px 0px 0px 10px;
+}
+.secondmenutab-r {
+    border-radius: 0px 0px 10px 0px;
+    border-right: 2px solid #d7d0cc;
+    border-bottom: 2px solid #d7d0cc;
+}
+.secondmenutab-l {
+    border-radius: 0px 0px 0px 10px;
+    border-left: 2px solid #d7d0cc;
+    border-bottom: 2px solid #d7d0cc;
+}

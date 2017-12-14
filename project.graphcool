@@ -1,0 +1,83 @@
+# projectId: cj8adz6qz09jy0105s1gkdpoy
+# version: 24
+
+type File @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  contentType: String!
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  url: String! @isUnique
+}
+
+type User @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  industries: [Industry!]! @relation(name: "UserIndustries")
+  primaryIndustry: Industry @relation(name: "UserPrimaryIndustry")
+  posts: [SocialPost!]! @relation(name: "UserPosts")
+  parameters: [Parameter!]! @relation(name: "UserParameters")
+  links: [Link!]! @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "UsersVotes")
+  email: String @isUnique
+  password: String
+}
+
+type Parameter @model {
+  id: ID! @isUnique
+  param: String!
+  response: String!
+  user: User @relation(name: "UserParameters")
+  parameters: [SocialPost!]! @relation(name: "SocialPostParameters")
+  industries: [Industry!]! @relation(name: "ParameterIndustries")
+  default: Boolean @defaultValue(value: false)
+}
+
+type DefaultParameter @model {
+  id: ID! @isUnique
+  param: String!
+  response: String!
+  parameters: [SocialPost!]! @relation(name: "SocialPostParameters")
+  industries: [Industry!]! @relation(name: "ParameterIndustries")
+}
+
+type SocialPost @model {
+  id: ID! @isUnique
+  default: Boolean! @defaultValue(value: false)
+  message: String!
+  user: User @relation(name: "UserPosts")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  industries: [Industry!]! @relation(name: "SocialPostIndustries")
+  parameters: [Parameter!]! @relation(name: "SocialPostParameters")
+}
+
+type Industry @model {
+  id: ID! @isUnique
+  default: Boolean! @defaultValue(value: false)
+  industry: String!
+  primaryForUsers: [User!]! @relation(name: "UserPrimaryIndustry")
+  user: User @relation(name: "UserIndustries")
+  posts: [SocialPost!]! @relation(name: "SocialPostIndustries")
+  parameters: [Parameter!]! @relation(name: "ParameterIndustries")
+}
+
+type Link @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  url: String!
+  description: String!
+  postedBy: User @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "VotesOnLink")
+}
+
+type Vote @model {
+  id: ID! @isUnique
+  user: User! @relation(name: "UsersVotes")
+  link: Link! @relation(name: "VotesOnLink")
+}

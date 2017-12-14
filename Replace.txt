@@ -1,0 +1,5 @@
+<div className='flex flex-fixed black'>
+                            <Link to='/console' className='ml1 no-underline black'>Console</Link>
+                            <div className='ml1'>|</div>
+                            <Link to='/settings' className='ml1 no-underline black'>Settings</Link>
+                            <div className='ml1'>|</div>

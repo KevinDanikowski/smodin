@@ -1,0 +1,17 @@
+# Is something NOT worth testing?
+1. will test duplicate exactly the application code?
+2. will making assertions in test duplicate a behavior that is already covered by (and responsiblity of) library code?
+3. is this detail important to outsider perspective, or only internal concern? If so, can internal detail be described only with a public API?
+
+# Things to test
+- div always rendered
+- div contains everything else that gets rendered in side
+- what should and shouldn't be rendered
+
+# Key Sites
+https://semaphoreci.com/community/tutorials/testing-react-components-with-enzyme-and-mocha
+https://www.youtube.com/watch?v=f6Uk0qS_Lho
+
+# What to test
+https://daveceddia.com/what-to-test-in-react-app/
+jest samples - https://www.undefinednull.com/2015/05/03/react-tdd-example-unit-testing-and-building-a-react-component-with-jest-gulp-and-react-test-utils/

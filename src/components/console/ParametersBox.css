@@ -1,0 +1,14 @@
+.parameterhover:hover {
+    background-color: #ff9cb0;
+    color: #262626;
+    cursor: pointer;
+}
+.parameterborder {
+    padding: 0px 4px 2px;
+    border-radius: 12px;
+}
+.borders {
+    border-top: 1px solid #d7d0cc;
+    border-left: 1px solid #d7d0cc;
+    border-bottom: 1px solid #d7d0cc;
+}

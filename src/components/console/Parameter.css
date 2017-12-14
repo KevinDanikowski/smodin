@@ -1,0 +1,27 @@
+#parameterstable {
+    border-collapse: collapse;
+    width: 90%;
+}
+#parameterstable-th-td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.parameterinputsidetext {
+    background-color: rgb(193, 174, 186);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 4px 6px 6px;
+    border-radius: 12px;
+    border: none;
+}
+.parameterinput {
+    background-color: rgb(238, 218, 231);
+    color: #3a3a3a;
+    width: 225px;
+    font-weight: 600;
+    padding: 3px 6px 3px;
+    border-radius: 12px;
+    outline: none;
+    -webkit-appearance: none;
+}

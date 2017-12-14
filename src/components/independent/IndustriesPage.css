@@ -1,0 +1,20 @@
+.industry-box-user {
+    border-radius: 15px;
+    background-color: #ffafbb;
+    overflow: hidden;
+}
+.industry-box {
+    border-radius: 15px;
+    background-color: #c8c8c8;
+    overflow: hidden;
+}
+.industry-box-user-button:hover {
+    background-color: #d9d9d9;
+    color: black;
+    cursor: pointer;
+}
+.industry-box-button:hover {
+    background-color: #ffafbb;
+    color: #ff5463;
+    cursor: pointer;
+}

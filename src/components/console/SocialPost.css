@@ -1,0 +1,80 @@
+.border-top {
+    border-top: 1px solid #d7d0cc;
+}
+
+.socialpostbox {
+    background-color: #fffffb;
+    border: 2px solid #c8c4c5;
+    border-radius: 30px;
+    flex: 1 0 auto;
+    margin: 1px 15px 0px 15px;
+    overflow: hidden;
+}
+.socialpostboxtop {
+    background-color: #ffe5ec;
+    border-bottom: 2px solid #dbd7d8;
+    border-radius: 30px 30px 0px 0px;
+    display: flex;
+    width: 100%;
+}
+.socialpostboxresponse {
+    width: 100%;
+    background-color: #cccccc;
+    word-wrap: break-word;
+    border: none;
+    padding: 4px;
+    resize: none;
+}
+
+.socialpostboxresponse:focus {
+    background-color: #ffffff;
+}
+.socialpostboxeditbutton-no-edit {
+    background-color: rgb(241, 240, 243);
+    color: #a3a3a3;
+}
+.socialpostboxeditbutton:hover {
+    background-color: #7fe27f;
+    color: #356b35;
+    cursor: pointer;
+}
+.socialpostboxeditbutton-edit {
+    background-color: #7fe27f;
+    color: #356b35;
+}
+.socialpostboxeditbutton-edit:hover {
+    background-color: #d2ffce;
+    color: #5cd65c;
+    cursor: pointer;
+}
+.socialpostboxdeletebutton:hover {
+    background-color: #ecded5;
+    color: #5c5c5c;
+    cursor: pointer;
+}
+.socialpostboxeditbutton {
+    background-color: rgb(241, 240, 243);
+    color: #a3a3a3;
+    font-weight: 600;
+    border-left: 2px solid #dbd7d8;
+    border-bottom: 2px solid #dbd7d8;
+    padding: 0px 4px;
+    margin-left: 10px;
+    height: 35px;
+    width: 40px;
+    min-width: 40px;
+    display: flex;
+}
+.socialpostboxdeletebutton {
+    background-color: rgb(147, 146, 148);
+    color: #000000;
+    font-weight: 600;
+    border-radius: 0px 30px 0px 0px;
+    border-left: 2px solid #dbd7d8;
+    border-bottom: 2px solid #dbd7d8;
+    padding: 0px 4px;
+    height: 35px;
+    width: 40px;
+    min-width: 40px;
+    display: flex;
+}

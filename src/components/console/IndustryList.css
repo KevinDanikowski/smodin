@@ -1,0 +1,12 @@
+.industryoption {
+    cursor: pointer;
+}
+.industryoption:hover {
+    border-radius: 100%;
+    background: radial-gradient(#ff3d46, rgba(116, 115, 117, 0))
+}
+.industryoption-selected {
+    border-radius: 100%;
+    color: white;
+    background: radial-gradient(#ff3d46, rgba(116, 115, 117, 0))
+}

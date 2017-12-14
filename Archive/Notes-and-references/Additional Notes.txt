@@ -1,0 +1,4 @@
+***Adding Autopoulate data on server side function***
+See links:
+https://www.graph.cool/forum/t/accessing-data-stored-in-the-graph-cool-db-from-inside-functions/780
+https://www.graph.cool/forum/t/mutation-inside-a-graphcool-function/239

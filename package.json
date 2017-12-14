@@ -1,0 +1,113 @@
+{
+  "name": "smodin-post-writer",
+  "version": "0.0.2",
+  "Author": "Kevin Danikowski",
+  "copyright": "2017 Ota AI, Inc.",
+  "private": true,
+  "dependencies": {
+    "add-graphql-subscriptions": "^1.0.1",
+    "autoprefixer": "7.1.2",
+    "axios": "^0.17.1",
+    "babel-core": "6.25.0",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "20.0.3",
+    "babel-loader": "7.1.1",
+    "babel-preset-react-app": "^3.0.3",
+    "babel-runtime": "6.26.0",
+    "case-sensitive-paths-webpack-plugin": "2.1.1",
+    "chalk": "1.1.3",
+    "css-loader": "0.28.4",
+    "dotenv": "4.0.0",
+    "eslint": "4.4.1",
+    "eslint-config-react-app": "^2.0.1",
+    "eslint-loader": "1.9.0",
+    "eslint-plugin-flowtype": "2.35.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.1.0",
+    "extract-text-webpack-plugin": "3.0.0",
+    "file-loader": "0.11.2",
+    "fs-extra": "3.0.1",
+    "fullcalendar": "^3.7.0",
+    "global": "^4.3.2",
+    "html-webpack-plugin": "2.29.0",
+    "immutability-helper": "^2.4.0",
+    "jquery": "^3.2.1",
+    "jsdom": "^9.11.0",
+    "object-assign": "4.1.1",
+    "postcss-flexbugs-fixes": "3.2.0",
+    "postcss-loader": "2.0.6",
+    "promise": "8.0.1",
+    "react": "^16.0.0",
+    "react-addons-update": "^15.6.2",
+    "react-apollo": "^1.4.16",
+    "react-autosize-textarea": "^0.4.9",
+    "react-confirm-alert": "^1.0.8",
+    "react-dev-utils": "^4.1.0",
+    "react-dom": "^16.0.0",
+    "react-dropdown": "^1.3.2",
+    "react-dropzone": "^4.2.3",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "style-loader": "0.18.2",
+    "subscriptions-transport-ws": "^0.7.3",
+    "sw-precache-webpack-plugin": "0.11.4",
+    "underscore": "^1.8.3",
+    "url-loader": "0.5.9",
+    "webpack": "3.5.1",
+    "webpack-dev-server": "2.8.2",
+    "webpack-manifest-plugin": "1.2.1",
+    "whatwg-fetch": "2.0.3"
+  },
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "set NODE_ENV=test&& mocha --compilers js:babel-register --require ./test/helpers.js --require ./test/dom.js --recursive"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.js?(x)",
+      "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "enzyme-to-json": "^3.2.2",
+    "mocha": "^4.0.1",
+    "mockery": "^2.1.0",
+    "react-test-renderer": "^16.1.1",
+    "sinon": "^4.1.2"
+  }
+}

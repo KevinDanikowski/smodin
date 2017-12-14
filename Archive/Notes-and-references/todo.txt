@@ -1,0 +1,1 @@
+add schema for SocialProfiles and making industries connect to it via a drop down and add social profile connection to all other schemas necessary

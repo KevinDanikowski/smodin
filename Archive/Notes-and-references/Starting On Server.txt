@@ -1,0 +1,20 @@
+Overview video for Digital Ocean: https://www.youtube.com/watch?v=_GSOnHRYSS0
+
+***getting more memory if needed to download npm packages***
+https://www.youtube.com/redirect?redir_token=Ou7qgGe6rI2Xm9HODs1cZD7nwP58MTUxMDQ1ODgxNEAxNTEwMzcyNDE0&q=https%3A%2F%2Fwww.digitalocean.com%2Fcommunity%2Ftutorials%2Fhow-to-add-swap-on-ubuntu-14-04&event=comments
+
+***Using pm2 when running from create-react-app***
+starting: `pm2 start node_modules/react-scripts/scripts/start.js --name react-app`
+stopping: `pm2 stop react-app` or `pm2 stop all`
+restart: `pm2 restart react-app` or `pm2 restart all`
+
+***Get rid of port number with lib2cap-bin***
+download: 'sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``'
+edit file: go to node_modules/react-scripts/scripts/start.js and change port from 3000 to 80
+
+***Updating when Git Repo Updates***
+https://www.digitalocean.com/community/tutorials/how-to-set-up-automatic-deployment-with-git-with-a-vps
+
+***Updating Git Repo Manually***
+use command `git pull`
+If made local change that don't want to commit, `git reset --hard` then `git pull`
