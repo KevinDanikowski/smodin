@@ -1,0 +1,78 @@
+import { gql } from 'react-apollo'
+
+export const ALL_SOCIAL_POSTS_QUERY = gql`
+  query AllSocialPostsQuery ($id: ID!, $industryId: ID!, $searchText: String!) {
+    allSocialPosts (orderBy: default_DESC, filter:{AND: [{
+        user: {
+            id: $id
+            }
+        },{
+            industries_some: {
+                id: $industryId
+                }
+        },{
+        message_contains: $searchText
+      }]}){
+          id
+          default
+          message
+          industries {id}
+          image {id size url}
+        }}`
+
+export const ADD_SOCIAL_POSTS_MUTATION = gql`
+    mutation AddSocialPostMutation($id: ID!, $message: String!, $industriesIds: [ID!]){
+        createSocialPost(userId: $id, message: $message, industriesIds: $industriesIds){
+            message
+            id
+            default
+            industries {id}
+    }}`
+
+export const UPDATE_SOCIAL_POSTS_IMAGE_MUTATION = gql`
+    mutation UpdateSocialPostImage($id: ID!, $imageId: ID!){
+        updateSocialPost(id: $id, imageId: $imageId){
+            id
+            message
+            image {id}
+    }}`
+export const UPDATE_SOCIAL_POSTS_MUTATION = gql`
+    mutation UpdateSocialPost($id: ID!, $message: String!){
+        updateSocialPost(id: $id, message: $message){
+            id
+            message
+    }}`
+export const DELETE_SOCIAL_POSTS_MUTATION = gql`
+  mutation DeletedSocialPostMutation($id: ID!) {
+    deleteSocialPost(id: $id) {
+      id
+    }
+  }
+`
+export const ADD_SOCIAL_POST_IMAGE_MUTATION = gql`
+    mutation AddSocialPostImageMutation($socialPostId: ID!, $secret: String!, $name: String!, $size: Int!, $url: String!, $contentType: String!){
+        createSocialPostImage(socialPostId: $socialPostId, secret: $secret, name: $name, size: $size, url: $url, contentType: $contentType){
+            id secret name size url contentType
+    }
+}`
+
+export const ALL_SOCIAL_POST_EXAMPLES_QUERY = gql`
+  query AllSocialPostExamplesQuery ($industryId: ID!) {
+    allSocialPostExamples (filter:{
+        industries_some: {
+            id: $industryId
+            }
+        }){
+          id
+          message
+        }}`
+export const ALL_SOCIAL_POST_IDEAS_QUERY = gql`
+  query AllSocialPostIdeasQuery ($industryId: ID!) {
+    allSocialPostIdeas (filter:{
+        industries_some: {
+            id: $industryId
+            }
+        }){
+          id
+          idea
+        }}`

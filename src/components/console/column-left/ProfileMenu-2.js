@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 //import { graphql, gql, compose } from 'react-apollo'
+import PropType from 'prop-types'
 import { GC_USER_ID } from '../../../constants'
 
 class ProfileMenu extends Component {
@@ -10,6 +11,7 @@ class ProfileMenu extends Component {
         }
     }
     render() {
+        //check if logged in
         const userId = localStorage.getItem(GC_USER_ID)
         if (!userId){
             return(
@@ -22,6 +24,7 @@ class ProfileMenu extends Component {
                 </div>
             )
         }
+
         const profileMenuArray = [
             {tab: 'posts', display: 'Posts', icon: 'fa-pencil'},
             {tab: 'parameters', display: 'Parameters', icon: 'fa-commenting'},
@@ -33,12 +36,12 @@ class ProfileMenu extends Component {
                 return (
                     (this.props.tab === menuItem.tab)?
                     <div key={index} className='seg-semibold pa2p mb3 fs23p smodin-black bw2p b--smodin-gray br4p bg-smodin-white'>
-                        <i className={className} aria-hidden="true"></i>
+                        <i className={className} aria-hidden="true"/>
                         {menuItem.display}
                     </div>
                     :<div key={index} className='pl3p mb3 fs23p smodin-black pointer'
                         onClick={()=>{this._sendTabToParent(menuItem.tab)}}>
-                        <i className={className} aria-hidden="true"></i>
+                        <i className={className} aria-hidden="true"/>
                         {menuItem.display}
                     </div>
                 )
@@ -55,5 +58,7 @@ class ProfileMenu extends Component {
         this.props.receiveTab(tab)
     }
 }
-
+ProfileMenu.propTypes = {
+    //tab: PropType.String,
+}
 export default ProfileMenu

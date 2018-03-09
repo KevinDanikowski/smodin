@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { graphql, gql, compose } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import { GC_USER_ID } from '../../constants'
+import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
 import './IndustryList.css'
 
 class IndustryList extends Component {
@@ -99,17 +100,6 @@ class IndustryList extends Component {
     }
 }
 
-export const ALL_INDUSTRIES_QUERY = gql`
-  query AllIndustriesQuery ($id: ID!) {
-    allIndustries (orderBy: default_DESC filter:{
-        users_some: {
-            id: $id
-            }
-        }){
-          id
-          default
-          industry
-        }}`
 export default compose(
     graphql(ALL_INDUSTRIES_QUERY, {
         name: 'allIndustriesQuery',

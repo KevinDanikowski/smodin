@@ -4,8 +4,13 @@ import { GC_USER_ID } from '../../constants'
 import SocialPost from './SocialPost'
 import ParametersBox from './ParametersBox'
 import SocialPostBox from './SocialPostBox'
-import { ALL_PARAMETERS_QUERY } from './ParameterList'
+import {ALL_SOCIAL_POSTS_QUERY,
+    ADD_SOCIAL_POSTS_MUTATION,
+    UPDATE_SOCIAL_POSTS_IMAGE_MUTATION,
+    UPDATE_SOCIAL_POSTS_MUTATION,
+    DELETE_SOCIAL_POSTS_MUTATION} from "../../graphql/socialPosts";
 import SocialPostRibbon from './SocialPostRibbon'
+import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
 
 class SocialPostList extends Component {
     constructor(props) {
@@ -183,53 +188,7 @@ class SocialPostList extends Component {
     }
 }
 
-const ALL_SOCIAL_POSTS_QUERY = gql`
-  query AllSocialPostsQuery ($id: ID!, $industryId: ID!, $searchText: String!) {
-    allSocialPosts (orderBy: default_DESC, filter:{AND: [{
-        user: {
-            id: $id
-            }
-        },{
-            industries_some: {
-                id: $industryId
-                }
-        },{
-        message_contains: $searchText
-      }]}){
-          id
-          default
-          message
-          industries {id}
-          image {id size url}
-        }}`
-const ADD_SOCIAL_POSTS_MUTATION = gql`
-    mutation AddSocialPostMutation($id: ID!, $message: String!, $industriesIds: [ID!]){
-        createSocialPost(userId: $id, message: $message, industriesIds: $industriesIds){
-            message
-            id
-            default
-            industries {id}
-    }}`
-const UPDATE_SOCIAL_POSTS_IMAGE_MUTATION = gql`
-    mutation UpdateSocialPostImage($id: ID!, $imageId: ID!){
-        updateSocialPost(id: $id, imageId: $imageId){
-            id
-            message
-            image {id}
-    }}`
-const UPDATE_SOCIAL_POSTS_MUTATION = gql`
-    mutation UpdateSocialPost($id: ID!, $message: String!){
-        updateSocialPost(id: $id, message: $message){
-            id
-            message
-    }}`
-const DELETE_SOCIAL_POSTS_MUTATION = gql`
-  mutation DeletedSocialPostMutation($id: ID!) {
-    deleteSocialPost(id: $id) {
-      id
-    }
-  }
-`
+
 export default compose(
     graphql(ALL_SOCIAL_POSTS_QUERY, {
         name: 'allSocialPostsQuery',

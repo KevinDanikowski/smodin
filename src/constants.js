@@ -1,7 +1,7 @@
 export const GC_USER_ID = 'graphcool-user-id'
 export const GC_AUTH_TOKEN = 'graphcool-auth-token'
-export const projectId = 'cj8adz6qz09jy0105s1gkdpoy'
 export const DEFAULT_SOCIAL_PROFILE = 'defaultSocialProfile'
+export const kevinsUserId = 'cj8chwezmb3gr01805oyo0gf1'
 export const socialProfiles = [
     {display: 'FB', profile: 'facebook'},
     {display:'T', profile: 'twitter'},

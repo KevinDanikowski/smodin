@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import { graphql, gql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { findAllParametersInString } from '../../utils'
-import { projectId, GC_USER_ID } from '../../constants'
+import { GC_USER_ID } from '../../constants'
+import { projectId } from "../../config"
 import SocialPostWithCSS from './SocialPostWithCSS'
 import TextareaAutosize from 'react-autosize-textarea'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
-import ALL_SOCIAL_POSTS_QUERY from './SocialPostList'
+import {ADD_SOCIAL_POST_IMAGE_MUTATION,
+    ALL_SOCIAL_POSTS_QUERY} from '../../graphql/socialPosts'
+import {UPDATE_FILE_MUTATION,
+    DELETE_FILE_MUTATION} from '../../graphql/files'
 import './SocialPost.css'
 
 class SocialPost extends Component {
@@ -69,7 +73,7 @@ class SocialPost extends Component {
                     {(!this.state.removeConfirmation) ?
                         <div className='tc seg-regular w-100 bg-smodin-red h--bg-smodin-white-p hover-black'
                              onClick={()=>{this._setStateAndTimeout()}}>
-                            <i className="fa fa-ban" aria-hidden="true"></i>
+                            <i className="fa fa-ban" aria-hidden="true"/>
                         </div>
                         :<div className='tc seg-regular w-100 bg-smodin-red h--bg-smodin-white-p hover-black'
                               onClick={()=>{this._deleteImageFile()}}>
@@ -89,11 +93,11 @@ class SocialPost extends Component {
                         <div className='flex nowrap'>
                             <div className='tc seg-regular w-100 bg-smodin-red h--bg-smodin-white-p hover-black'
                                  onClick={()=>{this.setState({imageFile: [], imageFilePresent: false})}}>
-                                <i className="fa fa-ban" aria-hidden="true"></i>
+                                <i className="fa fa-ban" aria-hidden="true"/>
                             </div>
                             <div className='tc seg-regular w-100 bg-smodin-green h--bg-smodin-white-p hover-black'
                                  onClick={()=>{this._uploadImageFile()}}>
-                                <i className="fa fa-check" aria-hidden="true"></i>
+                                <i className="fa fa-check" aria-hidden="true"/>
                             </div>
                         </div>
                     </div>
@@ -102,7 +106,7 @@ class SocialPost extends Component {
                         className='flex items-center justify-center flex-1 pl1 b--dashed bw2p br4p b--smodin-gray'
                         activeClassName='bg-green'
                         multiple={false}>
-                        <i className="fa fa-picture-o smodin-gray" aria-hidden="true"></i>
+                        <i className="fa fa-picture-o smodin-gray" aria-hidden="true"/>
                     </Dropzone>
             )
         }
@@ -110,34 +114,34 @@ class SocialPost extends Component {
             return (
                 <div className='fs20p bg-smodin-blue-gray flex border-top b--smodin-gray w-100 pt1p smodin-dark-gray pb2p nowrap'>
                     <div className='flex inline-flex justify-start ml1 items-center flex-1'>
-                        <i className="ps2p fa fa-link mr1" aria-hidden="true"></i>
+                        <i className="ps2p fa fa-link mr1" aria-hidden="true"/>
                         <div className=''>Link...</div>
                     </div>
                     <div className='flex inline-flex justify-start items-center flex-1'>
-                        <i className="ps2p fa fa-picture-o mr1 " aria-hidden="true"></i>
+                        <i className="ps2p fa fa-picture-o mr1 " aria-hidden="true"/>
                         <div className=''>Image Link...</div>
                     </div>
                     <div className='flex inline-flex justify-start items-center pr2'>
-                        <i className="ps2p fa fa-clock-o mr1" aria-hidden="true"></i>
+                        <i className="ps2p fa fa-clock-o mr1" aria-hidden="true"/>
                         <div className=''>8/2/17 16:12</div>
                     </div>
                     <div className='pl2 flex inline-flex justify-end self-end items-center'>
                         {(this.state.viewResponse)?
                             <div className='br4 bg-smodin-red pl1 pr1 mt1p mr1 h--bg-smodin-red-p white'
                                  onClick={() => this.setState({viewResponse: true})}>
-                                <i className="fa fa-eye mr1" aria-hidden="true"></i>
-                                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <i className="fa fa-eye mr1" aria-hidden="true"/>
+                                <i className="fa fa-pencil-square-o" aria-hidden="true"/>
                             </div>
                             :<div className='br4 bg-smodin-gray pl1 pr1 mt1p mr1 h--bg-smodin-red-p hover-white'
                                   onClick={() => this.setState({viewResponse: true})}>
-                                <i className="fa fa-eye mr1" aria-hidden="true"></i>
-                                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <i className="fa fa-eye mr1" aria-hidden="true"/>
+                                <i className="fa fa-pencil-square-o" aria-hidden="true"/>
                             </div>}
-                        <i className="ps2p fa fa-files-o pl1 pr1 mr1" aria-hidden="true"></i>
+                        <i className="ps2p fa fa-files-o pl1 pr1 mr1" aria-hidden="true"/>
                         {(this.state.postChanged) ?
-                            <i className="ps2p fa fa-floppy-o mr1 bg-smodin-red br2 pl1 pr1 pointer white" aria-hidden="true" onClick={this._updateSocialPost}></i>
-                            :<i className="ps2p fa fa-floppy-o pl1 pr1 mr1" aria-hidden="true"></i>}
-                        <i className="mr1 ps2p fa fa-trash h--smodin-red-p" aria-hidden="true" onClick={this._deleteSocialPost}></i>
+                            <i className="ps2p fa fa-floppy-o mr1 bg-smodin-red br2 pl1 pr1 pointer white" aria-hidden="true" onClick={this._updateSocialPost}/>
+                            :<i className="ps2p fa fa-floppy-o pl1 pr1 mr1" aria-hidden="true"/>}
+                        <i className="mr1 ps2p fa fa-trash h--smodin-red-p" aria-hidden="true" onClick={this._deleteSocialPost}/>
                     </div>
                 </div>
             )
@@ -231,24 +235,7 @@ class SocialPost extends Component {
         this.setState({imageFile: [], imageFilePresent: false, uploading: false})
     }
 }
-const ADD_SOCIAL_POST_IMAGE_MUTATION = gql`
-    mutation AddSocialPostImageMutation($socialPostId: ID!, $secret: String!, $name: String!, $size: Int!, $url: String!, $contentType: String!){
-        createSocialPostImage(socialPostId: $socialPostId, secret: $secret, name: $name, size: $size, url: $url, contentType: $contentType){
-            id secret name size url contentType
-    }
-}`
-const UPDATE_FILE_MUTATION = gql`
-    mutation UpdateFileMutation($id: ID!, $userId: ID!){
-        updateFile(id: $id, userId: $userId){
-            id size url
-    }
-}`
-const DELETE_FILE_MUTATION = gql`
-    mutation DeleteFileMutation($id: ID!){
-        deleteFile(id: $id){
-                id
-        }
-}`
+
 export default compose(
     graphql(ADD_SOCIAL_POST_IMAGE_MUTATION, {name: 'addSocialPostImageMutation'}),
     graphql(UPDATE_FILE_MUTATION, {name: 'updateFileMutation'}),
@@ -266,5 +253,4 @@ https://www.npmjs.com/package/apollo-upload-client
 https://css-tricks.com/image-upload-manipulation-react/
 https://react-dropzone.js.org/
 https://stackoverflow.com/questions/38349421/react-dropzone-image-preview-not-showing
-
  */

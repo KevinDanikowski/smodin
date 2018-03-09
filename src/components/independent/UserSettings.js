@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { GC_USER_ID } from '../../constants'
 import { gql, graphql, compose } from 'react-apollo'
+import {USER_SETTINGS_QUERY,
+    UPDATE_USER_NAME_MUTATION} from "../../graphql/users";
 
 class UserSettings extends Component {
     constructor(props) {
@@ -76,24 +78,6 @@ class UserSettings extends Component {
         })
     }
 }
-
-export const USER_SETTINGS_QUERY = gql`
-  query UserSettingsQuery($id: ID!) {
-    User(id: $id) {
-      id
-      name
-      email
-      mainSocialProfile { id site }
-    }
-  }
-`
-
-const UPDATE_USER_NAME_MUTATION = gql`
-    mutation UpdateUserName($id: ID!, $name: String!){
-        updateUser(id: $id, name: $name){
-            id
-            name
-    }}`
 
 export default compose(
     graphql(USER_SETTINGS_QUERY, {

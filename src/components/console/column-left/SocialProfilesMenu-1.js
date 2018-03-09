@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { socialProfiles } from './../../../constants'
+import { socialProfiles } from '../../../constants'
 import './SocialProfilesMenu.css'
 
+/* component passes hard coded tab of what profile is selected */
 class SocialProfilesMenu extends Component {
     constructor(props) {
         super(props)
@@ -11,8 +12,8 @@ class SocialProfilesMenu extends Component {
     }
     render() {
         const SocialProfileMenuMap = () => {
-            const socialProfilesMenu = socialProfiles.map((profile, index) => {
-                return (this.props.socialProfile === profile.profile)?
+            return socialProfiles.map((profile, index) => {
+                return (this.props.socialProfile === profile.profile)?//profile is full name 'facebook' for example
                     <div key={index} className='h55p flex nowrap justify-start items-center background-gray'>
                         <div className='w4p h-100 bg-smodin-dark-blue' />
                         <div className='box40 bg-light-blue white ma5p'>
@@ -28,7 +29,6 @@ class SocialProfilesMenu extends Component {
                     </div>
 
             })
-            return socialProfilesMenu
         }
 
         return (

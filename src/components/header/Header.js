@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../../constants'
-import { USER_SETTINGS_QUERY } from '../independent/UserSettings'
+import {USER_SETTINGS_QUERY} from "../../graphql/users"
 import { graphql } from 'react-apollo'
 import './Header.css'
 

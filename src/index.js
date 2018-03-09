@@ -7,11 +7,12 @@ import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apol
 import { SubscriptionClient  } from 'subscriptions-transport-ws' // addGraphQLSubscriptions deprecated in newer versions
 import { addGraphQLSubscriptions } from 'add-graphql-subscriptions'
 import { GC_AUTH_TOKEN } from './constants'
+import { projectId} from './config'
 
 const networkInterface = createNetworkInterface({
-    uri: 'https://api.graph.cool/simple/v1/cj8adz6qz09jy0105s1gkdpoy'
+    uri: 'https://api.graph.cool/simple/v1/'+projectId
 })
-const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/cj8adz6qz09jy0105s1gkdpoy', {
+const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/'+projectId, {
     reconnect: true,
     connectionParams: {
         authToken: localStorage.getItem(GC_AUTH_TOKEN),

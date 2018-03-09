@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { graphql, gql, compose } from 'react-apollo'
 import { GC_USER_ID, dayArray, defaultWeeklyPostSchedules, defaultMonthlyDatePostSchedules, defaultMonthlyDayPostSchedules } from '../../constants'
+import {ADD_MONTHLY_POST_SCHEDULE_MUTATION,
+    ADD_WEEKLY_POST_SCHEDULE_MUTATION,
+    ALL_POST_SCHEDULES_QUERY,
+    DELETE_MONTHLY_POST_SCHEDULE_MUTATION,
+    DELETE_WEEKLY_POST_SCHEDULE_MUTATION} from "../../graphql/schedules";
 import MonthlyDatePostScheduler from './MonthlyDatePostScheduler'
 import MonthlyDayPostScheduler from './MonthlyDayPostScheduler'
 import Scheduler from './Scheduler'
@@ -337,69 +342,7 @@ class SchedulePage extends Component {
         }
     }
 }
-const ALL_POST_SCHEDULES_QUERY = gql`
-    query AllPostSchedulesQuery ($id: ID!, $industryId: ID!) {
-    allPostSchedules (filter:{AND: [{
-        user: {
-            id: $id
-            }
-        },{
-            industry: {
-                id: $industryId
-                }
-        }]}){
-          id
-          scheduleType
-          weeklySchedules {id day hour minute}
-          monthlySchedules {id monthlyScheduleType monthDate monthDay hour minute}
-    }}`
-const DELETE_WEEKLY_POST_SCHEDULE_MUTATION = gql`
-  mutation DeletedWeeklyPostScheduleMutation($id: ID!) {
-    deleteWeeklyPostSchedule(id: $id) {
-      id
-    }
-  }
-`
-const DELETE_MONTHLY_POST_SCHEDULE_MUTATION = gql`
-  mutation DeletedMonthlyPostScheduleMutation($id: ID!) {
-    deleteMonthlyPostSchedule(id: $id) {
-      id
-    }
-  }
-`
-const ADD_WEEKLY_POST_SCHEDULE_MUTATION = gql`
-    mutation AddWeeklyPostScheduleMutation($day: String!, $hour: String!, $minute: String!, $postScheduleId: ID!){
-        createWeeklyPostSchedule(scheduleId: $postScheduleId, day: $day, hour: $hour, minute: $minute){
-            id 
-            schedule {id}
-            day
-            hour
-            minute
-    }}`
-const ADD_MONTHLY_POST_SCHEDULE_MUTATION = gql`
-    mutation AddMonthlyPostScheduleMutation(
-            $monthlyScheduleType: String!,
-            $monthDate: String!,
-            $monthDay: String!, 
-            $hour: String!, 
-            $minute: String!, 
-            $postScheduleId: ID!){
-        createMonthlyPostSchedule(
-                monthlyScheduleType: $monthlyScheduleType,
-                monthDate: $monthDate,
-                monthDay: $monthDay,
-                hour: $hour,
-                minute: $minute,
-                scheduleId: $postScheduleId
-            ){
-                id 
-                schedule {id}
-                monthlyScheduleType
-                monthDate
-                monthDay
-                hour
-                minute
-    }}`
+
 export default compose(
     graphql(ALL_POST_SCHEDULES_QUERY, {
         name: 'allPostSchedulesQuery',

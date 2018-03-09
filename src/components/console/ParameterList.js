@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-import { graphql, gql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { GC_USER_ID } from '../../constants'
+import { ALL_PARAMETERS_QUERY,
+    ADD_PARAMETER_MUTATION,
+    DELETE_PARAMETER_MUTATION,
+    UPDATE_PARAMETER_MUTATION} from "../../graphql/parameters";
 import Parameter from './Parameter'
 import './ParameterList.css'
 
@@ -157,47 +161,6 @@ class ParameterList extends Component {
     }
 }
 
-// export this query to be reached in SocialPostList.js
-export const ALL_PARAMETERS_QUERY = gql`
-  query AllParametersQuery ($id: ID!, $industryId: ID!) {
-    allParameters (orderBy: default_DESC, filter: {AND: [{
-        user: {
-            id: $id
-            }
-        },{
-        industries_some: {
-            id: $industryId
-            }
-        }]}){
-          id
-          default
-          param
-          response
-          industries {id}
-        }}`
-const ADD_PARAMETER_MUTATION = gql`
-    mutation AddParameterMutation( $userId: ID!, $industriesIds: [ID!], $param: String!, $response: String!){
-        createParameter( userId: $userId,  industriesIds: $industriesIds, param: $param, response: $response){
-            param
-            response
-            id
-            default
-            industries {id}
-    }}`
-const UPDATE_PARAMETER_MUTATION = gql`
-    mutation UpdateParameterMutation( $id: ID!, $param: String!, $response: String!){
-        updateParameter( id: $id,  param: $param, response: $response){
-            id
-            param
-            response
-    }}`
-const DELETE_PARAMETER_MUTATION = gql`
-  mutation DeleteParameterMutation($id: ID!) {
-    deleteParameter(id: $id) {
-      id
-    }
-  }
-`
 export default compose(
     graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',

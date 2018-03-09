@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { GC_USER_ID } from '../../constants'
-import { ALL_PARAMETERS_QUERY } from './ParameterList'
+import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
 import './ParametersBox.css'
 
 class ParametersBox extends Component {

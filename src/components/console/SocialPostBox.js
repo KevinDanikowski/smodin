@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { gql, graphql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
+import {ALL_SOCIAL_POST_EXAMPLES_QUERY, ALL_SOCIAL_POST_IDEAS_QUERY} from "../../graphql/socialPosts";
 import './SocialPostBox.css'
 class SocialPostBox extends Component {
     constructor(props) {
@@ -70,26 +71,6 @@ class SocialPostBox extends Component {
     }
 }
 
-const ALL_SOCIAL_POST_EXAMPLES_QUERY = gql`
-  query AllSocialPostExamplesQuery ($industryId: ID!) {
-    allSocialPostExamples (filter:{
-        industries_some: {
-            id: $industryId
-            }
-        }){
-          id
-          message
-        }}`
-const ALL_SOCIAL_POST_IDEAS_QUERY = gql`
-  query AllSocialPostIdeasQuery ($industryId: ID!) {
-    allSocialPostIdeas (filter:{
-        industries_some: {
-            id: $industryId
-            }
-        }){
-          id
-          idea
-        }}`
 export default compose(
     graphql(ALL_SOCIAL_POST_EXAMPLES_QUERY, {
         name: 'allSocialPostExamplesQuery',

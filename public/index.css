@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI Light";
+  font-family: "Segoe UI Light", sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 20px;
@@ -400,16 +400,16 @@ input[type=checkbox] {
          FONT
 *************************/
 .seg-light {
-  font-family: "Segoe UI Light";
+  font-family: "Segoe UI Light", sans-serif;
 }
 .seg-regular {
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", sans-serif;
 }
 .seg-semibold {
-  font-family: "Segoe UI Semibold";
+  font-family: "Segoe UI Semibold", sans-serif;
 }
 .seg-black {
-  font-family: "Segoe UI Black";
+  font-family: "Segoe UI Black", sans-serif;
 }
 .fs14p {
   font-size: 14px;

@@ -27,7 +27,7 @@ class Login extends Component {
                         type='text'
                         placeholder='Your name'
                     />}
-                    <br></br>
+                    <br/>
                     <input
                         className='login-inputs mb3'
                         value={this.state.email}
@@ -35,7 +35,7 @@ class Login extends Component {
                         type='text'
                         placeholder='Your email address'
                     />
-                    <br></br>
+                    <br />
                     <input
                         className='login-inputs'
                         value={this.state.password}

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { GC_USER_ID, socialProfiles } from './../../constants'
 import { graphql, gql, compose } from 'react-apollo'
 import Dropdown from 'react-dropdown'
-import { ALL_SOCIAL_PROFILES_QUERY } from '../console/column-two/ProfileList'
+import { ALL_SOCIAL_PROFILES_QUERY } from '../console/column-left/ProfileList'
 
 
 class CreateSocialProfilePage extends Component {
