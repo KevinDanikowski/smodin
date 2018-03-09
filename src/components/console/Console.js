@@ -1,24 +1,24 @@
 import React, { Component } from 'react'
 import { USER_SETTINGS_QUERY } from '../../graphql/users'
+import { ALL_SOCIAL_PROFILES_QUERY} from "../../graphql/socialProfiles"
 import { graphql, compose } from 'react-apollo'
 import { GC_USER_ID } from '../../constants'
 import ParameterList from './ParameterList'
 import SocialPostList from './SocialPostList'
-import IndustryList from './IndustryList'
 import SchedulePage from './SchedulePage'
 import QueuePage from './QueuePage'
 import ConsoleRibbon from './ConsoleRibbon'
 import SocialProfileColumn from './column-left/SocialProfilesMenu-1'
-import ProfileMenu from './column-left/ProfileMenu-2'
-import ProfileList from './column-left/ProfileList'
+import ProfileMenu from './column-left/ProfileMenu-2.2'
+import ProfileList from './column-left/ProfileList-2.1'
 import CreateSocialProfileLink from './CreateSocialProfileLink'
 import './Console.css'
 
 class Console extends Component {
     constructor(props) {
         super(props)
-        const primaryIndustryId = 'cj97jd2670t6501027go4pm46'
-        const primaryIndustry = 'Generic'
+        const primaryIndustryId = 'cj97jd2670t6501027go4pm46'//todo make this meaningless
+        const primaryIndustry = 'Generic'//todo make this meaningless
         const defaultSearchText = ''
         const defaultTab = 'schedule'
         const defaultScheduleType = 'monthly'
@@ -26,7 +26,8 @@ class Console extends Component {
         const defaultSite = ''
         const defaultColumnTwo = 'profilemenu'
         const defaultSocialProfile = 'facebook'
-        const defaultSelectedSocialProfileId = ''
+        const defaultSelectedSocialProfileId = null
+        const defaultSelectedSocialProfile = {id: null, site: 'facebook', industry: {id: null}}
         this.state = {
             selectedIndustryId: primaryIndustryId,
             selectedIndustry: primaryIndustry,
@@ -35,6 +36,7 @@ class Console extends Component {
             scheduleType: defaultScheduleType,
             buildView: defaultBuildView,
             socialProfile: defaultSocialProfile,
+            selectedSocialProfile: defaultSelectedSocialProfile,
             selectedSocialProfileId: defaultSelectedSocialProfileId,
             site: defaultSite,
             columnTwo: defaultColumnTwo
@@ -46,12 +48,14 @@ class Console extends Component {
         if (nextState.tab === !this.state.tab) {}
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.userSettingsQuery.User && (!nextProps.userSettingsQuery.loading && !nextProps.userSettingsQuery.error)) {
-            console.log(nextProps.userSettingsQuery.User)
-            //todo add defaultSocialProfile
-            //const defaultSelectedSocialProfileId = nextProps.userSettingsQuery.User.mainSocialProfile.id
-            //console.log(defaultSelectedSocialProfileId)
-            this.setState({selectedSocialProfileId: ''})
+        //sets profile and id
+        if (this.state.selectedSocialProfileId === null && nextProps.allSocialProfilesQuery &&
+            (!nextProps.allSocialProfilesQuery.loading && !nextProps.allSocialProfilesQuery.error)) {
+            this.setState({
+                selectedSocialProfileId: nextProps.allSocialProfilesQuery.allSocialProfiles[0].id,
+                socialProfile: nextProps.allSocialProfilesQuery.allSocialProfiles[0].site,
+                selectedSocialProfile: nextProps.allSocialProfilesQuery.allSocialProfiles[0]
+            })
         }
     }
     render() {
@@ -86,12 +90,6 @@ class Console extends Component {
                             <ProfileMenu
                                 tab={this.state.tab}
                                 receiveTab={this._passTab}/> : null}
-                        {/*not sure why industry list here */}
-                        {(this.state.columnTwo === 'industrylist')?
-                        <IndustryList
-                            defaultIndustryId={this.state.selectedIndustryId}
-                            defaultIndustry={this.state.selectedIndustry}
-                            receiveIndustry={this._passIndustry}/>: null}
                     </div>
                 </div>
                 {/*if no social profile*/}
@@ -111,13 +109,14 @@ class Console extends Component {
                     <div className='flex-1 overflow-auto'>
                         {(this.state.tab === 'parameters')?
                         <ParameterList
-                            selectedIndustry={this.state.selectedIndustry}
-                            selectedIndustryId={this.state.selectedIndustryId}
+                            selectedSocialProfileId={this.state.selectedSocialProfileId}
                             searchText={this.state.searchText}/> : null }
                         {(this.state.tab === 'posts')?
                         <SocialPostList
                             selectedIndustry={this.state.selectedIndustry}
                             selectedIndustryId={this.state.selectedIndustryId}
+                            selectedSocialProfileId={this.state.selectedSocialProfileId}
+                            socialProfileIndustryId={this.state.selectedSocialProfile.industry.id}
                             receiveSearchText={this._passSearch}
                             defaultSearchText={this.state.searchText}
                             searchText={this.state.searchText}/> : null }
@@ -125,20 +124,19 @@ class Console extends Component {
                         <SchedulePage
                             selectedIndustry={this.state.selectedIndustry}
                             selectedIndustryId={this.state.selectedIndustryId}
+                            selectedSocialProfileId={this.state.selectedSocialProfileId}
                             scheduleType={this.state.scheduleType}/> : null }
                         {(this.state.tab === 'queue')?
                         <QueuePage
                             selectedIndustry={this.state.selectedIndustry}
                             selectedIndustryId={this.state.selectedIndustryId}
+                            selectedSocialProfileId={this.state.selectedSocialProfileId}
                             scheduleType={this.state.scheduleType}
                             buildView={this.state.buildView}/> : null }
                     </div>
                 </div>}
             </div>
         )
-    }
-    _passIndustry = (industryId, industry) => {
-        this.setState({ selectedIndustryId: industryId, selectedIndustry: industry })
     }
     _passSearch = (searchText) => {
         this.setState({ searchText: searchText })
@@ -163,6 +161,14 @@ class Console extends Component {
 export default compose(
     graphql(USER_SETTINGS_QUERY,{
         name: 'userSettingsQuery',
+        skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
+        options: (ownProps) => {
+            const userId = localStorage.getItem(GC_USER_ID)
+            return {
+                variables: { id: userId }
+            }}}),
+    graphql(ALL_SOCIAL_PROFILES_QUERY,{
+        name: 'allSocialProfilesQuery',
         skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
         options: (ownProps) => {
             const userId = localStorage.getItem(GC_USER_ID)

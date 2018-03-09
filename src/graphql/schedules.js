@@ -1,16 +1,12 @@
 import {gql} from "react-apollo/index";
 
 export const ALL_POST_SCHEDULES_QUERY = gql`
-    query AllPostSchedulesQuery ($id: ID!, $industryId: ID!) {
-    allPostSchedules (filter:{AND: [{
-        user: {
-            id: $id
-            }
-        },{
-            industry: {
-                id: $industryId
+    query AllPostSchedulesQuery ($socialProfileId: ID!) {
+    allPostSchedules (filter:{
+            socialProfile: {
+                id: $socialProfileId
                 }
-        }]}){
+        }){
           id
           scheduleType
           weeklySchedules {id day hour minute}

@@ -11,6 +11,7 @@ import {ADD_SOCIAL_POST_IMAGE_MUTATION,
     ALL_SOCIAL_POSTS_QUERY} from '../../graphql/socialPosts'
 import {UPDATE_FILE_MUTATION,
     DELETE_FILE_MUTATION} from '../../graphql/files'
+import PropTypes from 'prop-types'
 import './SocialPost.css'
 
 class SocialPost extends Component {
@@ -174,10 +175,10 @@ class SocialPost extends Component {
             update: (store) => {
                 console.log('test')
                 const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
+                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({query: ALL_SOCIAL_POSTS_QUERY, variables: {
                     id: userId,
-                    industryId: industryId,
+                    socialProfileId: SPId,
                     searchText: this.props.searchText
                 }})
                 const socialPostIndex = data.allSocialPosts.findIndex((socialPost) => (socialPost.id === socialPostId))
@@ -185,7 +186,7 @@ class SocialPost extends Component {
                 data.allSocialPosts.socialPost[socialPostIndex].image = null
                 store.writeQuery({query: ALL_SOCIAL_POSTS_QUERY, data, variables: {
                     id: userId,
-                    industryId: industryId,
+                    socialProfileId: SPId,
                     searchText: this.props.searchText
                 }}).catch(res => { const errors = res.graphQLErrors; console.log(errors)})
             }
@@ -234,6 +235,10 @@ class SocialPost extends Component {
         })
         this.setState({imageFile: [], imageFilePresent: false, uploading: false})
     }
+}
+
+SocialPost.propTypes = {
+    selectedSocialProfileId: PropTypes.string
 }
 
 export default compose(

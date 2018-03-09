@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { graphql, gql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { GC_USER_ID, dayArray, defaultWeeklyPostSchedules, defaultMonthlyDatePostSchedules, defaultMonthlyDayPostSchedules } from '../../constants'
 import {ADD_MONTHLY_POST_SCHEDULE_MUTATION,
     ADD_WEEKLY_POST_SCHEDULE_MUTATION,
@@ -9,6 +9,7 @@ import {ADD_MONTHLY_POST_SCHEDULE_MUTATION,
 import MonthlyDatePostScheduler from './MonthlyDatePostScheduler'
 import MonthlyDayPostScheduler from './MonthlyDayPostScheduler'
 import Scheduler from './Scheduler'
+import PropTypes from 'prop-types'
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
@@ -134,7 +135,7 @@ class SchedulePage extends Component {
                 if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.error) {
                     return [{monthDate: 'ERR', hour: 'ERR', minute: 'ERR'}]
                 }
-                if (this.props.allPostSchedulesQuery) return this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.filter((schedule) => {
+                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.allPostSchedules.length > 0) return this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.filter((schedule) => {
                     return schedule.monthlyScheduleType === 'monthDate'})
                 else return [{monthDate: '...', hour: '...', minute: '...'}]
             }
@@ -145,7 +146,7 @@ class SchedulePage extends Component {
                 if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.error) {
                     return [{monthDay: 'ERR', hour: 'ERR', minute: 'ERR'}]
                 }
-                if (this.props.allPostSchedulesQuery) return this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.filter((schedule) => {
+                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.allPostSchedules.length > 0) return this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.filter((schedule) => {
                     return schedule.monthlyScheduleType === 'monthDay'})
                 else return [{monthDay: '...', hour: '...', minute: '...'}]
             }
@@ -185,17 +186,14 @@ class SchedulePage extends Component {
                 id: id
             },
             update: (store) => {
-                const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
+                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({query: ALL_POST_SCHEDULES_QUERY, variables: {
-                    id: userId,
-                    industryId: industryId
+                    socialProfileId: SPId
                 }})
                 const deletedWeeklyPostScheduleIndex = data.allPostSchedules[0].weeklySchedules.findIndex((weeklyPostSchedule) => (weeklyPostSchedule.id === id))
                 data.allPostSchedules[0].weeklySchedules.splice(deletedWeeklyPostScheduleIndex, 1)
                 store.writeQuery({query: ALL_POST_SCHEDULES_QUERY, data, variables: {
-                    id: userId,
-                    industryId: industryId
+                    socialProfileId: SPId
                 }})
             }
         })
@@ -206,17 +204,14 @@ class SchedulePage extends Component {
                 id: id
             },
             update: (store) => {
-                const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
+                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({query: ALL_POST_SCHEDULES_QUERY, variables: {
-                    id: userId,
-                    industryId: industryId
+                    socialProfileId: SPId
                 }})
                 const deletedMonthlyPostScheduleIndex = data.allPostSchedules[0].monthlySchedules.findIndex((monthlyPostSchedule) => (monthlyPostSchedule.id === id))
                 data.allPostSchedules[0].monthlySchedules.splice(deletedMonthlyPostScheduleIndex, 1)
                 store.writeQuery({query: ALL_POST_SCHEDULES_QUERY, data, variables: {
-                    id: userId,
-                    industryId: industryId
+                    socialProfileId: SPId
                 }})
             }
         })
@@ -231,13 +226,11 @@ class SchedulePage extends Component {
                 postScheduleId: postScheduleId
             },
             update: (store, {data: {createWeeklyPostSchedule} }) => {
-                const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
+                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({
                     query: ALL_POST_SCHEDULES_QUERY,
                     variables: {
-                        id: userId,
-                        industryId: industryId
+                        socialProfileId: SPId
                     }
                 })
                 data.allPostSchedules[0].weeklySchedules.push(createWeeklyPostSchedule)
@@ -245,8 +238,7 @@ class SchedulePage extends Component {
                     query: ALL_POST_SCHEDULES_QUERY,
                     data,
                     variables: {
-                        id: userId,
-                        industryId: industryId
+                        socialProfileId: SPId
                     }
                 })
             }
@@ -264,13 +256,11 @@ class SchedulePage extends Component {
                 postScheduleId: postScheduleId
             },
             update: (store, {data: {createMonthlyPostSchedule} }) => {
-                const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
+                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({
                     query: ALL_POST_SCHEDULES_QUERY,
                     variables: {
-                        id: userId,
-                        industryId: industryId
+                        socialProfileId: SPId
                     }
                 })
                 data.allPostSchedules[0].monthlySchedules.push(createMonthlyPostSchedule)
@@ -278,8 +268,7 @@ class SchedulePage extends Component {
                     query: ALL_POST_SCHEDULES_QUERY,
                     data,
                     variables: {
-                        id: userId,
-                        industryId: industryId
+                        socialProfileId: SPId
                     }
                 })
             }
@@ -343,15 +332,17 @@ class SchedulePage extends Component {
     }
 }
 
+SchedulePage.propTypes = {
+    selectedSocialProfileId: PropTypes.string
+}
 export default compose(
     graphql(ALL_POST_SCHEDULES_QUERY, {
         name: 'allPostSchedulesQuery',
-        skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
+        //skip: (ownProps) => (ownProps.selectedSocialProfileId === null),todo appears I don't need the skip
         options: (ownProps) => {
-            const userId = localStorage.getItem(GC_USER_ID)
-            const industryId = ownProps.selectedIndustryId
+            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { id: userId, industryId: industryId }
+                variables: { socialProfileId: SPId }
             }}}),
     graphql(DELETE_WEEKLY_POST_SCHEDULE_MUTATION, { name: 'deleteWeeklyPostScheduleMutation'}),
     graphql(DELETE_MONTHLY_POST_SCHEDULE_MUTATION, { name: 'deleteMonthlyPostScheduleMutation'}),

@@ -1,14 +1,10 @@
 import { gql } from 'react-apollo'
 
 export const ALL_SOCIAL_POSTS_QUERY = gql`
-  query AllSocialPostsQuery ($id: ID!, $industryId: ID!, $searchText: String!) {
+  query AllSocialPostsQuery ($socialProfileId: ID!, $searchText: String!) {
     allSocialPosts (orderBy: default_DESC, filter:{AND: [{
-        user: {
-            id: $id
-            }
-        },{
-            industries_some: {
-                id: $industryId
+            socialProfile: {
+                id: $socialProfileId
                 }
         },{
         message_contains: $searchText
@@ -16,17 +12,17 @@ export const ALL_SOCIAL_POSTS_QUERY = gql`
           id
           default
           message
-          industries {id}
+          socialProfile {id}
           image {id size url}
         }}`
 
 export const ADD_SOCIAL_POSTS_MUTATION = gql`
-    mutation AddSocialPostMutation($id: ID!, $message: String!, $industriesIds: [ID!]){
-        createSocialPost(userId: $id, message: $message, industriesIds: $industriesIds){
+    mutation AddSocialPostMutation($id: ID!, $message: String!, $socialProfileId: ID!){
+        createSocialPost(userId: $id, message: $message, socialProfileId: $socialProfileId){
             message
             id
             default
-            industries {id}
+            socialProfile {id}
     }}`
 
 export const UPDATE_SOCIAL_POSTS_IMAGE_MUTATION = gql`

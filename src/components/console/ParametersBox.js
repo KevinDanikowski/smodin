@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { GC_USER_ID } from '../../constants'
+import PropTypes from 'prop-types'
 import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
 import './ParametersBox.css'
 
@@ -41,13 +41,15 @@ class ParametersBox extends Component {
     }
 }
 
+ParametersBox.propTypes = {
+    selectedSocialProfileId: PropTypes.string
+}
+
 export default graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',
-        skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
         options: (ownProps) => {
-            const userId = localStorage.getItem(GC_USER_ID)
-            const industryId = ownProps.selectedIndustryId
+            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { id: userId, industryId: industryId }
+                variables: { socialProfileId: SPId }
             }}}
 )(ParametersBox)

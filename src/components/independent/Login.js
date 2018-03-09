@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../../constants'
-import { gql, graphql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
+import { SIGNIN_USER_MUTATION,
+    CREATE_USER_MUTATION
+} from "../../graphql/users";
+import {ADD_ALL_DEFAULT_INDUSTRIES_ONE_BY_ONE_MUTATION,
+    ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION,
+    ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION,
+    ALL_DEFAULT_INDUSTRIES_QUERY,
+    ALL_DEFAULT_PARAMETERS_QUERY,
+    ALL_DEFAULT_SOCIAL_POSTS_QUERY} from "../../graphql/newUsers";
 import './Login.css'
 
 class Login extends Component {
@@ -83,6 +92,7 @@ class Login extends Component {
             const token = result.data.signinUser.token
             this._saveUserData(id, token)
         } else {
+            //create user
             const result = await this.props.createUserMutation({
                 variables: {
                     name,
@@ -96,6 +106,7 @@ class Login extends Component {
             const defaultSocialPostsQuery = this.props.allDefaultSocialPostsQuery
             const defaultParametersQuery = this.props.allDefaultParametersQuery
             const defaultIndustriesQuery = this.props.allDefaultIndustriesQuery
+            //add defaultSocialPosts
             defaultSocialPostsQuery.allDefaultSocialPosts.map(defaultSocialPost => {
                 const userId = localStorage.getItem(GC_USER_ID)
                 const industriesIds = defaultSocialPost.industries.map(industry => {return industry.id})
@@ -108,6 +119,7 @@ class Login extends Component {
                 })
                 return null
             })
+            //add defaultParameters
             defaultParametersQuery.allDefaultParameters.map(defaultParameter => {
                 const userId = localStorage.getItem(GC_USER_ID)
                 const industriesIds = defaultParameter.industries.map(industry => {return industry.id})
@@ -122,6 +134,7 @@ class Login extends Component {
                 })
                 return null
             })
+            //add defaultIndustries
             defaultIndustriesQuery.allIndustries.map(defaultIndustry => {
                 const userId = localStorage.getItem(GC_USER_ID)
                 this.props.addAllDefaultIndustriesOneByOneMutation({
@@ -143,85 +156,7 @@ class Login extends Component {
     }
 
 }
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUserMutation($name: String!, $email: String!, $password: String!) {
-    createUser(
-      name: $name,
-      authProvider: {
-        email: {
-          email: $email,
-          password: $password
-        }
-      }
-    ) {
-      id
-    }
 
-    signinUser(email: {
-      email: $email,
-      password: $password
-    }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`
-const ALL_DEFAULT_SOCIAL_POSTS_QUERY = gql`
-  query AllSocialPostsQuery {
-    allDefaultSocialPosts {
-          id
-          message
-          industries {id}
-        }}`
-const ALL_DEFAULT_PARAMETERS_QUERY = gql`
-  query AllDefaultParametersQuery {
-    allDefaultParameters {
-          id
-          param
-          response
-          industries {id}
-        }}`
-const ALL_DEFAULT_INDUSTRIES_QUERY = gql`
-  query AllDefaultIndustriesQuery {
-    allIndustries ( filter: { default: true }){
-          id
-        }}`
-const ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION = gql`
-  mutation AddAllDefaultSocialPostsOneByOneMutation(
-        $userId: ID!, $industriesIds: [ID!], $message: String!){
-    createSocialPost(userId: $userId, message: $message, 
-    industriesIds: $industriesIds) {
-    id default message industries {id}
-  }
-}`
-const ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION = gql`
-  mutation AddAllDefaultParametersOneByOneMutation(
-        $userId: ID!, $industriesIds: [ID!], $param: String!, $response: String!, $default: Boolean!){
-    createParameter(userId: $userId, param: $param, response: $response, default: $default,
-    industriesIds: $industriesIds) {
-    id default param response industries {id}
-  }
-}`
-const ADD_ALL_DEFAULT_INDUSTRIES_ONE_BY_ONE_MUTATION = gql`
-    mutation UpdateUserIndustries($industryId: ID!, $userId: ID!){
-        addToUserIndustries(usersUserId: $userId, industriesIndustryId: $industryId){
-            industriesIndustry {id}
-        }}`
-const SIGNIN_USER_MUTATION = gql`
-  mutation SigninUserMutation($email: String!, $password: String!) {
-    signinUser(email: {
-      email: $email,
-      password: $password
-    }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`
 export default compose(
     graphql(ALL_DEFAULT_SOCIAL_POSTS_QUERY, { name: 'allDefaultSocialPostsQuery'}),
     graphql(ALL_DEFAULT_PARAMETERS_QUERY, { name: 'allDefaultParametersQuery'}),

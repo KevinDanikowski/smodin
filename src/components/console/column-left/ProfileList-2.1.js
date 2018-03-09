@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { graphql, gql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
+import {ALL_SOCIAL_PROFILES_QUERY} from "../../../graphql/socialProfiles";
 import { Link } from 'react-router-dom'
 import { GC_USER_ID } from '../../../constants'
 
@@ -39,12 +40,12 @@ class ProfileList extends Component {
                         (this.props.selectedSocialProfileId === socialProfile.id)?
                         <div key={index} className='truncate seg-semibold pa2p mb3 flex justify-between fs23p smodin-black bw2p b--smodin-gray br4p bg-smodin-white'>
                             {socialProfile.name}
-                            <i className='fa fa-cog' aria-hidden="true"></i>
+                            <i className='fa fa-cog' aria-hidden="true"/>
                         </div>
                         :<div key={index} className='pl3p mb3 flex justify-between fs23p smodin-black pointer'
                               onClick={()=>{this._sendSelectedSocialProfileIdToParent(socialProfile.id)}}>
                                 {socialProfile.name}
-                                <i className='fa fa-cog h--smodin-white-p' aria-hidden="true"></i>
+                                <i className='fa fa-cog h--smodin-white-p' aria-hidden="true"/>
                         </div>: null
                 )
             })
@@ -55,7 +56,7 @@ class ProfileList extends Component {
                 <SocialProfilesArray />
                 <Link to='/create-profile' className='link h--smodin-white-p mt4 pl3p mb3 flex justify-between fs23p seg-regular smodin-black pointer'>
                     Add Profile
-                    <i className="fa fa-plus" aria-hidden="true"></i>
+                    <i className="fa fa-plus" aria-hidden="true"/>
                 </Link>
             </div>
         )
@@ -65,11 +66,6 @@ class ProfileList extends Component {
     }
 }
 
-export const ALL_SOCIAL_PROFILES_QUERY = gql`
-  query AllSocialProfilesQuery ($id: ID!) {
-    allSocialProfiles (filter: {user: {id: $id}}){
-          id site industry {id} name
-        }}`
 export default compose(
     graphql(ALL_SOCIAL_PROFILES_QUERY, {
         name: 'allSocialProfilesQuery',

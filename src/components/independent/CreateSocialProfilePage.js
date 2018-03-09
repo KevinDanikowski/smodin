@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { GC_USER_ID, socialProfiles } from './../../constants'
 import { graphql, gql, compose } from 'react-apollo'
 import Dropdown from 'react-dropdown'
-import { ALL_SOCIAL_PROFILES_QUERY } from '../console/column-left/ProfileList'
-
+import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
+import { ALL_SOCIAL_PROFILES_QUERY, CREATE_SOCIAL_PROFILE_MUTATION } from '../../graphql/socialProfiles'
 
 class CreateSocialProfilePage extends Component {
     constructor(props){
@@ -58,9 +58,6 @@ class CreateSocialProfilePage extends Component {
             </div>
         )
     }
-    _thisIsFirstSocialProfile = () => {
-        return (this.props.allSocialProfilesQuery.allSocialProfiles === [])
-    }
     _createSocialProfileMutation = async () => {
         const userId = localStorage.getItem(GC_USER_ID)
         const site = this.state.site
@@ -73,17 +70,6 @@ class CreateSocialProfilePage extends Component {
                 industryId: industryId,
                 name: name
             }
-        }).then(({data}) => {
-            console.log(this._thisIsFirstSocialProfile())
-            if (this._thisIsFirstSocialProfile()) {
-                console.log(data.createSocialProfile.id)
-                this.props.updateUsersMainSocialProfileMutation({
-                    variables: {
-                        userId: userId,
-                        socialProfileId: data.createSocialProfile.id
-                    }
-                })
-            }
         })
         this.props.history.push('/console')
     }
@@ -92,37 +78,10 @@ class CreateSocialProfilePage extends Component {
         this.setState({industryId: industryId})
     }
 }
-const ALL_INDUSTRIES_QUERY = gql`
-  query AllIndustriesQuery {
-    allIndustries {
-          id
-          default
-          industry
-        }}`
-const UPDATE_USER_MUTATION = gql`
-  mutation UpdateUserMutation ($userId: ID!, $socialProfileId: ID!) {
-    updateUser(id: $userId, mainSocialProfileId: $socialProfileId) {
-          id mainSocialProfile {id site}
-        }}`
-const CREATE_SOCIAL_PROFILE_MUTATION = gql`
-    mutation CreateSocialProfileMutation(
-        $userId: ID!,
-        $site: String!,
-        $industryId: ID!,
-        $name: String!){
-        createSocialProfile(
-            userId: $userId,
-            site: $site,
-            industryId: $industryId,
-            name: $name){
-            id site industry {id industry} name
-        }
-    }
-`
+
 export default compose(
     graphql(ALL_INDUSTRIES_QUERY, {name: 'allIndustriesQuery'}),
     graphql(CREATE_SOCIAL_PROFILE_MUTATION, {name: 'createSocialProfileMutation'}),
-    graphql(UPDATE_USER_MUTATION, {name: 'updateUsersMainSocialProfileMutation'}),
     graphql(ALL_SOCIAL_PROFILES_QUERY, {
         name: 'allSocialProfilesQuery',
         skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),

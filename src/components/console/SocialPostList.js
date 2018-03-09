@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { graphql, gql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { GC_USER_ID } from '../../constants'
 import SocialPost from './SocialPost'
 import ParametersBox from './ParametersBox'
@@ -11,6 +11,7 @@ import {ALL_SOCIAL_POSTS_QUERY,
     DELETE_SOCIAL_POSTS_MUTATION} from "../../graphql/socialPosts";
 import SocialPostRibbon from './SocialPostRibbon'
 import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
+import PropTypes from 'prop-types'
 
 class SocialPostList extends Component {
     constructor(props) {
@@ -63,7 +64,7 @@ class SocialPostList extends Component {
                     socialPost={socialPost}
                     index={index}
                     searchText={this.props.searchText}
-                    selectedIndustryId={this.props.selectedIndustryId}
+                    selectedSocialProfileId={this.props.selectedSocialProfileId}
                     deleteSocialPost={this._handleDeleteSocialPost}
                     updateSocialPost={this._handleUpdateSocialPost}
                     updateSocialPostImage={this._handleUpdateSocialPostImage}
@@ -100,11 +101,11 @@ class SocialPostList extends Component {
                     <div className='w-100 flex flex-column flex-1'>
                         <div className='w-100 h-50'>
                             <ParametersBox
-                                selectedIndustryId={this.props.selectedIndustryId} />
+                                selectedSocialProfileId={this.props.selectedSocialProfileId} />
                         </div>
                         <div className='w-100 h-50'>
                             <SocialPostBox
-                                selectedIndustryId={this.props.selectedIndustryId} />
+                                selectedIndustryId={this.props.socialProfileIndustryId} />
                         </div>
                     </div>
                 </div>
@@ -117,18 +118,15 @@ class SocialPostList extends Component {
                 id: id
             },
             update: (store) => {
-                const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
+                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({query: ALL_SOCIAL_POSTS_QUERY, variables: {
-                    id: userId,
-                    industryId: industryId,
+                    socialProfileId: SPId,
                     searchText: this.props.searchText
                 }})
                 const deletedSocialPostIndex = data.allSocialPosts.findIndex((socialPost) => (socialPost.id === id))
                 data.allSocialPosts.splice(deletedSocialPostIndex, 1)
                 store.writeQuery({query: ALL_SOCIAL_POSTS_QUERY, data, variables: {
-                    id: userId,
-                    industryId: industryId,
+                    socialProfileId: SPId,
                     searchText: this.props.searchText
                 }})
             }
@@ -152,11 +150,11 @@ class SocialPostList extends Component {
     }
     _handleNewSocialPost = async () => {
         const { newSocialPost } = this.state
-        const industryId = this.props.selectedIndustryId
+        const SPId = this.props.selectedSocialProfileId
         const userId = localStorage.getItem(GC_USER_ID)
         await this.props.addSocialPostMutation({
             variables: {
-                industriesIds: industryId,
+                socialProfileId: SPId,
                 message: newSocialPost,
                 id: userId
             },
@@ -164,8 +162,7 @@ class SocialPostList extends Component {
                 const data = store.readQuery({
                     query: ALL_SOCIAL_POSTS_QUERY,
                     variables: {
-                        id: userId,
-                        industryId: industryId,
+                        socialProfileId: SPId,
                         searchText: this.props.searchText
                     }
                 })
@@ -174,8 +171,7 @@ class SocialPostList extends Component {
                     query: ALL_SOCIAL_POSTS_QUERY,
                     data,
                     variables: {
-                        id: userId,
-                        industryId: industryId,
+                        socialProfileId: SPId,
                         searchText: this.props.searchText
                     }
                 })
@@ -188,26 +184,25 @@ class SocialPostList extends Component {
     }
 }
 
-
+SocialPostList.propTypes = {
+    selectedSocialProfileId: PropTypes.string,
+    socialProfileIndustryId: PropTypes.string
+}
 export default compose(
     graphql(ALL_SOCIAL_POSTS_QUERY, {
         name: 'allSocialPostsQuery',
-        skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
         options: (ownProps) => {
-            const userId = localStorage.getItem(GC_USER_ID)
-            const industryId = ownProps.selectedIndustryId
+            const SPId = ownProps.selectedSocialProfileId
             const searchText = ownProps.searchText
             return {
-                variables: { id: userId, industryId: industryId, searchText: searchText }
+                variables: { socialProfileId: SPId, searchText: searchText }
             }}}),
     graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',
-        skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
         options: (ownProps) => {
-            const userId = localStorage.getItem(GC_USER_ID)
-            const industryId = ownProps.selectedIndustryId
+            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { id: userId, industryId: industryId }
+                variables: { socialProfileId: SPId }
             }}}),
     graphql(ADD_SOCIAL_POSTS_MUTATION, {name: 'addSocialPostMutation'}),
     graphql(UPDATE_SOCIAL_POSTS_MUTATION, {name: 'updateSocialPostMutation'}),

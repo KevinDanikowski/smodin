@@ -6,6 +6,7 @@ import { ALL_PARAMETERS_QUERY,
     DELETE_PARAMETER_MUTATION,
     UPDATE_PARAMETER_MUTATION} from "../../graphql/parameters";
 import Parameter from './Parameter'
+import PropTypes from 'prop-types'
 import './ParameterList.css'
 
 class ParameterList extends Component {
@@ -16,7 +17,7 @@ class ParameterList extends Component {
             newResponse: '',
         }
     }
-    componentWillUpdate(nextProps, nextState){
+    componentWillUpdate(nextProps, nextState){//not sure why this here
         if (nextProps === this.props || nextState === this.state) return false
     }
     render() {
@@ -115,12 +116,11 @@ class ParameterList extends Component {
                 id: id
             },
             update: (store) => {
-                const userId = localStorage.getItem(GC_USER_ID)
-                const industryId = this.props.selectedIndustryId
-                const data = store.readQuery({query: ALL_PARAMETERS_QUERY, variables: { id: userId, industryId: industryId }})
+                const SPId = this.props.selectedSocialProfileId
+                const data = store.readQuery({query: ALL_PARAMETERS_QUERY, variables: { socialProfileId: SPId }})
                 const deletedParameterIndex = data.allParameters.findIndex((parameter) => (parameter.id === id))
                 data.allParameters.splice(deletedParameterIndex, 1)
-                store.writeQuery({query: ALL_PARAMETERS_QUERY, data, variables: { id: userId, industryId: industryId }})
+                store.writeQuery({query: ALL_PARAMETERS_QUERY, data, variables: { socialProfileId: SPId }})
             }
         })
     }
@@ -136,10 +136,10 @@ class ParameterList extends Component {
     _handleNewParameter = async () => {
         const { newParameter, newResponse } = this.state
         const userId = localStorage.getItem(GC_USER_ID)
-        const industryId = this.props.selectedIndustryId
+        const SPId = this.props.selectedSocialProfileId
         await this.props.addParameterMutation({
             variables: {
-                industriesIds: industryId,
+                socialProfileId: SPId,
                 param: newParameter,
                 response: newResponse,
                 userId: userId
@@ -147,13 +147,13 @@ class ParameterList extends Component {
             update: (store, {data: {createParameter} }) => {
                 const data = store.readQuery({
                     query: ALL_PARAMETERS_QUERY,
-                    variables: { id: userId, industryId: industryId }
+                    variables: { socialProfileId: SPId }
                 })
                 data.allParameters.push(createParameter)
                 store.writeQuery({
                     query: ALL_PARAMETERS_QUERY,
                     data,
-                    variables: { id: userId, industryId: industryId }
+                    variables: { socialProfileId: SPId }
                 })
             }
         })
@@ -161,20 +161,19 @@ class ParameterList extends Component {
     }
 }
 
+ParameterList.propTypes = {
+    selectedSocialProfileId: PropTypes.string
+}
+
 export default compose(
     graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',
-        skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
         options: (ownProps) => {
-            const userId = localStorage.getItem(GC_USER_ID)
-            const industryId = ownProps.selectedIndustryId
+            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { id: userId, industryId: industryId }
+                variables: { socialProfileId: SPId }
         }}}),
     graphql(ADD_PARAMETER_MUTATION, {name: 'addParameterMutation'}),
     graphql(UPDATE_PARAMETER_MUTATION, {name: 'updateParameterMutation'}),
     graphql(DELETE_PARAMETER_MUTATION, {name: 'deletedParameterMutation'})
 )(ParameterList)
-
-//left off trying to find how to  utomatically update parameters
-
