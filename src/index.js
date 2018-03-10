@@ -32,7 +32,7 @@ networkInterface.use([{
         next()
     }
 }])
-const client = new ApolloClient({
+export const client = new ApolloClient({
     networkInterface: networkInterfaceWithSubscriptions
 })
 ReactDOM.render(

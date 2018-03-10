@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import { GC_USER_ID, socialProfiles } from './../../constants'
-import { graphql, gql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
+import { client } from "../../index"
 import Dropdown from 'react-dropdown'
 import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
-import { ALL_SOCIAL_PROFILES_QUERY, CREATE_SOCIAL_PROFILE_MUTATION } from '../../graphql/socialProfiles'
+import {
+    ALL_SOCIAL_PROFILES_QUERY,
+    CREATE_SOCIAL_PROFILE_MUTATION,
+    ALL_DEFAULT_PARAMETERS_QUERY,
+    ALL_DEFAULT_SOCIAL_POSTS_QUERY, ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION,
+    ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION
+} from '../../graphql/socialProfiles'
 
 class CreateSocialProfilePage extends Component {
     constructor(props){
@@ -58,6 +65,7 @@ class CreateSocialProfilePage extends Component {
             </div>
         )
     }
+
     _createSocialProfileMutation = async () => {
         const userId = localStorage.getItem(GC_USER_ID)
         const site = this.state.site
@@ -69,6 +77,42 @@ class CreateSocialProfilePage extends Component {
                 site: site,
                 industryId: industryId,
                 name: name
+            },
+            update: (store, {data: {createSocialProfile} }) => {
+                const SPId = createSocialProfile.id
+
+                //add all default parameters
+                client.query({
+                    query: ALL_DEFAULT_PARAMETERS_QUERY,
+                    variables: { industryId: industryId }
+                }).then(({data: {allDefaultParameters}})=>{
+                    allDefaultParameters.map(defaultParameter => {
+                        this.props.addAllDefaultParametersOneByOneMutation({
+                            variables: {
+                                socialProfileId: SPId,
+                                default: true,
+                                param: defaultParameter.param,
+                                response: defaultParameter.response
+                            }
+                        })
+                    })
+                })
+
+                //add all default social posts
+                client.query({
+                    query: ALL_DEFAULT_SOCIAL_POSTS_QUERY,
+                    variables: { industryId: industryId }
+                }).then(({data: {allDefaultSocialPosts}})=>{
+                    allDefaultSocialPosts.map(defaultSocialPost => {
+                        this.props.addAllDefaultSocialPostsOneByOneMutation({
+                            variables: {
+                                socialProfileId: SPId,
+                                default: true,
+                                message: defaultSocialPost.message
+                            }
+                        })
+                    })
+                })
             }
         })
         this.props.history.push('/console')
@@ -82,7 +126,9 @@ class CreateSocialProfilePage extends Component {
 export default compose(
     graphql(ALL_INDUSTRIES_QUERY, {name: 'allIndustriesQuery'}),
     graphql(CREATE_SOCIAL_PROFILE_MUTATION, {name: 'createSocialProfileMutation'}),
-    graphql(ALL_SOCIAL_PROFILES_QUERY, {
+    graphql(ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION, {name: 'addAllDefaultParametersOneByOneMutation'}),
+    graphql(ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION, {name: 'addAllDefaultSocialPostsOneByOneMutation'}),
+    graphql(ALL_SOCIAL_PROFILES_QUERY, {//todo change this when user query is source of social profiles
         name: 'allSocialProfilesQuery',
         skip: (ownProps) => (localStorage.getItem(GC_USER_ID) === null),
         options: (ownProps) => {

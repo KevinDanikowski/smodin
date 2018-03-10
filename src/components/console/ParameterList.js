@@ -135,14 +135,12 @@ class ParameterList extends Component {
     }
     _handleNewParameter = async () => {
         const { newParameter, newResponse } = this.state
-        const userId = localStorage.getItem(GC_USER_ID)
         const SPId = this.props.selectedSocialProfileId
         await this.props.addParameterMutation({
             variables: {
                 socialProfileId: SPId,
                 param: newParameter,
                 response: newResponse,
-                userId: userId
             },
             update: (store, {data: {createParameter} }) => {
                 const data = store.readQuery({

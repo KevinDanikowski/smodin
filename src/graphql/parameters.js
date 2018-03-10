@@ -13,8 +13,8 @@ export const ALL_PARAMETERS_QUERY = gql`
           response
         }}`
 export const ADD_PARAMETER_MUTATION = gql`
-    mutation AddParameterMutation( $userId: ID!, $socialProfileId: ID!, $param: String!, $response: String!){
-        createParameter( userId: $userId,  socialProfileId: $socialProfileId, param: $param, response: $response){
+    mutation AddParameterMutation($socialProfileId: ID!, $param: String!, $response: String!){
+        createParameter(socialProfileId: $socialProfileId, param: $param, response: $response){
             param
             response
             id

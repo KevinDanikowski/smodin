@@ -17,8 +17,8 @@ export const ALL_SOCIAL_POSTS_QUERY = gql`
         }}`
 
 export const ADD_SOCIAL_POSTS_MUTATION = gql`
-    mutation AddSocialPostMutation($id: ID!, $message: String!, $socialProfileId: ID!){
-        createSocialPost(userId: $id, message: $message, socialProfileId: $socialProfileId){
+    mutation AddSocialPostMutation($message: String!, $socialProfileId: ID!){
+        createSocialPost(message: $message, socialProfileId: $socialProfileId){
             message
             id
             default

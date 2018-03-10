@@ -17,25 +17,19 @@ import './Console.css'
 class Console extends Component {
     constructor(props) {
         super(props)
-        const primaryIndustryId = 'cj97jd2670t6501027go4pm46'//todo make this meaningless
-        const primaryIndustry = 'Generic'//todo make this meaningless
         const defaultSearchText = ''
         const defaultTab = 'schedule'
         const defaultScheduleType = 'monthly'
         const defaultBuildView = 'calendar'
-        const defaultSite = ''
+        const defaultSite = 'facebook'
         const defaultColumnTwo = 'profilemenu'
-        const defaultSocialProfile = 'facebook'
         const defaultSelectedSocialProfileId = null
         const defaultSelectedSocialProfile = {id: null, site: 'facebook', industry: {id: null}}
         this.state = {
-            selectedIndustryId: primaryIndustryId,
-            selectedIndustry: primaryIndustry,
             searchText: defaultSearchText,
             tab: defaultTab,
             scheduleType: defaultScheduleType,
             buildView: defaultBuildView,
-            socialProfile: defaultSocialProfile,
             selectedSocialProfile: defaultSelectedSocialProfile,
             selectedSocialProfileId: defaultSelectedSocialProfileId,
             site: defaultSite,
@@ -43,7 +37,6 @@ class Console extends Component {
         }
     }
     componentWillUpdate(nextProps, nextState) {
-        if (nextState.selectedIndustryId === !this.state.selectedIndustryId) {}
         if (nextState.searchText === !this.state.searchText) {}
         if (nextState.tab === !this.state.tab) {}
     }
@@ -52,8 +45,9 @@ class Console extends Component {
         if (this.state.selectedSocialProfileId === null && nextProps.allSocialProfilesQuery &&
             (!nextProps.allSocialProfilesQuery.loading && !nextProps.allSocialProfilesQuery.error)) {
             this.setState({
+                //todo doesn't work for guest
                 selectedSocialProfileId: nextProps.allSocialProfilesQuery.allSocialProfiles[0].id,
-                socialProfile: nextProps.allSocialProfilesQuery.allSocialProfiles[0].site,
+                site: nextProps.allSocialProfilesQuery.allSocialProfiles[0].site,
                 selectedSocialProfile: nextProps.allSocialProfilesQuery.allSocialProfiles[0]
             })
         }
@@ -63,7 +57,7 @@ class Console extends Component {
             <div className='w-100 h-100 flex justify-start items-stretch-content-stretch'>
                 {/*column 1*/}
                 <SocialProfileColumn
-                    socialProfile={this.state.socialProfile}
+                    socialProfile={this.state.site}
                     receiveSocialProfile={this._passSocialProfile}/>
                 <div className='flex flex-column pb1 pr1'>
                     {/*column 2*/}
@@ -83,7 +77,7 @@ class Console extends Component {
                     <div className='flex-1 pt1 pr1 pl1 w200p flex overflow-y-scroll'>
                         {(this.state.columnTwo) === 'profilelist'?
                             <ProfileList
-                                socialProfile={this.state.socialProfile}
+                                socialProfile={this.state.site}
                                 selectedSocialProfileId={this.state.selectedSocialProfileId}
                                 receiveSelectedSocialProfileId={this._passSelectedSocialProfileId}/> : null}
                         {(this.state.columnTwo === 'profilemenu')?
@@ -113,8 +107,6 @@ class Console extends Component {
                             searchText={this.state.searchText}/> : null }
                         {(this.state.tab === 'posts')?
                         <SocialPostList
-                            selectedIndustry={this.state.selectedIndustry}
-                            selectedIndustryId={this.state.selectedIndustryId}
                             selectedSocialProfileId={this.state.selectedSocialProfileId}
                             socialProfileIndustryId={this.state.selectedSocialProfile.industry.id}
                             receiveSearchText={this._passSearch}
@@ -122,14 +114,10 @@ class Console extends Component {
                             searchText={this.state.searchText}/> : null }
                         {(this.state.tab === 'schedule')?
                         <SchedulePage
-                            selectedIndustry={this.state.selectedIndustry}
-                            selectedIndustryId={this.state.selectedIndustryId}
                             selectedSocialProfileId={this.state.selectedSocialProfileId}
                             scheduleType={this.state.scheduleType}/> : null }
                         {(this.state.tab === 'queue')?
                         <QueuePage
-                            selectedIndustry={this.state.selectedIndustry}
-                            selectedIndustryId={this.state.selectedIndustryId}
                             selectedSocialProfileId={this.state.selectedSocialProfileId}
                             scheduleType={this.state.scheduleType}
                             buildView={this.state.buildView}/> : null }
@@ -151,7 +139,7 @@ class Console extends Component {
         this.setState({ buildView: buildView })
     }
     _passSocialProfile = (socialProfile) => {
-        this.setState({ socialProfile: socialProfile })
+        this.setState({ site: socialProfile })
     }
     _passSelectedSocialProfileId = (selectedSocialProfileId) => {
         this.setState({ selectedSocialProfileId: selectedSocialProfileId })

@@ -4,6 +4,5 @@ export const ALL_INDUSTRIES_QUERY = gql`
   query AllIndustriesQuery {
     allIndustries {
           id
-          default
           industry
         }}`

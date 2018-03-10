@@ -4,7 +4,6 @@ import Header from './header/Header'
 import Login from './independent/Login'
 import Console from './console/Console'
 import UserSettings from './independent/UserSettings'
-import IndustriesPage from './independent/IndustriesPage'
 import TutorialPage from './independent/TutorialPage'
 import CreateSocialProfilePage from './independent/CreateSocialProfilePage'
 import { GC_USER_ID } from '../constants'
@@ -25,9 +24,8 @@ class App extends Component {
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/console' component={Console} />
                   <Route exact path='/settings' component={UserSettings} />
-                  <Route exact path='/industries' component={IndustriesPage} />
                   <Route exact path='/tutorial' component={TutorialPage} />
-                  <Route exact path='/create-profile' component={CreateSocialProfilePage} />
+                  <Route exact path='/create-profile' render={(props)=><CreateSocialProfilePage {...props}/>} />
               </Switch>
             </div>
             <div className='flex bg-black-20 b--t-smodin-dark-purple justify-between overflow-y-hidden'>

@@ -151,12 +151,10 @@ class SocialPostList extends Component {
     _handleNewSocialPost = async () => {
         const { newSocialPost } = this.state
         const SPId = this.props.selectedSocialProfileId
-        const userId = localStorage.getItem(GC_USER_ID)
         await this.props.addSocialPostMutation({
             variables: {
                 socialProfileId: SPId,
                 message: newSocialPost,
-                id: userId
             },
             update: (store, {data: {createSocialPost} }) => {
                 const data = store.readQuery({

@@ -9,6 +9,17 @@ export const USER_SETTINGS_QUERY = gql`
     }
   }
 `
+//todo use this to replace user_settings_query
+//todo add socialProfiles and test if can {socialProfiles {id}}
+export const USER_INFO_QUERY = gql`
+  query UserSettingsQuery($id: ID!) {
+    User(id: $id) {
+      id
+      name
+      email
+    }
+  }
+`
 
 export const UPDATE_USER_NAME_MUTATION = gql`
     mutation UpdateUserName($id: ID!, $name: String!){
