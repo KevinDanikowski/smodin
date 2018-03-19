@@ -10,6 +10,7 @@ todo figure out if proptypes should be required
 todo may not need social profiles query, may just get query with the user.......... duh, may not need user_settings_query, leave it as userQuery or something
 todo make enum for accepted / archived / etc.
 todo add alert on createSocialProfile if haven't chosen all data, then provide option to add IFTTT/ Zapier/ Etc. connection
+todo social post examples dodn't highlight the {{}} things
 
  */
 

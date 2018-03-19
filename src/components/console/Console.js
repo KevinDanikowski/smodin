@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { USER_SETTINGS_QUERY } from '../../graphql/users'
 import { ALL_SOCIAL_PROFILES_QUERY} from "../../graphql/socialProfiles"
 import { graphql, compose } from 'react-apollo'
-import { GC_USER_ID } from '../../constants'
+import { GC_USER_ID, sampleSocialProfile } from '../../constants'
 import ParameterList from './ParameterList'
 import SocialPostList from './SocialPostList'
 import SchedulePage from './SchedulePage'
@@ -44,11 +44,12 @@ class Console extends Component {
         //sets profile and id
         if (this.state.selectedSocialProfileId === null && nextProps.allSocialProfilesQuery &&
             (!nextProps.allSocialProfilesQuery.loading && !nextProps.allSocialProfilesQuery.error)) {
+            const firstSocialProfile = nextProps.allSocialProfilesQuery.allSocialProfiles[0]
             this.setState({
                 //todo doesn't work for guest
-                selectedSocialProfileId: nextProps.allSocialProfilesQuery.allSocialProfiles[0].id,
-                site: nextProps.allSocialProfilesQuery.allSocialProfiles[0].site,
-                selectedSocialProfile: nextProps.allSocialProfilesQuery.allSocialProfiles[0]
+                selectedSocialProfileId: (firstSocialProfile)? firstSocialProfile.id : sampleSocialProfile.id,
+                site: (firstSocialProfile)?firstSocialProfile.site : sampleSocialProfile.site,
+                selectedSocialProfile: (firstSocialProfile)? firstSocialProfile : sampleSocialProfile
             })
         }
     }

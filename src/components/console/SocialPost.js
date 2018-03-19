@@ -47,7 +47,10 @@ class SocialPost extends Component {
                         className='socialpostboxresponse'
                         innerRef={(input)=>{this.textarea=input}}
                         value={this.state.message}
-                        onChange={(e) => { this.setState({ message: e.target.value}); (this.props.socialPost.message !== e.target.value) ?  this.setState({ postChanged: true }) : this.setState({ postChanged: false })}}/>
+                        onChange={(e) => {
+                            this.setState({ message: e.target.value});
+                            (this.props.socialPost.message !== e.target.value) ?
+                                this.setState({ postChanged: true }) : this.setState({ postChanged: false })}}/>
                 </div>
             )
             if (!this.state.editing && this.state.viewResponse) {
