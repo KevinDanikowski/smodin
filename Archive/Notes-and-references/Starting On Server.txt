@@ -18,3 +18,16 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-automatic-deploym
 ***Updating Git Repo Manually***
 use command `git pull`
 If made local change that don't want to commit, `git reset --hard` then `git pull`
+
+
+******* New Install ******
+get SSH key from computer: cat ~/.ssh/id_rsa.pub
+create droplet, add SSH
+connect: ssh root@IPADDRESS
+update packages: sudo apt-get update
+install npm: sudo apt-get install npm
+install node: curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+enable firewall: sudo ufw enable
+install nginx: sudo apt-get install nginx
+allow nginx firewall: sudo ufw allow 'Nginx Full'
