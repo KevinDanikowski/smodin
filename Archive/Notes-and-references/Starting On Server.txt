@@ -28,6 +28,10 @@ update packages: sudo apt-get update
 install npm: sudo apt-get install npm
 install node: curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
               sudo apt-get install -y nodejs
-enable firewall: sudo ufw enable
+enable firewall: sudo ufw enable (this can cause problems with logging in, you can skip this)
 install nginx: sudo apt-get install nginx
 allow nginx firewall: sudo ufw allow 'Nginx Full'
+change nginx file: cd etc/nginx/site-available
+    make sure to add proxy location to change ports if you run the port on 3000 usually or something to redirect to 80
+copy over config files (this includes .babelrc, etc.)
+install pm2 to run server: npm i pm2 -g
