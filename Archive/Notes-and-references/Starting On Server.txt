@@ -35,3 +35,4 @@ change nginx file: cd etc/nginx/site-available
     make sure to add proxy location to change ports if you run the port on 3000 usually or something to redirect to 80
 copy over config files (this includes .babelrc, etc.)
 install pm2 to run server: npm i pm2 -g
+start server: pm2 start file_or_file_path
