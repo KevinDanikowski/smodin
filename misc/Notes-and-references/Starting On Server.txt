@@ -33,6 +33,22 @@ install nginx: sudo apt-get install nginx
 allow nginx firewall: sudo ufw allow 'Nginx Full'
 change nginx file: cd etc/nginx/site-available
     make sure to add proxy location to change ports if you run the port on 3000 usually or something to redirect to 80
-copy over config files (this includes .babelrc, etc.)
+    SAMPLE:
+    server {
+            listen 80;
+            root /var/www/smodin/public;
+            index index.html index.htm;
+            server_name smodin.me;
+            location / {
+            proxy_pass http://0.0.0.0:3000;
+            include /etc/nginx/proxy_params;
+            }
+        }
+restart nginx: sudo service nginx restart
+copy over config files (this could include .babelrc, etc.)
 install pm2 to run server: npm i pm2 -g
-start server: pm2 start file_or_file_path
+start server: pm2 start file_or_file_path --name what_to_call_it
+
+
+# Code Quality
+This app was created in a short time frame, features are being added, tests need to be fully developed, they have been tested on another version of the app but the code has since changed. The code will be better revised soon to be cleaner.

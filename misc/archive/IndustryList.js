@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql, gql, compose } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import { GC_USER_ID } from '../src/constants'
+import { GC_USER_ID } from '../../src/constants'
 import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
 import './IndustryList.css'
 

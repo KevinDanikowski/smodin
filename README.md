@@ -1,39 +1,41 @@
-## Welcome to Smodin
-![Smodin Background Image](https://github.com/KevinDanikowski/smodin-post-writer/blob/master/src/images/CURRENT-INTERFACE.PNG?raw=true)
-Note Image and website (www.smodin.me) rarely have the updated code revisions. See **Feature List** for updated features
-## Usage
-By just answering a couple questions about your business, called "Parameters", and choosing an industry (i.e. Social Media Marketer, Medical, etc.) You can have multitudes of ready-to-post social media posts created for you! Then you can schedule them perpetually and not worry about taking care of your social media.
+# Smodin
+![Smodin Background Image](https://github.com/KevinDanikowski/smodin/blob/master/misc/images/designed-interface.png?raw=true)
 
-## Build
-This platform was built using
-- Graph Cool (Backend)
-- GraphQL (API)
-- ReachJS (Frontend)
+## How Does Smodin Work
+You add a social profile (facebook, linkedin, twitter), choose an industry (i.e. medical), answer questions about your business, called "Parameters", and Smodin provides auto populated posts for you ready to use and ready to schedule. To reuse these posts, use the rewriter which quickly rewrites the post for later use in the future. Set up the weekly or monthly schedule (or choose the randomized schedule), and never touch your social media again.
 
-## Code
-- Major: CSS, Javascript, HTML
-- Minor: Typescript, jQuery
+Main Benefit: Create one year worth of ready to use social posts scheduled within one hour of sign up.
 
 ## Feature List
-- Choose from multiple Industries with pre-populated Social Posts and Parameters
+- Choose from multiple Industries with pre-populated Social Posts and relevant Parameters
 - Add your own Social Posts and Parameters
 - User Interface designed to easily identify parameters, responses, and versatility
-- Change some settings menu options
-- Choose your scheduling on a per month/week basis and create ready-made schedule
+- Choose your scheduling on a per month/week basis or choose a ready-made schedule
+- Add images to posts
 - Search for your posts with ease
 - Easy to reference/find Social Post ideas, Social Post Examples, and Parameters
 
 ## Future Features in Progress
-- Post to your social Media
+- Post to your social Media from platform
 - Schedule out your posts to Facebook/LinkedIn/Etc.
-- Add images to posts
-- And much more!
+- And much more (yet to be disclosed)!
+
+## Build
+This platform was built using
+- Languages (Javascript)
+- Backend (GraphCool which uses SQL database and graphql)
+- Frontend (React and GraphQL)
+- Testing (Mocha, Chai, Enzyme)
+- Additional Items (jQuery, mongoDB and Express in microservice, cron jobs)
 
 ## Current Tasks in Order
-1. Implement testing in the app
-2. Add images to social posts
-3. Revise entire interface to specs
-4. Add Crons job and post scheduler in docker container
-5. Redesign file layout
+1. Finish Reworking Database
+2. Add Cron Jobs
+3. Integrate Testing
+4. Fix CSS to make identical to design
+5. Yet to be disclosed...
 
-Copywrite  OTA AI, Inc. 2017, Author Kevin Danikowski
+## Author Info
+- Author: Kevin Danikowski
+- Contact: kevind@ota.ai
+- Copyright Kevin Danikowski 2018

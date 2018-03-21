@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI Light", sans-serif;
+  font-family: "Segoe UI Light", "Frutiger", sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 20px;
@@ -20,7 +20,36 @@ h1 {
 }
 input[type=checkbox] {
 }
-
+@font-face {
+  font-family: 'Segoe UI light';
+  src: local('Segoe UI Light'), local('Segoe UI'), local('Frutiger Light'), local('Frutiger');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Segoe UI Semilight';
+  src: local('Segoe UI Semilight'), local('Segoe UI'), local('Frutiger Light'), local('Frutiger');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Segoe UI';
+  src: local('Segoe UI'), local('Segoe UI'), local('Frutiger'), local('Frutiger');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Segoe UI Semibold';
+  src: local('Segoe UI Semibold'), local('Segoe UI'), local('Frutiger Bold'), local('Frutiger');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Segoe UI Black';
+  src: local('Segoe UI Black'), local('Segoe UI'), local('Frutiger Black'), local('Frutiger');
+  font-weight: 800;
+  font-style: normal;
+}
 /*************************
          FLEXBOX
 *************************/

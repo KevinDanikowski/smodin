@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { graphql, gql, compose } from 'react-apollo'
-import { GC_USER_ID } from '../src/constants'
+import { GC_USER_ID } from '../../src/constants'
 import Industry from './Industry'
-import {ALL_INDUSTRIES_QUERY} from "../src/graphql/industries";
+import {ALL_INDUSTRIES_QUERY} from "../../src/graphql/industries";
 import './IndustriesPage.css'
 
 class IndustriesPage extends Component {
