@@ -48,6 +48,7 @@ restart nginx: sudo service nginx restart
 copy over config files (this could include .babelrc, etc.)
 install pm2 to run server: npm i pm2 -g
 start server: pm2 start file_or_file_path --name what_to_call_it
+    if you use create-react-app, use this path: pm2 start node_modules/react-scripts/scripts/start.js --name app
 
 
 # Code Quality

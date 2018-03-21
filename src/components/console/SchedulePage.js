@@ -60,7 +60,8 @@ class SchedulePage extends Component {
                 )
             }
             return dayArray.map((dayObject, index) => {
-                const weeklySchedules = this.props.allPostSchedulesQuery.allPostSchedules[0].weeklySchedules.filter((schedule)=> {return schedule.day === dayObject.number})
+                const schedules = this.props.allPostSchedulesQuery.allPostSchedules[0]
+                const weeklySchedules = (schedules)? schedules.weeklySchedules.filter((schedule)=> {return schedule.day === dayObject.number}) : []
                 return (dayObject.number < '5')?
                     <div key={index} className='w25pr mw160p'>
                         <Scheduler day={dayObject.day}
@@ -96,7 +97,8 @@ class SchedulePage extends Component {
                 )
             }
             return dayArray.map((dayObject, index) => {
-                    const weeklySchedules = this.props.allPostSchedulesQuery.allPostSchedules[0].weeklySchedules.filter((schedule)=> {return schedule.day === dayObject.number})
+                const schedules = this.props.allPostSchedulesQuery.allPostSchedules[0]
+                const weeklySchedules = (schedules) ? schedules.weeklySchedules.filter((schedule)=> {return schedule.day === dayObject.number}) : []
                     return (dayObject.number > '4')?
                         <div key={index} className='w25pr mw160p'>
                             <Scheduler day={dayObject.day}
@@ -338,7 +340,6 @@ SchedulePage.propTypes = {
 export default compose(
     graphql(ALL_POST_SCHEDULES_QUERY, {
         name: 'allPostSchedulesQuery',
-        //skip: (ownProps) => (ownProps.selectedSocialProfileId === null),todo appears I don't need the skip
         options: (ownProps) => {
             const SPId = ownProps.selectedSocialProfileId
             return {
