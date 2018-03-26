@@ -11,7 +11,6 @@ import {ADD_SOCIAL_POST_IMAGE_MUTATION,
 import {UPDATE_FILE_MUTATION,
     DELETE_FILE_MUTATION} from '../../graphql/files'
 import PropTypes from 'prop-types'
-import '../../scss/SocialPost.scss'
 
 const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
 

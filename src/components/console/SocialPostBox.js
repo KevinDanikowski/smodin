@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {ALL_SOCIAL_POST_EXAMPLES_QUERY, ALL_SOCIAL_POST_IDEAS_QUERY} from "../../graphql/socialPosts";
-import '../../scss/SocialPostBox.scss'
+
 class SocialPostBox extends Component {
     constructor(props) {
         super(props)

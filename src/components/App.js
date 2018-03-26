@@ -6,9 +6,13 @@ import Console from './console/Console'
 import UserSettings from './independent/UserSettings'
 import TutorialPage from './independent/TutorialPage'
 import CreateSocialProfilePage from './independent/CreateSocialProfilePage'
+import FontAwesome from 'react-fontawesome'
 import { GC_USER_ID } from '../constants'
 import '../scss/index.scss'
 import '../scss/npm.components.scss'
+import '../scss/SocialPosts.scss'
+import '../scss/ParametersSCSS.scss'
+import '../scss/SocialProfiles.scss'
 
 class App extends Component {
     render() {
@@ -16,20 +20,24 @@ class App extends Component {
         const Footer = () => {
             return(
                 <div className='flex bg-black-20 b--t-smodin-dark-purple justify-between overflow-y-hidden'>
-                    <div className='flex-1 inline-flex items-center justify-start'>
-                        <img src={require('../images/LinkedIn-Logo.png')} alt='LI' height='20' />
+                    <div className='ml2 flex-1 inline-flex items-center hover-blue dark-gray justify-start'>
+                        <FontAwesome name='linkedin-square' />
                         <a href='https://www.linkedin.com/in/kevin-danikowski'
                            className='ml1 dark-gray hover-blue no-underline'>About Me</a>
                     </div>
                     <div className='flex-2 inline-flex items-center justify-center'>
-                        <img src={require('../images/GitHub-Mark-32px.png')} alt='GitHub' height='20' />
-                        <a href='https://github.com/KevinDanikowski/smodin'
-                           className='ml1 dark-gray hover-blue no-underline'>This Code</a>
-                        <img src={require('../images/GitHub-Mark-32px.png')} alt='GitHub' height='20' className='ml4' />
-                        <a href='https://github.com/KevinDanikowski'
-                           className='ml1 dark-gray hover-blue no-underline'>My GitHub</a>
+                        <div className='dark-gray hover-blue'>
+                            <FontAwesome name='github' />
+                            <a href='https://github.com/KevinDanikowski/smodin'
+                               className='ml1 dark-gray hover-blue no-underline'>This Code</a>
+                        </div>
+                        <div className='ml2 dark-gray hover-blue'>
+                            <FontAwesome name='github' />
+                            <a href='https://github.com/KevinDanikowski'
+                               className='ml1 dark-gray hover-blue no-underline'>My GitHub</a>
+                        </div>
                     </div>
-                    <div className='flex-1 flex items-center justify-end'>
+                    <div className='flex-1 flex items-center justify-end mr2 '>
                         <a href='http://ota.ai'
                            className='ml1 dark-gray hover-blue no-underline'>© OTA AI, Inc. 2017</a>
                     </div>

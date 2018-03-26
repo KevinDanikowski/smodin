@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../scss/SocialPostWithCSS.scss'
 
 export default ({ allParametersQuery, children }) => {
     let parameters = ['{{89098_placeholder_90128}}']

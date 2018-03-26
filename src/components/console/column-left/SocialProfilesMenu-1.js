@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { socialProfiles } from '../../../constants'
-import '../../../scss/SocialProfilesMenu.scss'
+import FontAwesome from 'react-fontawesome'
 
 /* component passes hard coded tab of what profile is selected */
 class SocialProfilesMenu extends Component {
@@ -24,7 +24,7 @@ class SocialProfilesMenu extends Component {
                           onClick={()=>{this._passSocialProfileToParent(profile.profile)}}>
                         <div className='w4p h-100'/>
                         <div className='box40 bg-light-blue white ma5p' >
-                        {profile.display}
+                            <FontAwesome style={{height: '40px', width: '40px', color: 'lightblue'}} name={profile.profile+'-square'} />
                         </div>
                     </div>
 
