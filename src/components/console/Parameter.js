@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import '../../scss/Parameter.scss'
 
 class Parameter extends Component {
     constructor(props) {
