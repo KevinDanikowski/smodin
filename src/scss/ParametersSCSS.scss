@@ -1,0 +1,59 @@
+/*
+ * ALL ABREVIATED WITH PAR FOR PARAMETERS
+ */
+
+/**** PARAMETERS ****/
+#parameterstable {
+  border-collapse: collapse;
+  width: 90%;
+}
+#parameterstable-th-td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.parameterinputsidetext {
+  background-color: rgb(193, 174, 186);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 4px 6px 6px;
+  border-radius: 12px;
+  border: none;
+}
+.parameterinput {
+  background-color: rgb(238, 218, 231);
+  color: #3a3a3a;
+  width: 225px;
+  font-weight: 600;
+  padding: 3px 6px 3px;
+  border-radius: 12px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+/**** PARAMETERLIST ****/
+#parameterstable {
+  border-collapse: collapse;
+  width: 90%;
+}
+#parameterstable-th-td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/**** PARAMETERBOX ****/
+.parameterhover:hover {
+  background-color: #ff9cb0;
+  color: #262626;
+  cursor: pointer;
+}
+.parameterborder {
+  padding: 0px 4px 2px;
+  border-radius: 12px;
+}
+.borders {
+  border-top: 1px solid #d7d0cc;
+  border-left: 1px solid #d7d0cc;
+  border-bottom: 1px solid #d7d0cc;
+}

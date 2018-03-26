@@ -13,6 +13,7 @@ import '../scss/npm.components.scss'
 import '../scss/SocialPosts.scss'
 import '../scss/ParametersSCSS.scss'
 import '../scss/SocialProfiles.scss'
+import '../scss/Console.scss'
 
 class App extends Component {
     render() {

@@ -7,7 +7,6 @@ import { ALL_PARAMETERS_QUERY,
     UPDATE_PARAMETER_MUTATION} from "../../graphql/parameters";
 import Parameter from './Parameter'
 import PropTypes from 'prop-types'
-import '../../scss/ParameterList.scss'
 
 class ParameterList extends Component {
     constructor(props) {

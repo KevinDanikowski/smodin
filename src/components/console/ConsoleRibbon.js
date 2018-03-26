@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import '../../scss/ConsoleRibbon.scss'
 
 class Search extends Component {
     constructor(props) {
