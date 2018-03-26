@@ -2,3 +2,4 @@
 node_modules
 ./project.graphcool
 ./src/config.js
+.env

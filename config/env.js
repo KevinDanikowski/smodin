@@ -58,7 +58,9 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 
 function getClientEnvironment(publicUrl) {
-  const raw = Object.keys(process.env)
+    const ENV_FILE = require('../config/envFileConfigs')
+
+    const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce(
       (env, key) => {
@@ -74,6 +76,7 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        GRAPHCOOL_PROJECT_ID: ENV_FILE.graphcoolProjectId
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

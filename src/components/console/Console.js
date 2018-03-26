@@ -12,13 +12,13 @@ import SocialProfileColumn from './column-left/SocialProfilesMenu-1'
 import ProfileMenu from './column-left/ProfileMenu-2.2'
 import ProfileList from './column-left/ProfileList-2.1'
 import CreateSocialProfileLink from './CreateSocialProfileLink'
-import './Console.css'
+import '../../scss/Console.scss'
 
 class Console extends Component {
     constructor(props) {
         super(props)
         const defaultSearchText = ''
-        const defaultTab = 'schedule'
+        const defaultTab = 'posts'
         const defaultScheduleType = 'monthly'
         const defaultBuildView = 'calendar'
         const defaultSite = 'facebook'

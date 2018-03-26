@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import { findAllParametersInString } from '../../utils'
 import { GC_USER_ID } from '../../constants'
-import { projectId } from "../../config"
 import SocialPostWithCSS from './SocialPostWithCSS'
 import TextareaAutosize from 'react-autosize-textarea'
 import axios from 'axios'
@@ -12,7 +11,9 @@ import {ADD_SOCIAL_POST_IMAGE_MUTATION,
 import {UPDATE_FILE_MUTATION,
     DELETE_FILE_MUTATION} from '../../graphql/files'
 import PropTypes from 'prop-types'
-import './SocialPost.css'
+import '../../scss/SocialPost.scss'
+
+const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
 
 class SocialPost extends Component {
     constructor(props) {
@@ -152,7 +153,7 @@ class SocialPost extends Component {
         }
         return (
             <div className='bg-smodin-white b--smodin-gray bw2p br4p ml2 mr2 mt1 overflow-hidden'>
-                <div className='flex nowrap pa1'>
+                <div className='flex pa1'>
                     <PostArea />
                     <ImageArea />
                 </div>
@@ -215,7 +216,7 @@ class SocialPost extends Component {
         this.setState({uploading: true})
         const imageFile = this.state.imageFile[0]
         let data = new FormData()
-        const url = 'https://api.graph.cool/file/v1/' + projectId
+        const url = 'https://api.graph.cool/file/v1/' + GRAPHCOOL_PROJECT_ID
         data.append('data', imageFile)
         await axios.post(url, data, {
             headers: {

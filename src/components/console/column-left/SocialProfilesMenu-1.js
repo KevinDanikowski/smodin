@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { socialProfiles } from '../../../constants'
-import './SocialProfilesMenu.css'
+import '../../../scss/SocialProfilesMenu.scss'
 
 /* component passes hard coded tab of what profile is selected */
 class SocialProfilesMenu extends Component {

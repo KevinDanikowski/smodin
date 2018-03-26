@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import PropTypes from 'prop-types'
 import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
-import './ParametersBox.css'
+import '../../scss/ParametersBox.scss'
 
 class ParametersBox extends Component {
     constructor(props) {

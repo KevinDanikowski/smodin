@@ -107,7 +107,9 @@
     "enzyme-to-json": "^3.2.2",
     "mocha": "^4.0.1",
     "mockery": "^2.1.0",
+    "node-sass": "^4.8.3",
     "react-test-renderer": "^16.1.1",
+    "sass-loader": "^6.0.7",
     "sinon": "^4.1.2"
   }
 }

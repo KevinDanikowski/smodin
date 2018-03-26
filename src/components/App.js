@@ -7,6 +7,8 @@ import UserSettings from './independent/UserSettings'
 import TutorialPage from './independent/TutorialPage'
 import CreateSocialProfilePage from './independent/CreateSocialProfilePage'
 import { GC_USER_ID } from '../constants'
+import '../scss/index.scss'
+import '../scss/npm.components.scss'
 
 class App extends Component {
     render() {

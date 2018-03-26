@@ -4,7 +4,7 @@ import { GC_USER_ID, buildTimeFrames } from '../../constants'
 import FullCalendar from './Calendar'
 import ScheduledList from './ScheduledList'
 import Dropdown from 'react-dropdown'
-import './QueuePage.css'
+import '../../scss/QueuePage.scss'
 
 class QueuePage extends Component {
     constructor(props) {
