@@ -25,21 +25,33 @@ class Login extends Component {
     render() {
         const createAccount = {
             paddingTop: 0,
+            paddingBottom: 0,
             textAlign: 'center',
             color: '#9E9E9E',
             cursor: 'pointer'
+        };
+
+        const loginLogo = {
+            borderRadius: '50%',
+            width: '100px',
+            height: '100px',
+            overflow: 'hidden',
+            margin: '0 auto'
         };
 
         return (
             <div className="flex justify-center items-center">
                 <div style={{maxWidth: "360px"}}>
                     <Card>
-                        <div className="">
-                            <img src="images/smodin-logo.svg" alt="Smodin"/>
+                        <div style={loginLogo}
+                             className="flex justify-center items-center">
+                            <img src="/smodin-logo.png"
+                                 alt="Smodin"
+                                 style={{width: '80px'}}/>
                         </div>
                         <CardTitle title={this.state.login ? 'Login' : 'Sign Up'}
                                     style={{textAlign: 'center',
-                                            paddingBottom: 0}}/>
+                                            padding: 0}}/>
 
                         <CardText style={{paddingTop: 0}}>
                             {!this.state.login &&
