@@ -18,7 +18,8 @@ class Login extends Component {
             login: true,
             email: '',
             password: '',
-            name: ''
+            name: '',
+            displayErrorMessage: false
         }
     }
 
@@ -53,24 +54,26 @@ class Login extends Component {
                                     style={{textAlign: 'center',
                                             padding: 0}}/>
 
+                        {this.state.displayErrorMessage?<div className='smodin-red tc'>Wrong Username or Password</div>: null}
+
                         <CardText style={{paddingTop: 0}}>
                             {!this.state.login &&
                             <TextField fullWidth={true}
                                        floatingLabelText="Your Name"
                                        value={this.state.name}
-                                       onChange={(e) => this.setState({name: e.target.value})}/>
+                                       onChange={(e) => this.setState({name: e.target.value, displayErrorMessage: false})}/>
                             }
                             <TextField fullWidth={true}
                                        floatingLabelText="Your Email Address"
                                        value={this.state.email}
-                                       onChange={(e) => this.setState({email: e.target.value})}/>
+                                       onChange={(e) => this.setState({email: e.target.value, displayErrorMessage: false})}/>
                             <TextField fullWidth={true}
-                                       floatingLabelText="Your Email Address"
+                                       floatingLabelText="Your Password"
                                        value={this.state.password}
-                                       onChange={(e) => this.setState({password: e.target.value})}/>
+                                       onChange={(e) => this.setState({password: e.target.value, displayErrorMessage: false})}/>
                         </CardText>
                         <CardActions>
-                            <RaisedButton label={this.state.login ? 'Sign Up' : 'Create Account'}
+                            <RaisedButton label={this.state.login ? 'Sign In' : 'Create Account'}
                                           onClick={() => this._confirm()}
                                           fullWidth={true}
                                           backgroundColor={'#673AB7'}
@@ -78,7 +81,7 @@ class Login extends Component {
                         </CardActions>
                         <CardText style={createAccount}
                                   onClick={() => this.setState({login: !this.state.login})}>
-                            {this.state.login ? 'Need to create an account? Sing Up' : 'Already have an account? Log In'}
+                            {this.state.login ? 'Need to create an account? Sign Up' : 'Already have an account? Log In'}
                         </CardText>
                     </Card>
                     <RaisedButton label="Login As Guest"
@@ -96,15 +99,19 @@ class Login extends Component {
     _confirm = async () => {
         const {name, email, password} = this.state
         if (this.state.login) {
-            const result = await this.props.signinUserMutation({
+            await this.props.signinUserMutation({
                 variables: {
                     email,
                     password
                 }
-            })
-            const id = result.data.signinUser.user.id
-            const token = result.data.signinUser.token
-            this._saveUserData(id, token)
+            }).then(data=>{
+                const id = data.data.signinUser.user.id
+                const token = data.data.signinUser.token
+                this._saveUserData(id, token)
+                this.props.history.push(`/`)
+            }).catch(mutationError =>
+                this.setState({displayErrorMessage: true})
+            )
         } else {
             //create user
             const result = await this.props.createUserMutation({
@@ -117,8 +124,8 @@ class Login extends Component {
             const id = result.data.signinUser.user.id
             const token = result.data.signinUser.token
             this._saveUserData(id, token)
+            this.props.history.push(`/`)
         }
-        this.props.history.push(`/`)
     }
 
     _saveUserData = (id, token) => {
