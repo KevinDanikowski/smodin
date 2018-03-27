@@ -12,9 +12,9 @@ class ParametersBox extends Component {
     }
     render() {
         const PostListArray = () => {
-            if (this.props.allParametersQuery.allParameters && this.props.allParametersQuery.allParameters.loading) return <div>Loading...</div>
-            if (this.props.allParametersQuery.allParameters && this.props.allParametersQuery.allParameters.error) return <div>Error :(</div>
-            if (this.props.allParametersQuery.allParameters) return (
+            if (this.props.allParametersQuery &&
+                !this.props.allParametersQuery.loading &&
+                !this.props.allParametersQuery.error) return(
                 <div>
                     {this.props.allParametersQuery.allParameters.map((parameter, index) => (
                         <div
@@ -23,7 +23,7 @@ class ParametersBox extends Component {
                     ))}
                 </div>
             )
-            return null
+            else return <div>Loading...</div>
         }
         return (
             <div className='borders flexbox-parent-console bg-smodin-black overflow-hidden b--smodin-gray mr0'>
@@ -45,8 +45,9 @@ ParametersBox.propTypes = {
 }
 
 export default graphql(ALL_PARAMETERS_QUERY, {
-        name: 'allParametersQuery',
-        options: (ownProps) => {
+    name: 'allParametersQuery',
+    skip: (ownProps)=>ownProps.selectedSocialProfileId === null,
+    options: (ownProps) => {
             const SPId = ownProps.selectedSocialProfileId
             return {
                 variables: { socialProfileId: SPId }
