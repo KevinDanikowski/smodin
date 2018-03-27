@@ -288,9 +288,12 @@ class SchedulePage extends Component {
             }
         })
         const deleteExistingWeeklySchedules = async () => {
-            this.props.allPostSchedulesQuery.allPostSchedules[0].weeklySchedules.map(async (schedule) => {
-                this._handleDeleteWeeklyPostSchedule(schedule.id)
-            })
+            const firstPostSchedule = this.props.allPostSchedulesQuery.allPostSchedules[0]
+            if(firstPostSchedule) {
+                this.props.allPostSchedulesQuery.allPostSchedules[0].weeklySchedules.map(async (schedule) => {
+                    this._handleDeleteWeeklyPostSchedule(schedule.id)
+                })
+            }
         }
         const addRecommendedWeeklySchedules = async () => {
             defaultWeeklyPostSchedules.map(async (schedule) => {
@@ -317,9 +320,12 @@ class SchedulePage extends Component {
             defaultMonthlyPostSchedules = defaultMonthlyDayPostSchedules
         }
         const deleteExistingMonthlySchedules = async () => {
-            this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.map(async (schedule) => {
-                this._handleDeleteMonthlyPostSchedule(schedule.id)
-            })
+            const firstPostSchedule = this.props.allPostSchedulesQuery.allPostSchedules[0]
+            if (firstPostSchedule) {
+                this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.map(async (schedule) => {
+                    this._handleDeleteMonthlyPostSchedule(schedule.id)
+                })
+            }
         }
         const addRecommendedMonthlySchedules = async () => {
             defaultMonthlyPostSchedules.map(async (schedule) => {

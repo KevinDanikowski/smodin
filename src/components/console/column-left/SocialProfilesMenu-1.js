@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { socialProfiles } from '../../../constants'
-import FontAwesome from 'react-fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+//import {faCoffee} from '@fortawesome/fontawesome-free-solid'
+import {faTwitterSquare, faFacebookSquare, faLinkedin} from '@fortawesome/fontawesome-free-brands'
 
+const profileIcons = [
+    {profile: 'facebook', icon: faFacebookSquare, color: '#3b5998'},
+    {profile: 'twitter', icon: faTwitterSquare, color: '#55acee'},
+    {profile: 'linkedin', icon: faLinkedin, color: '#007bb5'}
+]
 /* component passes hard coded tab of what profile is selected */
 class SocialProfilesMenu extends Component {
     constructor(props) {
@@ -13,26 +20,21 @@ class SocialProfilesMenu extends Component {
     render() {
         const SocialProfileMenuMap = () => {
             return socialProfiles.map((profile, index) => {
-                return (this.props.socialProfile === profile.profile)?//profile is full name 'facebook' for example
-                    <div key={index} className='h55p flex nowrap justify-start items-center background-gray'>
-                        <div className='w4p h-100 bg-smodin-dark-blue' />
-                        <div className='box40 bg-light-blue white ma5p'>
-                            {profile.display}
-                        </div>
+                const SPIcon = profileIcons.find(profileIcon=> profileIcon.profile === profile.profile)
+                return (this.props.socialProfile === profile.profile)? //profile = full name
+                    <div key={index} className='sp-menu-col-1-box-active flex justify-center items-center '>
+                            <FontAwesomeIcon className='sp-menu-col-1-box-icon' style={{color: SPIcon.color}} icon={SPIcon.icon} />
                     </div>
-                    :<div key={index} className='h55p flex nowrap justify-start items-center h--bg-smodin-background-gray-p'
+                    :<div key={index} className='sp-menu-col-1-box flex justify-center items-center'
                           onClick={()=>{this._passSocialProfileToParent(profile.profile)}}>
-                        <div className='w4p h-100'/>
-                        <div className='box40 bg-light-blue white ma5p' >
-                            <FontAwesome style={{height: '40px', width: '40px', color: 'lightblue'}} name={profile.profile+'-square'} />
-                        </div>
+                            <FontAwesomeIcon className='sp-menu-col-1-box-icon' style={{color: SPIcon.color }} icon={SPIcon.icon} />
                     </div>
 
             })
         }
 
         return (
-            <div className='flex flex-column justify-start w55p bg-smodin-black overflow-hidden pt3'>
+            <div className='sp-menu-col-1 flex flex-column justify-start pt3'>
                 <SocialProfileMenuMap />
             </div>
         )
