@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
-import { GC_USER_ID, GC_AUTH_TOKEN } from '../../constants'
-import { graphql, compose } from 'react-apollo'
-import { SIGNIN_USER_MUTATION,
+import React, {Component} from 'react'
+import {GC_USER_ID, GC_AUTH_TOKEN} from '../../constants'
+import {graphql, compose} from 'react-apollo'
+import {
+    SIGNIN_USER_MUTATION,
     CREATE_USER_MUTATION
 } from "../../graphql/users";
 import './Login.css'
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
 
@@ -17,64 +21,68 @@ class Login extends Component {
             name: ''
         }
     }
+
     render() {
+        const createAccount = {
+            paddingTop: 0,
+            textAlign: 'center',
+            color: '#9E9E9E',
+            cursor: 'pointer'
+        };
+
         return (
-            <div className='flex justify-center items-center flex-column w-100'>
-                <h4 className='mv2 mb3 w-100 tc f-5'>{this.state.login ? 'Login' : 'Sign Up'}</h4>
-                <div className=''>
-                    {!this.state.login &&
-                    <input
-                        className='login-inputs mb3'
-                        value={this.state.name}
-                        onChange={(e) => this.setState({ name: e.target.value })}
-                        type='text'
-                        placeholder='Your name'
-                    />}
-                    <br/>
-                    <input
-                        className='login-inputs mb3'
-                        value={this.state.email}
-                        onChange={(e) => this.setState({ email: e.target.value })}
-                        type='text'
-                        placeholder='Your email address'
-                    />
-                    <br />
-                    <input
-                        className='login-inputs'
-                        value={this.state.password}
-                        onChange={(e) => this.setState({ password: e.target.value })}
-                        type='password'
-                        placeholder='Choose a safe password'
-                    />
-                </div>
-                <div className='flex mt3'>
-                    <div
-                        className='pointer mr2 button'
-                        onClick={() => this._confirm()}
-                    >
-                        {this.state.login ? 'login' : 'create account' }
-                    </div>
-                    <div
-                        className='pointer button'
-                        onClick={() => this.setState({ login: !this.state.login })}
-                    >
-                        {this.state.login ? 'need to create an account?' : 'already have an account?'}
-                    </div>
-                </div>
-                <div className='flex mt3'>
-                    <div
-                        className='pointer button'
-                        onClick={async (e) => {await this.setState({email: 'guest@ota.ai', password: 'password'});this._confirm()}}
-                    >
-                        Login As Guest
-                    </div>
+            <div className="flex justify-center items-center">
+                <div style={{maxWidth: "360px"}}>
+                    <Card>
+                        <div className="">
+                            <img src="images/smodin-logo.svg" alt="Smodin"/>
+                        </div>
+                        <CardTitle title={this.state.login ? 'Login' : 'Sign Up'}
+                                    style={{textAlign: 'center',
+                                            paddingBottom: 0}}/>
+
+                        <CardText style={{paddingTop: 0}}>
+                            {!this.state.login &&
+                            <TextField fullWidth={true}
+                                       floatingLabelText="Your Name"
+                                       value={this.state.name}
+                                       onChange={(e) => this.setState({name: e.target.value})}/>
+                            }
+                            <TextField fullWidth={true}
+                                       floatingLabelText="Your Email Address"
+                                       value={this.state.email}
+                                       onChange={(e) => this.setState({email: e.target.value})}/>
+                            <TextField fullWidth={true}
+                                       floatingLabelText="Your Email Address"
+                                       value={this.state.password}
+                                       onChange={(e) => this.setState({password: e.target.value})}/>
+                        </CardText>
+                        <CardActions>
+                            <RaisedButton label={this.state.login ? 'Sign Up' : 'Create Account'}
+                                          onClick={() => this._confirm()}
+                                          fullWidth={true}
+                                          backgroundColor={'#673AB7'}
+                                          labelColor={'white'}/>
+                        </CardActions>
+                        <CardText style={createAccount}
+                                  onClick={() => this.setState({login: !this.state.login})}>
+                            {this.state.login ? 'Need to create an account? Sing Up' : 'Already have an account? Log In'}
+                        </CardText>
+                    </Card>
+                    <RaisedButton label="Login As Guest"
+                                  onClick={async (e) => {
+                                      await this.setState({email: 'guest@ota.ai', password: 'password'});
+                                      this._confirm()
+                                  }}
+                                  style={{marginTop: '20px'}}
+                                  fullWidth={true}/>
                 </div>
             </div>
         )
     }
 
     _confirm = async () => {
-        const { name, email, password } = this.state
+        const {name, email, password} = this.state
         if (this.state.login) {
             const result = await this.props.signinUserMutation({
                 variables: {
@@ -110,6 +118,6 @@ class Login extends Component {
 }
 
 export default compose(
-    graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' }),
-    graphql(SIGNIN_USER_MUTATION, { name: 'signinUserMutation' })
+    graphql(CREATE_USER_MUTATION, {name: 'createUserMutation'}),
+    graphql(SIGNIN_USER_MUTATION, {name: 'signinUserMutation'})
 )(Login)

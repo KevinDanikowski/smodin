@@ -106,6 +106,7 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "enzyme-to-json": "^3.2.2",
+    "material-ui": "^0.20.0",
     "mocha": "^4.0.1",
     "mockery": "^2.1.0",
     "node-sass": "^4.8.3",
