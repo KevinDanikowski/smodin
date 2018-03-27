@@ -3,7 +3,9 @@
   "version": "0.0.2",
   "Author": "Kevin Danikowski",
   "copyright": "2018 Ota AI, Inc.",
+  "Owner": "Ota AI, Inc.",
   "private": true,
+  "description": "Smodin was an idea created by Kevin Danikowski and incorporated into Ota AI, Inc. which aims to automate much of the social media processes while enhancing the content and marketing of a business though aided content creation. Project is owned by Ota AI, Inc. and reserves all rights to the code created by Ota AI, Inc. herein.",
   "dependencies": {
     "add-graphql-subscriptions": "^1.0.1",
     "autoprefixer": "7.1.2",
