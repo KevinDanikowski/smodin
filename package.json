@@ -7,6 +7,10 @@
   "private": true,
   "description": "Smodin was an idea created by Kevin Danikowski and incorporated into Ota AI, Inc. which aims to automate much of the social media processes while enhancing the content and marketing of a business though aided content creation. Project is owned by Ota AI, Inc. and reserves all rights to the code created by Ota AI, Inc. herein.",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.4",
+    "@fortawesome/fontawesome-free-brands": "^5.0.8",
+    "@fortawesome/fontawesome-free-solid": "^5.0.8",
+    "@fortawesome/react-fontawesome": "0.0.18",
     "add-graphql-subscriptions": "^1.0.1",
     "autoprefixer": "7.1.2",
     "axios": "^0.17.1",
@@ -49,7 +53,6 @@
     "react-dom": "^16.0.0",
     "react-dropdown": "^1.3.2",
     "react-dropzone": "^4.2.3",
-    "react-fontawesome": "^1.6.1",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "style-loader": "0.18.2",

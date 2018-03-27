@@ -1,9 +1,37 @@
 /*
  * ALL ABREVIATED WITH SP FOR SOCIAL PROFILE
  */
-.box40 {
-  width: 40px;
-  height: 40px
+.sp {
+  &-menu {
+    &-col-1{
+      overflow: hidden;
+      width: 55px;
+      background-color: #423c37; /*bg-smodin-black*/
+      &-box {
+        height: 55px;
+        width: 100%;
+        background-color: lightgray;
+        padding: 5px 10px;
+        &-active {
+          height: 55px;
+          width: 100%;
+          padding: 5px 10px 5px 7px;
+          border-left: 4px solid #64b9df; /*bg-smodin-dark-blue*/
+          background-color: rgb(239, 236, 237); /*smodin gray color*/
+        }
+        &:hover {
+          background-color: lightgray;
+          cursor: pointer;
+        }
+        &-icon{
+          height: 40px !important;
+          width: 40px !important;
+          border-radius: 5px;
+          fill: blue !important;
+        }
+      }
+    }
+  }
 }
 .sideNavBar {
   z-index: 100;
@@ -13,8 +41,4 @@
   margin-left: 50px;
   margin-bottom: 0px;
   overflow: hidden;
-}
-.w4p {
-  width: 4px;
-  margin-right: 1px;
 }
