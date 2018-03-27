@@ -165,6 +165,7 @@ ParameterList.propTypes = {
 export default compose(
     graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',
+        skip: (ownProps)=>ownProps.selectedSocialProfileId === null,
         options: (ownProps) => {
             const SPId = ownProps.selectedSocialProfileId
             return {

@@ -3,3 +3,4 @@ node_modules
 ./project.graphcool
 ./src/config.js
 .env
+package-lock.json

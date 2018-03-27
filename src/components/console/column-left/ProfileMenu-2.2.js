@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-//import { graphql, gql, compose } from 'react-apollo'
-import PropType from 'prop-types'
 import { GC_USER_ID } from '../../../constants'
 
 class ProfileMenu extends Component {

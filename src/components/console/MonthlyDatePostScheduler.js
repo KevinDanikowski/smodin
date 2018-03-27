@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Dropdown from 'react-dropdown'
 import { monthlyDates, hours, minutes } from '../../constants'
 import _ from 'underscore'
-import { createSocialPostScheduling, socialPostsArray } from '../../createSocialPostScheduling.utils'
+//import { createSocialPostScheduling, socialPostsArray } from '../../createSocialPostScheduling.utils'
 
 class MonthlyDatePostScheduler extends Component {
     constructor(props) {
@@ -82,8 +82,8 @@ class MonthlyDatePostScheduler extends Component {
                 <h3 className='tc bg-black-20 mt0 pt2 pb2 mb1'>Monthly Dates</h3>
                 <FullDropdown />
                 <UserPostTimes />
-                <div className='tc pointer bg-red white ba br2 b--black-20'
-                     onClick={()=>{createSocialPostScheduling('monthly', 3, [], this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules, socialPostsArray)}}>Test Generation</div>
+                {/* WHEN SCHEDULE WORKS USE THIS <div className='tc pointer bg-red white ba br2 b--black-20'
+                     onClick={()=>{createSocialPostScheduling('monthly', 3, [], this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules, socialPostsArray)}}>Test Generation</div>*/}
                 <div className='tc pointer bg-green white ba br2 b--black-20'
                      onClick={()=>{this._generateRecommendedMonthlySchedule()}}>Generate Recommended Monthly Date Schedule</div>
             </div>

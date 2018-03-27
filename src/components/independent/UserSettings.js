@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { GC_USER_ID } from '../../constants'
-import { gql, graphql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import {USER_SETTINGS_QUERY,
     UPDATE_USER_NAME_MUTATION} from "../../graphql/users";
 
