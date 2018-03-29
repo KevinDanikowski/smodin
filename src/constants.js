@@ -1,3 +1,5 @@
+import {faFacebookSquare, faLinkedin, faTwitterSquare} from "@fortawesome/fontawesome-free-brands/index";
+
 export const GC_USER_ID = 'graphcool-user-id'
 export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 export const sampleSocialProfile = {
@@ -7,6 +9,11 @@ export const sampleSocialProfile = {
         id: null
     }
 }
+export const profileIcons = [
+    {profile: 'facebook', icon: faFacebookSquare, color: '#3b5998'},
+    {profile: 'twitter', icon: faTwitterSquare, color: '#55acee'},
+    {profile: 'linkedin', icon: faLinkedin, color: '#007bb5'}
+]
 export const socialProfiles = [
     {display: 'FB', profile: 'facebook'},
     {display:'T', profile: 'twitter'},

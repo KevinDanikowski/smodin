@@ -24,18 +24,6 @@ class SchedulePage extends Component {
         if (nextProps === this.props) return false
     }
     render() {
-        const userId = localStorage.getItem(GC_USER_ID)
-        if (!userId){
-            return(
-                <div>
-                    <h1 className="tc">Oops! You are not logged in!</h1>
-                    <button onClick={() => {
-                        this.props.history.push('/login')
-                    }}>Login
-                    </button>
-                </div>
-            )
-        }
         const DayScheduleArrayTopRow = () => {
             if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.loading) {
                 const weeklySchedulesLoading = [{hour: '...', minute: '...'}]

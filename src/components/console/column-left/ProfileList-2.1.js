@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {ALL_SOCIAL_PROFILES_QUERY} from "../../../graphql/socialProfiles";
 import { Link } from 'react-router-dom'
-import { GC_USER_ID } from '../../../constants'
+import {GC_USER_ID, sampleSocialProfile} from '../../../constants'
 
 class ProfileList extends Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class ProfileList extends Component {
                             <i className='fa fa-cog' aria-hidden="true"/>
                         </div>
                         :<div key={index} className='pl3p mb3 flex justify-between fs23p smodin-black pointer'
-                              onClick={()=>{this._sendSelectedSocialProfileIdToParent(socialProfile.id)}}>
+                              onClick={()=>{this._sendSelectedSocialProfileIdToParent(socialProfile.id, socialProfile.name, socialProfile.site)}}>
                                 {socialProfile.name}
                                 <i className='fa fa-cog h--smodin-white-p' aria-hidden="true"/>
                         </div>: null
@@ -61,7 +61,10 @@ class ProfileList extends Component {
             </div>
         )
     }
-    _sendSelectedSocialProfileIdToParent = (selectedSocialProfileId) => {
+    _sendSelectedSocialProfileIdToParent = (selectedSocialProfileId, selectedSPName, selectedSPSite) => {
+        localStorage.setItem('sp_id', selectedSocialProfileId)
+        localStorage.setItem('sp_name', selectedSPName)
+        localStorage.setItem('sp_site', selectedSPSite)
         this.props.receiveSelectedSocialProfileId(selectedSocialProfileId)
     }
 }

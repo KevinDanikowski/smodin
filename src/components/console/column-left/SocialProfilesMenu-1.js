@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import { socialProfiles } from '../../../constants'
+import { socialProfiles, profileIcons } from '../../../constants'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 //import {faCoffee} from '@fortawesome/fontawesome-free-solid'
-import {faTwitterSquare, faFacebookSquare, faLinkedin} from '@fortawesome/fontawesome-free-brands'
+import {faTwitterSquare, faFacebookSquare, faLinkedin} from '@fortawesome/fontawesome-free-brands'//used from import
 
-const profileIcons = [
-    {profile: 'facebook', icon: faFacebookSquare, color: '#3b5998'},
-    {profile: 'twitter', icon: faTwitterSquare, color: '#55acee'},
-    {profile: 'linkedin', icon: faLinkedin, color: '#007bb5'}
-]
 /* component passes hard coded tab of what profile is selected */
 class SocialProfilesMenu extends Component {
     constructor(props) {

@@ -14,7 +14,7 @@ import {deepPurple500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
-
+console.log(GRAPHCOOL_PROJECT_ID)
 const networkInterface = createNetworkInterface({
     uri: 'https://api.graph.cool/simple/v1/' + GRAPHCOOL_PROJECT_ID
 })

@@ -1,0 +1,59 @@
+@import './base/variables';
+
+#header {
+  background-color: #c5b6ec;
+  z-index: 1000;
+  box-shadow: 0px 3px 3px rgba(125, 125, 125, 0.67);
+  height: 55px;
+  border-bottom: 2px solid;
+  border-color: #867ba4;
+  display: flex;
+  .subheader{
+
+    .sp-icon{
+      margin: 5px 10px 5px 5px;
+      height: 45px;
+      width: 45px;
+      border-radius: 100%;
+      overflow: hidden;
+      background-color: #a44c2f;
+      color: white;
+      font-size: 30px;
+      img{
+        height: 100%;
+      }
+      .sp-icon-site {
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        left: 38px;
+        bottom: 3px;
+      }
+    }
+    span{
+      color: white;
+      font-size: 34px;
+    }
+    .left-header {
+      color: white;
+      .link{
+        color: white;
+        font-size: 14px;
+        margin: 3px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: font-size 0.5s;
+        &:hover{
+          font-size: 20px;
+        }
+        &-active{
+          cursor: default;
+          color: $smodin-red;
+          margin: 3px;
+          text-decoration: none;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

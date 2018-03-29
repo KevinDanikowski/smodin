@@ -8,12 +8,7 @@ import TutorialPage from './independent/TutorialPage'
 import CreateSocialProfilePage from './independent/CreateSocialProfilePage'
 import FontAwesome from 'react-fontawesome'
 import { GC_USER_ID } from '../constants'
-import '../scss/index.scss'
-import '../scss/npm.components.scss'
-import '../scss/SocialPosts.scss'
-import '../scss/ParametersSCSS.scss'
-import '../scss/SocialProfiles.scss'
-import '../scss/Console.scss'
+import '../scss/base/base.scss'
 
 class App extends Component {
     render() {

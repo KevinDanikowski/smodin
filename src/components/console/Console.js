@@ -23,7 +23,7 @@ class Console extends Component {
         const defaultSite = 'facebook'
         const defaultColumnTwo = 'profilemenu'
         const defaultSelectedSocialProfileId = null
-        const defaultSelectedSocialProfile = {id: null, site: 'facebook', industry: {id: null}}
+        const defaultSelectedSocialProfile = {id: null, site: 'facebook', name: 'Name...', industry: {id: null}}
         this.state = {
             searchText: defaultSearchText,
             tab: defaultTab,
@@ -45,11 +45,14 @@ class Console extends Component {
             (!nextProps.allSocialProfilesQuery.loading && !nextProps.allSocialProfilesQuery.error)) {
             const firstSocialProfile = nextProps.allSocialProfilesQuery.allSocialProfiles[0]
             this.setState({
-                //todo doesn't work for guest
+                //todo doesn't work for guest or any profile with no first profiles
                 selectedSocialProfileId: (firstSocialProfile)? firstSocialProfile.id : sampleSocialProfile.id,
                 site: (firstSocialProfile)?firstSocialProfile.site : sampleSocialProfile.site,
                 selectedSocialProfile: (firstSocialProfile)? firstSocialProfile : sampleSocialProfile
             })
+            localStorage.setItem('sp_id', (firstSocialProfile)? firstSocialProfile.id : sampleSocialProfile.id)
+            localStorage.setItem('sp_name', (firstSocialProfile)? firstSocialProfile.name : sampleSocialProfile.name)
+            localStorage.setItem('sp_site', (firstSocialProfile)? firstSocialProfile.site : sampleSocialProfile.site)
         }
     }
     render() {
@@ -115,7 +118,8 @@ class Console extends Component {
                         {(this.state.tab === 'schedule')?
                         <SchedulePage
                             selectedSocialProfileId={this.state.selectedSocialProfileId}
-                            scheduleType={this.state.scheduleType}/> : null }
+                            scheduleType={this.state.scheduleType}
+                            allSocialProfilesQuery={this.props.allSocialProfilesQuery}/> : null }
                         {(this.state.tab === 'queue')?
                         <QueuePage
                             selectedSocialProfileId={this.state.selectedSocialProfileId}

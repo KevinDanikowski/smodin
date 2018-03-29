@@ -153,6 +153,21 @@ module.exports = {
               compact: true,
             },
           },
+            //SVG loaders
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    },
+                    {
+                        loader: "react-svg-loader",
+                        options: {
+                            jsx: true // true outputs JSX tags
+                        }
+                    }
+                ]
+            },
             // .SCSS LOADERS
             {
                 test: /\.scss$/,

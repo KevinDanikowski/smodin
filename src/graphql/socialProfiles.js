@@ -4,7 +4,10 @@ import {gql} from "react-apollo/index";
 export const ALL_SOCIAL_PROFILES_QUERY = gql`
   query AllSocialProfilesQuery ($id: ID!) {
     allSocialProfiles (filter: {user: {id: $id}}){
-          id site industry {id} name
+          id site name
+          industry {id} 
+          weeklySchedules { id day hour minute }
+          monthlySchedules { id monthlyScheduleType monthDay monthDate hour minute }
         }}`
 export const CREATE_SOCIAL_PROFILE_MUTATION = gql`
     mutation CreateSocialProfileMutation(
