@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Header from './header/Header'
 import Login from './independent/Login'
 import Console from './console/Console'
@@ -11,6 +11,16 @@ import { GC_USER_ID } from '../constants'
 import '../scss/base/base.scss'
 
 class App extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            sp: {
+                spId: null,
+                spName: 'Name...',
+                spSite: null,
+                spPhotoUrl: null}
+        }
+    }
     render() {
         const userId = localStorage.getItem(GC_USER_ID)
         const Footer = () => {
@@ -43,7 +53,7 @@ class App extends Component {
         return (
           <div className='flexbox-parent'>
             <div className='' >
-                <Header />
+                <Header sp={this.state.sp}/>
             </div>
             <div className='flex-1 overflow-auto fill-area background-gray'>
               <Switch>
@@ -51,7 +61,7 @@ class App extends Component {
                   <Route exact path='/' render={() => <Redirect to='/console' />} />
                   :<Route exact path='/' render={() => <Redirect to='/login' />} />}
                   <Route exact path='/login' component={Login} />
-                  <Route exact path='/console' component={Console} />
+                  <Route exact path='/console' render={(props)=><Console sendSPToParent={this._updateSP} {...props}/>} />
                   <Route exact path='/settings' component={UserSettings} />
                   <Route exact path='/tutorial' component={TutorialPage} />
                   <Route exact path='/create-profile' render={(props)=><CreateSocialProfilePage {...props}/>} />
@@ -61,6 +71,9 @@ class App extends Component {
           </div>
         )
     }
+    _updateSP = (spId, spName, spSite, spPhotoUrl) => {
+        this.setState({sp:{spId: spId, spName: spName, spSite: spSite, spPhotoUrl: null}})
+    }
 }
 
-export default App;
+export default withRouter(App);

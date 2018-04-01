@@ -11,16 +11,6 @@ import SmodinSVG from '../../images/smodin-logo.svg'
 import '../../scss/components.scss'
 
 class Header extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            spId:  localStorage.getItem('sp_id') || null,
-            spName: localStorage.getItem('sp_name') || 'Name...',
-            spSite: localStorage.getItem('sp_site') || null,
-            spPhotoUrl: localStorage.getItem('sp_url') || null
-        }
-    }
-
     render() {
         const path = window.location.pathname
         const userId = localStorage.getItem(GC_USER_ID)
@@ -42,17 +32,19 @@ class Header extends Component {
             )
         }
         const ConsoleHeader = () => {
-            const SPIcon = profileIcons.find(profileIcon=> profileIcon.profile === this.state.spSite)
+            const SPIcon = profileIcons.find(profileIcon=> profileIcon.profile === this.props.sp.spSite)
+            const color = (SPIcon)?SPIcon.color: ''
+            const icon = (SPIcon)?SPIcon.icon: ''
             return (
                 <div className='subheader flex justify-between w-100'>
                     <div className='flex justify-center items-center relative'>
                         <div className='sp-icon flex justify-center items-center'>
-                            {(this.state.spPhotoUrl)?<img src={this.state.spPhotoUrl} alt={this.state.spName}/>:
-                            <span>{this.state.spName.charAt(0)}</span>}
-                            <FontAwesomeIcon className='sp-icon-site' style={{color: SPIcon.color}} icon={SPIcon.icon} />
+                            {(this.props.sp.spPhotoUrl)?<img src={this.props.sp.spPhotoUrl} alt={this.props.sp.spName}/>:
+                            <span>{this.props.sp.spName.charAt(0)}</span>}
+                            <FontAwesomeIcon className='sp-icon-site' style={{color: color}} icon={icon || faFacebookSquare} />
                         </div>
                         <span className='sp-name i flex justify-center items-center'>
-                            {this.state.spName}
+                            {this.props.sp.spName}
                         </span>
                     </div>
                     <div className='left-header flex items-center  mr2'>

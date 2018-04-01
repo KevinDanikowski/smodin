@@ -9,6 +9,7 @@ import './Login.css'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import SmodinSVG from '../../images/smodin-logo.svg'
 
 class Login extends Component {
 
@@ -46,9 +47,7 @@ class Login extends Component {
                     <Card>
                         <div style={loginLogo}
                              className="flex justify-center items-center">
-                            <img src="/smodin-logo.png"
-                                 alt="Smodin"
-                                 style={{width: '80px'}}/>
+                            <SmodinSVG className='' width={80} height={80}/>
                         </div>
                         <CardTitle title={this.state.login ? 'Login' : 'Sign Up'}
                                     style={{textAlign: 'center',

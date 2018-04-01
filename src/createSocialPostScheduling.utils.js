@@ -2,7 +2,7 @@ const moment = require('moment')
 const _ = require('underscore')
 const date = new Date()
 const month = (date.getMonth() + 1)
-/*
+
 const defaultWeeklyPostSchedules = [
     {day: '1', hour: '11', minute: '27'},
     {day: '2', hour: '14', minute: '34'},
@@ -25,15 +25,15 @@ const defaultMonthlyPostSchedules = [
     {monthlyScheduleType: 'monthDay', monthDate: '', monthDay: '41', hour: '18', minute: '18'},
     {monthlyScheduleType: 'monthDay', monthDate: '', monthDay: '44', hour: '19', minute: '19'},
     {monthlyScheduleType: 'monthDay', monthDate: '', monthDay: '53', hour: '20', minute: '20'},
-]*/
-export const socialPostsArray = [
+]
+const socialPostsArray = [
     {id: '1', message: 'message here', image: {id: '1', url: 'www.testurl.com'}, lastPosted: '20171209'},
     {id: '2', message: 'message 2', image: {id: '2', url: 'www.ota.ai'}, lastPosted: '20171101'},
     {id: '3', message: 'message 3', image: {id: '3', url: 'www.smo.ai'}, lastPosted: ''},
     {id: '4', message: 'message 4', image: {id: '4', url: 'www.okie.ai'}, lastPosted: ''},
 ]
 
-export function createSocialPostScheduling(scheduleType,scheduleDuration,weeklySchedules,monthSchedules,socialPostsArray) {
+/*export*/function createSocialPostScheduling(scheduleType,scheduleDuration,weeklySchedules,monthSchedules,socialPostsArray) {
     let postSchedules = []
     if (scheduleType === 'weekly') {
         postSchedules = setWeeklySchedules(weeklySchedules, scheduleDuration)
@@ -144,4 +144,10 @@ function setWeeklySchedules(weeklySchedules, scheduleDuration) {
     return outputArray
 }
 
-//let test = createSocialPostScheduling('monthly', 1, defaultWeeklyPostSchedules, defaultMonthlyPostSchedules, socialPostsArray)
+let test = createSocialPostScheduling('monthly', 1, defaultWeeklyPostSchedules, defaultMonthlyPostSchedules, socialPostsArray)
+console.log(test)
+/*
+RETURN VALUE
+{ socialPost: { id: '4', message: 'message 4', image: [Object] },
+    schedule: { month: 3, date: 26, hour: '19', minute: '19' } }
+ */

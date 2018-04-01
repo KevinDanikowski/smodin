@@ -50,6 +50,8 @@ class Console extends Component {
                 site: (firstSocialProfile)?firstSocialProfile.site : sampleSocialProfile.site,
                 selectedSocialProfile: (firstSocialProfile)? firstSocialProfile : sampleSocialProfile
             })
+            this.props.sendSPToParent(firstSocialProfile.id, firstSocialProfile.name, firstSocialProfile.site, null)
+            //todo probably dont need this localStorages any more since pass info to App.js
             localStorage.setItem('sp_id', (firstSocialProfile)? firstSocialProfile.id : sampleSocialProfile.id)
             localStorage.setItem('sp_name', (firstSocialProfile)? firstSocialProfile.name : sampleSocialProfile.name)
             localStorage.setItem('sp_site', (firstSocialProfile)? firstSocialProfile.site : sampleSocialProfile.site)
@@ -82,7 +84,7 @@ class Console extends Component {
                             <ProfileList
                                 socialProfile={this.state.site}
                                 selectedSocialProfileId={this.state.selectedSocialProfileId}
-                                receiveSelectedSocialProfileId={this._passSelectedSocialProfileId}/> : null}
+                                receiveSelectedSocialProfile={this._passSelectedSocialProfile}/> : null}
                         {(this.state.columnTwo === 'profilemenu')?
                             <ProfileMenu
                                 tab={this.state.tab}
@@ -145,8 +147,9 @@ class Console extends Component {
     _passSocialProfile = (socialProfile) => {
         this.setState({ site: socialProfile })
     }
-    _passSelectedSocialProfileId = (selectedSocialProfileId) => {
-        this.setState({ selectedSocialProfileId: selectedSocialProfileId })
+    _passSelectedSocialProfile = (spId, spName, spSite, spPhotoUrl) => {
+        this.props.sendSPToParent(spId, spName, spSite, spPhotoUrl)
+        this.setState({ selectedSocialProfileId: spId })
     }
 }
 
