@@ -57,7 +57,7 @@ class Scheduler extends Component {
             )
         }
         return (
-            <div className='flex flex-column w160p bg-black-05 h-100 ba br2 b--black-20'>
+            <div className='flex flex-column bg-black-05 h-100 ba br2 b--black-20'>
                 <h3 className='tc bg-black-20 mt0 mb1'>{this.props.day}</h3>
                 <FullDropdown />
                 <UserPostTimes />

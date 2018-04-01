@@ -17,8 +17,8 @@ class Console extends Component {
     constructor(props) {
         super(props)
         const defaultSearchText = ''
-        const defaultTab = 'posts'
-        const defaultScheduleType = 'monthly'
+        const defaultTab = 'schedule'
+        const defaultScheduleType = 'weekly'
         const defaultBuildView = 'calendar'
         const defaultSite = 'facebook'
         const defaultColumnTwo = 'profilemenu'

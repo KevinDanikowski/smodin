@@ -11,7 +11,7 @@ class Search extends Component {
     render() {
         return (
             <div className='flex items-center justify-end'>
-                {(this.props.tab === 'schedule')?
+                {(this.props.tab === 'schedules')?
                     <div className='inline-flex'>
                         <div className='self-center fw6 white mr3 '>
                             <span className='mr2'>Schedule</span>

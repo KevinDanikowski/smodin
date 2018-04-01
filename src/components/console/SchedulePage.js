@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
-import { GC_USER_ID, dayArray, defaultWeeklyPostSchedules, defaultMonthlyDatePostSchedules, defaultMonthlyDayPostSchedules } from '../../constants'
+import { dayArray, defaultWeeklyPostSchedules, defaultMonthlyDatePostSchedules, defaultMonthlyDayPostSchedules } from '../../constants'
 import {ADD_MONTHLY_POST_SCHEDULE_MUTATION,
     ADD_WEEKLY_POST_SCHEDULE_MUTATION,
     ALL_POST_SCHEDULES_QUERY,
+    ALL_WEEKLY_POST_SCHEDULES_QUERY,
+    ALL_MONTHLY_POST_SCHEDULES_QUERY,
     DELETE_MONTHLY_POST_SCHEDULE_MUTATION,
     DELETE_WEEKLY_POST_SCHEDULE_MUTATION} from "../../graphql/schedules";
+import { ALL_SOCIAL_PROFILES_QUERY} from "../../graphql/socialProfiles"
 import MonthlyDatePostScheduler from './MonthlyDatePostScheduler'
 import MonthlyDayPostScheduler from './MonthlyDayPostScheduler'
 import Scheduler from './Scheduler'
@@ -16,98 +19,75 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 class SchedulePage extends Component {
     constructor(props) {
         super(props)
+        const defaultScheduleType = this.props.scheduleType
         this.state = {
-            scheduleType: this.props.scheduleType
+            weeklySchedules: [],
+            monthlySchedules: [],
+            scheduleType: defaultScheduleType
         }
     }
     componentWillUpdate(nextProps, nextState){
         if (nextProps === this.props) return false
     }
+    componentWillReceiveProps(nextProps, nextState){
+        const weeklyQuery = nextProps.allWeeklyPostSchedulesQuery //updates weekly and monthly schedules in state
+        if (weeklyQuery && !weeklyQuery.loading && !weeklyQuery.error){
+            this.setState({
+                weeklySchedules: weeklyQuery.allWeeklyPostSchedules,
+            })
+        }
+        const monthlyQuery = nextProps.allMonthlyPostSchedulesQuery //updates weekly and monthly schedules in state
+        if (monthlyQuery && !monthlyQuery.loading && !monthlyQuery.error){
+            this.setState({
+                monthlySchedules: monthlyQuery.allMonthlyPostSchedules,
+            })
+        }//TODO JUST FINISHED CHECKING THIS WORKS, NOW ADJUST DELETING AND ADDING
+    }
     render() {
-        const DayScheduleArrayTopRow = () => {
-            if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.loading) {
-                const weeklySchedulesLoading = [{hour: '...', minute: '...'}]
-                return dayArray.map((dayObject, index) => {
-                    return (dayObject.number < '5')?
-                        <div key={index} className='w25pr mw160p'>
-                            <Scheduler day={dayObject.day}
-                                       weeklySchedules={weeklySchedulesLoading}/>
-                        </div> : null
-                }
-                )
-            }
-            if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.error) {
-                const weeklySchedulesLoading = [{hour: 'ERR', minute: 'ERR'}]
-                return dayArray.map((dayObject, index) => {
-                    return (dayObject.number < '5')?
-                        <div key={index} className='w25pr mw160p'>
-                            <Scheduler day={dayObject.day}
-                                       weeklySchedules={weeklySchedulesLoading}/>
-                        </div> : null
-                }
-                )
-            }
-            return dayArray.map((dayObject, index) => {
-                const schedules = this.props.allPostSchedulesQuery.allPostSchedules[0]
-                const weeklySchedules = (schedules)? schedules.weeklySchedules.filter((schedule)=> {return schedule.day === dayObject.number}) : []
-                return (dayObject.number < '5')?
-                    <div key={index} className='w25pr mw160p'>
-                        <Scheduler day={dayObject.day}
-                            dayNumber={dayObject.number}
-                            weeklySchedules={weeklySchedules}
-                            deleteWeeklyPostSchedule={this._handleDeleteWeeklyPostSchedule}
-                            addWeeklyPostSchedule={this._handleAddWeeklyPostSchedule}/>
-                    </div> : null
-                }
+        const Ribbon = () => {
+            return(
+                <div className='c-ribbon'>
+                    <div className='flex items-center justify-end'>
+                        <div className='inline-flex'>
+                            <div className='self-center fw6 white mr3 '>
+                                <span className='mr2'>Schedule</span>
+                                <span>Type:</span>
+                            </div>
+                            {(this.state.scheduleType === 'monthly')?
+                                <div className='scheduletypebutton-chosen scheduletypebuttonleft fw6 pa2'>Monthly</div>
+                                :<div className='scheduletypebutton scheduletypebuttonleft fw6 pa2'
+                                      onClick={() => {this.setState({scheduleType:'monthly'})}}>Monthly</div>}
+                            {(this.state.scheduleType === 'weekly')?
+                                <div className='scheduletypebutton-chosen scheduletypebuttonright fw6 pa2 mr3'>Weekly</div>
+                                :<div className='scheduletypebutton scheduletypebuttonright fw6 pa2 mr3'
+                                      onClick={() => {this.setState({scheduleType: 'weekly'})}}>Weekly</div>}
+                        </div>
+                    </div>
+                </div>
             )
         }
-        const DayScheduleArrayBottomRow = () => {
-            if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.loading) {
-                const weeklySchedulesLoading = [{hour: '...', minute: '...'}]
-                return dayArray.map((dayObject, index) => {
-                        return (dayObject.number > '4')?
-                            <div key={index} className='w25pr mw160p'>
-                                <Scheduler day={dayObject.day}
-                                           weeklySchedules={weeklySchedulesLoading}/>
-                            </div> : null
-                    }
-                )
-            }
-            if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.error) {
-                const weeklySchedulesLoading = [{hour: 'ERR', minute: 'ERR'}]
-                return dayArray.map((dayObject, index) => {
-                        return (dayObject.number > '4')?
-                            <div key={index} className='w25pr'>
-                                <Scheduler day={dayObject.day}
-                                           weeklySchedules={weeklySchedulesLoading}/>
-                            </div> : null
-                    }
-                )
-            }
+        const DayScheduleArrayTopRow = () => {
+            const weeklySchedules = this.state.weeklySchedules
             return dayArray.map((dayObject, index) => {
-                const schedules = this.props.allPostSchedulesQuery.allPostSchedules[0]
-                const weeklySchedules = (schedules) ? schedules.weeklySchedules.filter((schedule)=> {return schedule.day === dayObject.number}) : []
-                    return (dayObject.number > '4')?
-                        <div key={index} className='w25pr mw160p'>
-                            <Scheduler day={dayObject.day}
-                                       dayNumber={dayObject.number}
-                                       weeklySchedules={weeklySchedules}
-                                       deleteWeeklyPostSchedule={this._handleDeleteWeeklyPostSchedule}
-                                       addWeeklyPostSchedule={this._handleAddWeeklyPostSchedule}/>
-                        </div> : null
+                const filteredWeeklySchedules = weeklySchedules.filter(schedule => schedule.day === dayObject.number)
+                return (
+                    <div key={index} className='sch-weekly-box col-md-3 col-sm-6 col-12'>
+                        <Scheduler day={dayObject.day}
+                            dayNumber={dayObject.number}
+                            weeklySchedules={filteredWeeklySchedules}
+                            deleteWeeklyPostSchedule={this._handleDeleteWeeklyPostSchedule}
+                            addWeeklyPostSchedule={this._handleAddWeeklyPostSchedule}/>
+                    </div>)
                 }
             )
         }
         const WeeklyScheduleType = () => {
             return(
-                <div className='flex flex-column h-100'>
-                    <div className='h-50 flex no-wrap justify-start'>
+                <div className='flex flex-column h-100 flex-1'>
+                    <div className='row'>
                         <DayScheduleArrayTopRow />
-                    </div>
-                    <div className='h-50 flex no-wrap justify-start'>
-                        <DayScheduleArrayBottomRow />
-                        <div className='w25pr flex'>
-                            <div className=' w160p h-100 flex items-center'>
+                        <div className='sch-weekly-box col-md-3 col-sm-6 col-12 flex'>
+                            <div className=' h-100 flex items-center'>
                                 <div className='tc pointer bg-green white ba br2 b--black-20'
                                      onClick={()=>{this._handleGenerateRecommendedWeeklySchedule()}}>Generate Recommended Schedule</div>
                             </div>
@@ -118,54 +98,37 @@ class SchedulePage extends Component {
 
         }
         const MonthlyScheduleType = () => {
-            const monthlyDateSchedules = () => {
-                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.loading) {
-                    return [{monthDate: '...', hour: '...', minute: '...'}]
-                }
-                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.error) {
-                    return [{monthDate: 'ERR', hour: 'ERR', minute: 'ERR'}]
-                }
-                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.allPostSchedules.length > 0) return this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.filter((schedule) => {
-                    return schedule.monthlyScheduleType === 'monthDate'})
-                else return [{monthDate: '...', hour: '...', minute: '...'}]
-            }
-            const monthlyDaySchedules = () => {
-                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.loading) {
-                    return [{monthDay: '...', hour: '...', minute: '...'}]
-                }
-                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.error) {
-                    return [{monthDay: 'ERR', hour: 'ERR', minute: 'ERR'}]
-                }
-                if (this.props.allPostSchedulesQuery && this.props.allPostSchedulesQuery.allPostSchedules.length > 0) return this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.filter((schedule) => {
-                    return schedule.monthlyScheduleType === 'monthDay'})
-                else return [{monthDay: '...', hour: '...', minute: '...'}]
-            }
+            const monthlyDateSchedules = this.state.monthlySchedules.filter((schedule) => {
+                    return schedule.monthlyScheduleType === 'monthDate'
+                })
+            const monthlyDaySchedules = this.state.monthlySchedules.filter((schedule) => {
+                    return schedule.monthlyScheduleType === 'monthDay'
+                })
             return (
-                <div className='flex h-100 w-100'>
+                <div className='flex h-100 w-100 flex-1'>
                     <div className='flex justify-center ma2 w-50 mw220p'>
                         <MonthlyDatePostScheduler
                             deleteMonthlyPostSchedule={this._handleDeleteMonthlyPostSchedule}
                             addMonthlyPostSchedule={this._handleAddMonthlyPostSchedule}
                             generateRecommendedMonthlySchedule={this._handleGenerateRecommendedMonthlySchedule}
-                            monthlyDateSchedules={monthlyDateSchedules()}
-                            allPostSchedulesQuery={this.props.allPostSchedulesQuery}/>
+                            monthlyDateSchedules={monthlyDateSchedules}/>
                     </div>
                     <div className='flex justify-center ma2 w-50 mw275p'>
                         <MonthlyDayPostScheduler
                             deleteMonthlyPostSchedule={this._handleDeleteMonthlyPostSchedule}
                             addMonthlyPostSchedule={this._handleAddMonthlyPostSchedule}
                             generateRecommendedMonthlySchedule={this._handleGenerateRecommendedMonthlySchedule}
-                            monthlyDateSchedules={monthlyDaySchedules()}
-                            allPostSchedulesQuery={this.props.allPostSchedulesQuery}/>
+                            monthlyDateSchedules={monthlyDaySchedules}/>
                     </div>
                 </div>
             )
         }
         return (
-            <div className='h-100 overflow-x-hidden'>
-                {(this.props.scheduleType === 'weekly')?
+            <div className='h-100 overflow-x-hidden flex flex-column'>
+                <Ribbon />
+                {(this.state.scheduleType === 'weekly')?
                     <WeeklyScheduleType />: null}
-                {(this.props.scheduleType === 'monthly')?
+                {(this.state.scheduleType === 'monthly')?
                     <MonthlyScheduleType />: null}
             </div>
         )
@@ -175,14 +138,15 @@ class SchedulePage extends Component {
             variables: {
                 id: id
             },
-            update: (store) => {
+            update: (store) => {//TODO getting internal server error if make post, then delete one?
+                console.log(id)
                 const SPId = this.props.selectedSocialProfileId
-                const data = store.readQuery({query: ALL_POST_SCHEDULES_QUERY, variables: {
+                const data = store.readQuery({query: ALL_WEEKLY_POST_SCHEDULES_QUERY, variables: {
                     socialProfileId: SPId
                 }})
-                const deletedWeeklyPostScheduleIndex = data.allPostSchedules[0].weeklySchedules.findIndex((weeklyPostSchedule) => (weeklyPostSchedule.id === id))
-                data.allPostSchedules[0].weeklySchedules.splice(deletedWeeklyPostScheduleIndex, 1)
-                store.writeQuery({query: ALL_POST_SCHEDULES_QUERY, data, variables: {
+                const deletedWeeklyPostScheduleIndex = data.allWeeklyPostSchedules.findIndex((weeklyPostSchedule) => (weeklyPostSchedule.id === id))
+                data.allWeeklyPostSchedules.splice(deletedWeeklyPostScheduleIndex, 1)
+                store.writeQuery({query: ALL_WEEKLY_POST_SCHEDULES_QUERY, data, variables: {
                     socialProfileId: SPId
                 }})
             }
@@ -195,47 +159,46 @@ class SchedulePage extends Component {
             },
             update: (store) => {
                 const SPId = this.props.selectedSocialProfileId
-                const data = store.readQuery({query: ALL_POST_SCHEDULES_QUERY, variables: {
-                    socialProfileId: SPId
-                }})
-                const deletedMonthlyPostScheduleIndex = data.allPostSchedules[0].monthlySchedules.findIndex((monthlyPostSchedule) => (monthlyPostSchedule.id === id))
-                data.allPostSchedules[0].monthlySchedules.splice(deletedMonthlyPostScheduleIndex, 1)
-                store.writeQuery({query: ALL_POST_SCHEDULES_QUERY, data, variables: {
-                    socialProfileId: SPId
-                }})
+                const data = store.readQuery({query: ALL_MONTHLY_POST_SCHEDULES_QUERY, variables: {
+                        socialProfileId: SPId
+                    }})
+                const deletedMonthlyPostScheduleIndex = data.allMonthlyPostSchedules.findIndex((monthlyPostSchedule) => (monthlyPostSchedule.id === id))
+                data.allMonthlyPostSchedules.splice(deletedMonthlyPostScheduleIndex, 1)
+                store.writeQuery({query: ALL_MONTHLY_POST_SCHEDULES_QUERY, data, variables: {
+                        socialProfileId: SPId
+                    }})
             }
         })
     }
     _handleAddWeeklyPostSchedule = async (day, hour, minute) => {
-        const postScheduleId = this.props.allPostSchedulesQuery.allPostSchedules[0].id
+        const SPId = this.props.selectedSocialProfileId
         await this.props.addWeeklyPostScheduleMutation({
             variables: {
                 day: day,
                 hour: hour,
                 minute: minute,
-                postScheduleId: postScheduleId
+                socialProfileId: SPId
             },
             update: (store, {data: {createWeeklyPostSchedule} }) => {
-                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({
-                    query: ALL_POST_SCHEDULES_QUERY,
+                    query: ALL_WEEKLY_POST_SCHEDULES_QUERY,
                     variables: {
                         socialProfileId: SPId
                     }
                 })
-                data.allPostSchedules[0].weeklySchedules.push(createWeeklyPostSchedule)
+                data.allWeeklyPostSchedules.push(createWeeklyPostSchedule)
                 store.writeQuery({
-                    query: ALL_POST_SCHEDULES_QUERY,
-                    data,
+                    query: ALL_WEEKLY_POST_SCHEDULES_QUERY,
                     variables: {
                         socialProfileId: SPId
-                    }
+                    },
+                    data
                 })
             }
         })
     }
     _handleAddMonthlyPostSchedule = async (monthlyScheduleType, monthDate, monthDay, hour, minute) => {
-        const postScheduleId = this.props.allPostSchedulesQuery.allPostSchedules[0].id
+        const SPId = this.props.selectedSocialProfileId
         await this.props.addMonthlyPostScheduleMutation({
             variables: {
                 monthlyScheduleType: monthlyScheduleType,
@@ -243,19 +206,18 @@ class SchedulePage extends Component {
                 monthDay: monthDay,
                 hour: hour,
                 minute: minute,
-                postScheduleId: postScheduleId
+                socialProfileId: SPId
             },
             update: (store, {data: {createMonthlyPostSchedule} }) => {
-                const SPId = this.props.selectedSocialProfileId
                 const data = store.readQuery({
-                    query: ALL_POST_SCHEDULES_QUERY,
+                    query: ALL_MONTHLY_POST_SCHEDULES_QUERY,
                     variables: {
                         socialProfileId: SPId
                     }
                 })
-                data.allPostSchedules[0].monthlySchedules.push(createMonthlyPostSchedule)
+                data.allMonthlyPostSchedules.push(createMonthlyPostSchedule)
                 store.writeQuery({
-                    query: ALL_POST_SCHEDULES_QUERY,
+                    query: ALL_MONTHLY_POST_SCHEDULES_QUERY,
                     data,
                     variables: {
                         socialProfileId: SPId
@@ -276,9 +238,9 @@ class SchedulePage extends Component {
             }
         })
         const deleteExistingWeeklySchedules = async () => {
-            const firstPostSchedule = this.props.allPostSchedulesQuery.allPostSchedules[0]
-            if(firstPostSchedule) {
-                this.props.allPostSchedulesQuery.allPostSchedules[0].weeklySchedules.map(async (schedule) => {
+            const schedules = this.props.allWeeklyPostSchedulesQuery.allWeeklyPostSchedules
+            if(schedules[0]) {
+                schedules.map(async (schedule) => {
                     this._handleDeleteWeeklyPostSchedule(schedule.id)
                 })
             }
@@ -308,9 +270,9 @@ class SchedulePage extends Component {
             defaultMonthlyPostSchedules = defaultMonthlyDayPostSchedules
         }
         const deleteExistingMonthlySchedules = async () => {
-            const firstPostSchedule = this.props.allPostSchedulesQuery.allPostSchedules[0]
-            if (firstPostSchedule) {
-                this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules.map(async (schedule) => {
+            const schedules = this.props.allMonthlyPostSchedulesQuery.allMonthlyPostSchedules
+            if (schedules[0]) {
+                schedules.map(async (schedule) => {
                     this._handleDeleteMonthlyPostSchedule(schedule.id)
                 })
             }
@@ -329,16 +291,26 @@ class SchedulePage extends Component {
 }
 
 SchedulePage.propTypes = {
-    selectedSocialProfileId: PropTypes.string
+    selectedSocialProfileId: PropTypes.string,
 }
+
 export default compose(
-    graphql(ALL_POST_SCHEDULES_QUERY, {
-        name: 'allPostSchedulesQuery',
+    graphql(ALL_WEEKLY_POST_SCHEDULES_QUERY, {
+        name: 'allWeeklyPostSchedulesQuery',
+        skip: (ownProps) => ownProps.selectedSocialProfileId === null,
         options: (ownProps) => {
-            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { socialProfileId: SPId }
-            }}}),
+                variables: {
+                    socialProfileId: ownProps.selectedSocialProfileId
+                }}}}),
+    graphql(ALL_MONTHLY_POST_SCHEDULES_QUERY, {
+        name: 'allMonthlyPostSchedulesQuery',
+        skip: (ownProps) => ownProps.selectedSocialProfileId === null,
+        options: (ownProps) => {
+            return {
+                variables: {
+                    socialProfileId: ownProps.selectedSocialProfileId
+                }}}}),
     graphql(DELETE_WEEKLY_POST_SCHEDULE_MUTATION, { name: 'deleteWeeklyPostScheduleMutation'}),
     graphql(DELETE_MONTHLY_POST_SCHEDULE_MUTATION, { name: 'deleteMonthlyPostScheduleMutation'}),
     graphql(ADD_MONTHLY_POST_SCHEDULE_MUTATION, { name: 'addMonthlyPostScheduleMutation'}),

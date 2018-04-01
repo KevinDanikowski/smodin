@@ -83,7 +83,7 @@ class MonthlyDayPostScheduler extends Component {
         }
         return (
             <div className='flex flex-column w-80 bg-black-05 h-100 ba br2 b--black-20 mw275p'>
-                <h3 className='tc bg-black-20 mt0 pt2 pb2 mb1'>Monthly Week Days</h3>
+                <h3 className='tc bg-black-20 mt0 pt2 pb2 mb1'>Add By Day</h3>
                 <FullDropdown />
                 <UserPostTimes />
                 {/* WHEN SCHEDULE WORKS USE THIS <div className='tc pointer bg-red white ba br2 b--black-20'

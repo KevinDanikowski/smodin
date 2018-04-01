@@ -56,3 +56,23 @@
     font-weight: 600;
     cursor: pointer;
 }
+.c-ribbon {
+    background-color: #fffefd;
+    border-left: 2px solid #d7d0cc;
+    border-bottom: 2px solid #d7d0cc;
+    border-radius: 0px 0px 0px 10px;
+    margin-bottom: 5px;
+    padding: 3px;
+    &_parameters {
+
+    }
+    &_posts {
+
+    }
+    &_schedules {
+
+    }
+    &_queue {
+
+    }
+}
