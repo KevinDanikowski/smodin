@@ -7,7 +7,6 @@ import ParameterList from './ParameterList'
 import SocialPostList from './SocialPostList'
 import SchedulePage from './SchedulePage'
 import QueuePage from './QueuePage'
-import ConsoleRibbon from './ConsoleRibbon'
 import SocialProfileColumn from './column-left/SocialProfilesMenu-1'
 import ProfileMenu from './column-left/ProfileMenu-2.2'
 import ProfileList from './column-left/ProfileList-2.1'
@@ -95,16 +94,6 @@ class Console extends Component {
                 {(this.defaultSelectedSocialProfileId === '')?
                     <CreateSocialProfileLink />
                 :<div className='flex-1 overflow-auto fill-area-col'>
-                    {(this.state.tab === 'posts')? null:
-                    <div className='console-ribbon-design pt1 pb1 mb1'>
-                        <ConsoleRibbon
-                            tab={this.state.tab}
-                            defaultScheduleType={this.state.scheduleType}
-                            defaultBuildView={this.state.buildView}
-                            receiveTab={this._passTab}
-                            receiveScheduleType={this._passScheduleType}
-                            receiveBuildView={this._passBuildView}/>
-                    </div>}
                     <div className='flex-1 overflow-auto'>
                         {(this.state.tab === 'parameters')?
                         <ParameterList
@@ -137,12 +126,6 @@ class Console extends Component {
     }
     _passTab = (tab) => {
         this.setState({ tab: tab })
-    }
-    _passScheduleType = (scheduleType) => {
-        this.setState({ scheduleType: scheduleType })
-    }
-    _passBuildView = (buildView) => {
-        this.setState({ buildView: buildView })
     }
     _passSocialProfile = (socialProfile) => {
         this.setState({ site: socialProfile })

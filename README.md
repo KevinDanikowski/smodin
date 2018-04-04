@@ -20,13 +20,15 @@ Main Benefit: Create one year worth of ready to use social posts scheduled withi
 - Schedule out your posts to Facebook/LinkedIn/Etc.
 - And much more (yet to be disclosed)!
 
-## Build
+# Build
+### Please checkout the 'develop' branch for updated project code
 This platform was built using
 - Languages (Javascript)
 - Backend (GraphCool which uses SQL database and graphql)
-- Frontend (React and GraphQL)
+- Frontend (React, Apollo and GraphQL)
 - Testing (Mocha, Chai, Enzyme)
-- Additional Items (jQuery, mongoDB and Express in microservice, cron jobs)
+- Microservices
+..* [microservice-cron-post-scheduler](https://github.com/KevinDanikowski/microservice-cron-post-scheduler)
 
 ## Current Tasks in Order
 1. Finish Reworking Database

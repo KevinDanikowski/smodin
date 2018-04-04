@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 //import { graphql, gql, compose } from 'react-apollo'
 import { GC_USER_ID, buildTimeFrames } from '../../constants'
 import FullCalendar from './Calendar'
-import ScheduledList from './ScheduledList'
 import Dropdown from 'react-dropdown'
 import '../../scss/QueuePage.scss'
 
@@ -64,10 +63,7 @@ class QueuePage extends Component {
         return (
             <div className='h-100 flex inline-flex overflow-x-hidden w-100'>
                 <div className='flex-1 pa1 overflow-y-scroll'>
-                    {(this.props.buildView === 'calendar') ?
-                        <FullCalendar /> : null}
-                    {(this.props.buildView === 'list') ?
-                        <ScheduledList /> : null}
+                    <FullCalendar />
                 </div>
                 <BuildSidebar />
             </div>

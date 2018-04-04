@@ -30,5 +30,5 @@ class Calendar extends Component {
         })
     }
 }
-
+//TODO ADD QUERY TO GET SCHEDULED POSTS, THIS WILL CALL FROM API.SMODIN.ME/GRAPHQL
 export default Calendar
