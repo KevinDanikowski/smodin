@@ -14,9 +14,8 @@ class Console extends Component {
     constructor(props) {
         super(props)
         const defaultSearchText = ''
-        const defaultTab = 'schedule'
+        const defaultTab = 'posts'
         const defaultScheduleType = 'monthly'
-        const defaultBuildView = 'calendar'
         const defaultSite = 'facebook'
         const defaultColumnTwo = 'profilemenu'
         const defaultSelectedSocialProfileId = null
@@ -25,7 +24,6 @@ class Console extends Component {
             searchText: defaultSearchText,
             tab: defaultTab,
             scheduleType: defaultScheduleType,
-            buildView: defaultBuildView,
             selectedSocialProfile: defaultSelectedSocialProfile,
             selectedSocialProfileId: defaultSelectedSocialProfileId,
             site: defaultSite,
@@ -91,8 +89,7 @@ class Console extends Component {
                         {(this.state.tab === 'queue')?
                         <QueuePage
                             selectedSocialProfileId={this.state.selectedSocialProfileId}
-                            scheduleType={this.state.scheduleType}
-                            buildView={this.state.buildView}/> : null }
+                            scheduleType={this.state.scheduleType}/> : null }
                     </div>
                 </div>}
             </div>

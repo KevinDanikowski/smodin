@@ -13,9 +13,6 @@ class QueuePage extends Component {
             scheduleLengthDisplay: 'length'
         }
     }
-    componentWillUpdate(nextProps, nextState){
-        if (nextProps === this.props) return false
-    }
     render() {
         const userId = localStorage.getItem(GC_USER_ID)
         if (!userId){
