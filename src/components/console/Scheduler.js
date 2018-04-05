@@ -20,7 +20,7 @@ class Scheduler extends Component {
             const sortedWeeklySchedules = _.sortBy((_.sortBy(weeklySchedules, 'minute')), 'hour')
             return sortedWeeklySchedules.map((time,index) => {
                 return (
-                    <div key={index} className='sch-weekly-box-item h20p flex justify-center mt1'>
+                    <div key={index} className=' h20p flex justify-center mt1'>
                         <span className='font-couriernew fw4 tc'>{time.hour}:{time.minute}</span>
                         <span className='ml3 fw6 red hover-white pointer'
                               onClick={() => {this._deleteWeeklyPostSchedule(time.id)}}>X</span>
@@ -30,7 +30,7 @@ class Scheduler extends Component {
         }
         const FullDropdown = () => {//
             return (
-                <div className='sch-weekly-box-dropdown inline-flex justify-center'>
+                <div className='sch-box-dropdown inline-flex justify-center items-center'>
                     <Dropdown
                         className='w50p mr2'
                         onChange={async (object)=> await this.setState({hour: object.value})}
@@ -50,8 +50,8 @@ class Scheduler extends Component {
             )
         }
         return (
-            <div className='sch-weekly-box flex flex-column items-center'>
-                <h3 className=''>{this.props.day}</h3>
+            <div className='sch-box weekly flex flex-column items-center'>
+                <h3>{this.props.day}</h3>
                 <FullDropdown />
                 <UserPostTimes />
             </div>

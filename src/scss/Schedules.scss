@@ -1,9 +1,16 @@
-.sch-weekly {
+.sch {
 
   &-box {
-    min-width: 200px;
+    &.weekly {
+      min-width: 200px;
+      margin: 10px;
+    }
+    &.monthly {
+      min-width: 300px;
+      margin: 20px;
+      padding-bottom: 20px;
+    }
     flex: 1;
-    margin: 10px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     box-sizing: border-box;
@@ -14,6 +21,7 @@
     }
     hr {
       height: 1px;
+      margin-top: 0;
       background-color: $smodin-light-purple;
       color: black;
       width: 85%;

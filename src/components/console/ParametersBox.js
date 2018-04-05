@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import PropTypes from 'prop-types'
 import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
+import LoadingIcon from '../independent/LoadingIcon'
 
 class ParametersBox extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class ParametersBox extends Component {
                     ))}
                 </div>
             )
-            else return <div>Loading...</div>
+            else return <LoadingIcon/>
         }
         return (
             <div className='borders flexbox-parent-console bg-smodin-black overflow-hidden b--smodin-gray mr0'>

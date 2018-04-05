@@ -83,15 +83,15 @@ class SchedulePage extends Component {
         }
         const WeeklyScheduleType = () => {
             return(
-                <div className='sch-weekly flex flex-wrap justify-around content-stretch items-stretch h-100 flex-1'>
+                <div className='sch flex flex-wrap justify-around content-stretch items-stretch h-100 flex-1'>
                     <DayScheduleArrayTopRow />
-                    <div className='sch-weekly-box flex flex-column justify-center'>
+                    <div className='sch-box weekly flex flex-column justify-center'>
                         <h3>Options</h3>
                         <hr />
                         <div className='flex justify-center'>
-                            <RaisedButton label={'Generate Pre-made Schedule'}
+                            <RaisedButton label={'Generate A Schedule'}
                                           onClick={() => this._handleGenerateRecommendedWeeklySchedule()}
-                                          style={{width: '80%'}}
+                                          style={{minWidth: '80%'}}
                                           backgroundColor={'#673AB7'}
                                           labelColor={'white'}/>
                         </div>
@@ -109,21 +109,17 @@ class SchedulePage extends Component {
                     return schedule.monthlyScheduleType === 'monthDay'
                 })
             return (
-                <div className='flex h-100 w-100 flex-1'>
-                    <div className='flex justify-center ma2 w-50 mw220p'>
-                        <MonthlyDatePostScheduler
-                            deleteMonthlyPostSchedule={this._handleDeleteMonthlyPostSchedule}
-                            addMonthlyPostSchedule={this._handleAddMonthlyPostSchedule}
-                            generateRecommendedMonthlySchedule={this._handleGenerateRecommendedMonthlySchedule}
-                            monthlyDateSchedules={monthlyDateSchedules}/>
-                    </div>
-                    <div className='flex justify-center ma2 w-50 mw275p'>
-                        <MonthlyDayPostScheduler
-                            deleteMonthlyPostSchedule={this._handleDeleteMonthlyPostSchedule}
-                            addMonthlyPostSchedule={this._handleAddMonthlyPostSchedule}
-                            generateRecommendedMonthlySchedule={this._handleGenerateRecommendedMonthlySchedule}
-                            monthlyDateSchedules={monthlyDaySchedules}/>
-                    </div>
+                <div className='sch flex flex-wrap justify-around content-stretch items-stretch h-100 flex-1'>
+                    <MonthlyDatePostScheduler
+                        deleteMonthlyPostSchedule={this._handleDeleteMonthlyPostSchedule}
+                        addMonthlyPostSchedule={this._handleAddMonthlyPostSchedule}
+                        generateRecommendedMonthlySchedule={this._handleGenerateRecommendedMonthlySchedule}
+                        monthlyDateSchedules={monthlyDateSchedules}/>
+                    <MonthlyDayPostScheduler
+                        deleteMonthlyPostSchedule={this._handleDeleteMonthlyPostSchedule}
+                        addMonthlyPostSchedule={this._handleAddMonthlyPostSchedule}
+                        generateRecommendedMonthlySchedule={this._handleGenerateRecommendedMonthlySchedule}
+                        monthlyDateSchedules={monthlyDaySchedules}/>
                 </div>
             )
         }

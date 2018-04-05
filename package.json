@@ -44,7 +44,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
-    "react": "^16.0.0",
+    "react": "^16.3.1",
     "react-addons-update": "^15.6.2",
     "react-apollo": "^1.4.16",
     "react-autosize-textarea": "^0.4.9",

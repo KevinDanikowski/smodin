@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Dropdown from 'react-dropdown'
 import { monthlyDates, hours, minutes } from '../../constants'
 import _ from 'underscore'
+import RaisedButton from 'material-ui/RaisedButton';
 //import { createSocialPostScheduling, socialPostsArray } from '../../createSocialPostScheduling.utils'
 
 class MonthlyDatePostScheduler extends Component {
@@ -47,8 +48,8 @@ class MonthlyDatePostScheduler extends Component {
                 else return date
             })
             return (
-                <div className='self-center flex justify-center flex-wrap items-center ma1'>
-                    <div className='flex inline-flex items-center'>
+                <React.Fragment>
+                    <div className='sch-box-dropdown inline-flex justify-center items-center'>
                         <Dropdown
                             className='w100p ma2'
                             onChange={async (object)=> await this.setState({monthDate: object.value})}
@@ -56,7 +57,7 @@ class MonthlyDatePostScheduler extends Component {
                             placeholder='date' options={monthlyDatesSimple} />
                         <div className=' fw6 mr2 ml2'>at</div>
                     </div>
-                    <div className='flex inline-flex items-center'>
+                    <div className='sch-box-dropdown inline-flex justify-center items-center'>
                         <Dropdown
                             className='w50p ma2'
                             onChange={async (object)=> await this.setState({hour: object.value})}
@@ -74,18 +75,25 @@ class MonthlyDatePostScheduler extends Component {
                             <i className="fa fa-calendar-check-o fa-2x ml1" aria-hidden="true"> </i>
                         </div>
                     </div>
-                </div>
+                </React.Fragment>
             )
         }
         return (
-            <div className='flex flex-column w-80 bg-black-05 h-100 ba br2 b--black-20 mw220p'>
-                <h3 className='tc bg-black-20 mt0 pt2 pb2 mb1'>Add By Date</h3>
+            <div className='sch-box monthly flex flex-column items-center'>
+                <h3>Add By Date</h3>
                 <FullDropdown />
                 <UserPostTimes />
                 {/* WHEN SCHEDULE WORKS USE THIS <div className='tc pointer bg-red white ba br2 b--black-20'
                      onClick={()=>{createSocialPostScheduling('monthly', 3, [], this.props.allPostSchedulesQuery.allPostSchedules[0].monthlySchedules, socialPostsArray)}}>Test Generation</div>*/}
-                <div className='tc pointer bg-green white ba br2 b--black-20'
-                     onClick={()=>{this._generateRecommendedMonthlySchedule()}}>Generate Recommended Monthly Date Schedule</div>
+                <h3>Options</h3>
+                <hr />
+                <div className='flex justify-center'>
+                    <RaisedButton label={'Generate A Schedule'}
+                                  onClick={() => this._generateRecommendedMonthlySchedule()}
+                                  style={{minWidth: '90%'}}
+                                  backgroundColor={'#673AB7'}
+                                  labelColor={'white'}/>
+                </div>
             </div>
         )
     }

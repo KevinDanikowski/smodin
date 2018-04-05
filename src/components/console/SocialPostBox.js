@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {ALL_SOCIAL_POST_EXAMPLES_QUERY, ALL_SOCIAL_POST_IDEAS_QUERY} from "../../graphql/socialPosts";
+import LoadingIcon from '../independent/LoadingIcon'
 
 class SocialPostBox extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class SocialPostBox extends Component {
                         key={index}
                         className='social-post-example' >{SocialPost.message}</div>
                 ))
-            else return <div className='social-post-example'>loading...</div>
+            else return <LoadingIcon/>
         }
         const SocialPostIdeasArray = () => {
             if (this.props.allSocialPostIdeasQuery &&
@@ -31,7 +32,7 @@ class SocialPostBox extends Component {
                         key={index}
                         className='social-post-idea' >{SocialPost.idea}</div>
                 ))
-            else return <div className='social-post-idea' >loading...</div>
+            else return <LoadingIcon/>
         }
         return (
             <div className='flexbox-parent-console overflow-hidden bg-smodin-black'>
