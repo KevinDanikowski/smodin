@@ -9,7 +9,8 @@ import './Login.css'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import SmodinSVG from '../../images/smodin-logo.svg'
+import SmodinSVG from '../../images/smodin-logo.svg';
+// import { Button } from 'react-toolbox/lib/button';
 
 class Login extends Component {
 
