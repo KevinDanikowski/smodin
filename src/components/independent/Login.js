@@ -5,7 +5,6 @@ import {
     SIGNIN_USER_MUTATION,
     CREATE_USER_MUTATION
 } from "../../graphql/users";
-import './Login.css'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';

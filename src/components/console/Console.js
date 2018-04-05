@@ -7,17 +7,15 @@ import ParameterList from './ParameterList'
 import SocialPostList from './SocialPostList'
 import SchedulePage from './SchedulePage'
 import QueuePage from './QueuePage'
-import SocialProfileColumn from './column-left/SocialProfilesMenu-1'
-import ProfileMenu from './column-left/ProfileMenu-2.2'
-import ProfileList from './column-left/ProfileList-2.1'
 import CreateSocialProfileLink from './CreateSocialProfileLink'
+import LeftMenu from './column-left/LeftMenu'
 
 class Console extends Component {
     constructor(props) {
         super(props)
         const defaultSearchText = ''
         const defaultTab = 'schedule'
-        const defaultScheduleType = 'weekly'
+        const defaultScheduleType = 'monthly'
         const defaultBuildView = 'calendar'
         const defaultSite = 'facebook'
         const defaultColumnTwo = 'profilemenu'
@@ -59,37 +57,16 @@ class Console extends Component {
     render() {
         return (
             <div className='w-100 h-100 flex justify-start items-stretch-content-stretch'>
-                {/*column 1*/}
-                <SocialProfileColumn
+                <LeftMenu
                     socialProfile={this.state.site}
-                    receiveSocialProfile={this._passSocialProfile}/>
-                <div className='flex flex-column pb1 pr1'>
-                    {/*column 2*/}
-                    {/*column headers*/}
-                    <div className='flex nowrap justify-center items-center'>
-                        {(this.state.columnTwo === 'profilelist')?
-                        <div className='secondmenutab-l w45pr tc pt1 pb1 bg-smodin-white fs23p seg-semibold'>Profiles</div>
-                        :<div className='secondmenutab-l w45pr tc pt1 pb1 self-stretch h--bg-smodin-white-p'
-                            onClick={()=>{this.setState({columnTwo: 'profilelist'})}}>Profiles</div>}
-                        <div className='w2p self-stretch bg-smodin-gray'/>
-                        {(this.state.columnTwo === 'profilemenu')?
-                            <div className='secondmenutab-r w45pr tc pt1 pb1 bg-smodin-white fs23p seg-semibold'>Menu</div>
-                            :<div className='secondmenutab-r w45pr tc pt1 pb1 self-stretch h--bg-smodin-white-p'
-                                  onClick={()=>{this.setState({columnTwo: 'profilemenu'})}}>Menu</div>}
-                    </div>
-                    {/*column 2*/}
-                    <div className='flex-1 pt1 pr1 pl1 w200p flex overflow-y-scroll'>
-                        {(this.state.columnTwo) === 'profilelist'?
-                            <ProfileList
-                                socialProfile={this.state.site}
-                                selectedSocialProfileId={this.state.selectedSocialProfileId}
-                                receiveSelectedSocialProfile={this._passSelectedSocialProfile}/> : null}
-                        {(this.state.columnTwo === 'profilemenu')?
-                            <ProfileMenu
-                                tab={this.state.tab}
-                                receiveTab={this._passTab}/> : null}
-                    </div>
-                </div>
+                    receiveSocialProfile={this._passSocialProfile}
+                    tab={this.state.tab}
+                    site={this.state.site}
+                    receiveTab={this._passTab}
+                    columnTwo={this.state.columnTwo}
+                    selectedSocialProfileId={this.state.selectedSocialProfileId}
+                    receiveSelectedSocialProfile={this._passSelectedSocialProfile}
+                    />
                 {/*if no social profile*/}
                 {(this.defaultSelectedSocialProfileId === '')?
                     <CreateSocialProfileLink />

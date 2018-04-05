@@ -3,13 +3,10 @@ import { graphql, compose } from 'react-apollo'
 import {ALL_SOCIAL_PROFILES_QUERY} from "../../../graphql/socialProfiles";
 import { Link } from 'react-router-dom'
 import {GC_USER_ID, sampleSocialProfile} from '../../../constants'
+import LoadingIcon from '../../independent/LoadingIcon'
+import ErrorIcon from '../../independent/ErrorIcon'
 
 class ProfileList extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
-    }
     render() {
         const userId = localStorage.getItem(GC_USER_ID)
         if (!userId){
@@ -25,14 +22,10 @@ class ProfileList extends Component {
         }
         const SocialProfilesArray = () => {
             if (this.props.allSocialProfilesQuery && this.props.allSocialProfilesQuery.loading) {
-                return (
-                    <div>loading</div>
-                )
+                return <LoadingIcon/>
             }
             if (this.props.allSocialProfilesQuery && this.props.allSocialProfilesQuery.error) {
-                return (
-                    <div>error</div>
-                )
+                return <ErrorIcon/>
             }
             return this.props.allSocialProfilesQuery.allSocialProfiles.map((socialProfile, index) => {
                 return (
@@ -52,7 +45,7 @@ class ProfileList extends Component {
         }
         return (
             <div className='flex-column justify-start pt3 items-center pl2 w-100'>
-                <div className='seg-semibold fs25p mb3 smodin-black'>{this.props.socialProfile}</div>
+                <h2>Profiles</h2>
                 <SocialProfilesArray />
                 <Link to='/create-profile' className='link h--smodin-white-p mt4 pl3p mb3 flex justify-between fs23p seg-regular smodin-black pointer'>
                     Add Profile

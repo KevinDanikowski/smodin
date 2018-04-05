@@ -47,7 +47,7 @@ class ProfileMenu extends Component {
         }
         return (
             <div className='flex-column justify-start pt3 items-center pl2'>
-                <div className='seg-semibold fs25p mb3 smodin-black'>Post Autonomy</div>
+                <h2>Tabs</h2>
                 <PostAutonomyTabs />
             </div>
         )

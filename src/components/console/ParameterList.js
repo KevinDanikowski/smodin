@@ -7,6 +7,8 @@ import { ALL_PARAMETERS_QUERY,
     UPDATE_PARAMETER_MUTATION} from "../../graphql/parameters";
 import Parameter from './Parameter'
 import PropTypes from 'prop-types'
+import LoadingIcon from '../independent/LoadingIcon'
+import ErrorIcon from '../independent/ErrorIcon'
 
 class ParameterList extends Component {
     constructor(props) {
@@ -46,22 +48,10 @@ class ParameterList extends Component {
         }
         const RowsParameterArrayMap = () => {
             if (this.props.allParametersQuery && this.props.allParametersQuery.loading) {
-                return (
-                    <Parameter
-                        parameter={{param: 'loading...',response: 'loading...',id: '0'}}
-                        index={0}
-                        deleteParameter={(e)=>console.log('still loading...')}
-                        updateParameter={(e)=>console.log('still loading...')}/>
-                )
+                return <LoadingIcon/>
             }
             if (this.props.allParametersQuery && this.props.allParametersQuery.error) {
-                return (
-                    <Parameter
-                        parameter={{param: 'Error...',response: 'Error...',id: '0'}}
-                        index={0}
-                        deleteParameter={(e)=>console.log('error')}
-                        updateParameter={(e)=>console.log('error')}/>
-                )
+                return <ErrorIcon/>
             }
             return this.props.allParametersQuery.allParameters.map((parameter, index) => (
                 <Parameter

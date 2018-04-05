@@ -12,6 +12,8 @@ import {ALL_SOCIAL_POSTS_QUERY,
 import SocialPostRibbon from './SocialPostRibbon'
 import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
 import PropTypes from 'prop-types'
+import LoadingIcon from '../independent/LoadingIcon'
+import ErrorIcon from '../independent/ErrorIcon'
 
 class SocialPostList extends Component {
     constructor(props) {
@@ -38,24 +40,10 @@ class SocialPostList extends Component {
         }
         const SocialPostArrayMap = () => {
             if (this.props.allSocialPostsQuery && this.props.allSocialPostsQuery.loading) {
-                return (
-                    <SocialPost
-                        socialPost={{message: 'loading...', id: '0'}}
-                        index={0}
-                        deleteSocialPost={(e)=>console.log('still loading...')}
-                        updateSocialPost={(e)=>console.log('still loading...')}
-                        allParametersQuery={{allParameters: [{param: 'non param', response: 'non response', id:'0000'}]}}/>
-                )
+                return <LoadingIcon />
             }
             if (this.props.allSocialPostsQuery && this.props.allSocialPostsQuery.error) {
-                return (
-                    <SocialPost
-                        socialPost={{message: 'error', id: '0'}}
-                        index={0}
-                        deleteSocialPost={(e)=>console.log('error')}
-                        updateSocialPost={(e)=>console.log('error')}
-                        allParametersQuery={{allParameters: [{param: 'non param', response: 'non response', id:'0000'}]}}/>
-                )
+                return <ErrorIcon/>
             }
             if (this.props.allSocialPostsQuery){
                 return this.props.allSocialPostsQuery.allSocialPosts.map((socialPost, index) => (

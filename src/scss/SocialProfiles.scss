@@ -31,6 +31,25 @@
         }
       }
     }
+    &-col-2 {
+      max-width: 200px;
+      padding-right: 5px;
+      h2 {
+        font-size: 25px;
+        color: $smodin-black;
+        margin-bottom: 10px;
+      }
+      h2:after {
+        bottom: 0;
+        content: "";
+        background: linear-gradient(to right, $smodin-purple 50%, rgba(255,255,255,0));
+        display: block;
+        border-radius: 1px;
+        height: 3px;
+        position: relative;
+        width: 90%;
+      }
+    }
   }
 }
 .sideNavBar {
