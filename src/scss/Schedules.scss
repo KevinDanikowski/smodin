@@ -1,6 +1,28 @@
-
 .sch-weekly {
+
   &-box {
-    min-width: 160px;
+    min-width: 200px;
+    flex: 1;
+    margin: 10px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    box-sizing: border-box;
+    h3 {
+      color: $smodin-black;
+      margin: 5px 0;
+      text-align: center;
+    }
+    hr {
+      height: 1px;
+      background-color: $smodin-light-purple;
+      color: black;
+      width: 85%;
+    }
+    &-dropdown {
+      background-color: $smodin-light-purple;
+      width: 100%;
+      padding: 2px;
+      margin: 2px;
+    }
   }
 }

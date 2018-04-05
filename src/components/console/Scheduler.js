@@ -18,26 +18,19 @@ class Scheduler extends Component {
         const UserPostTimes = () => {
             const weeklySchedules = this.props.weeklySchedules
             const sortedWeeklySchedules = _.sortBy((_.sortBy(weeklySchedules, 'minute')), 'hour')
-            const WeeklySchedules = () => {
-                return sortedWeeklySchedules.map((time,index) => {
-                    return (
-                        <div key={index} className='h20p flex justify-center mt1'>
-                            <span className='font-couriernew fw4 tc'>{time.hour}:{time.minute}</span>
-                            <span className='ml3 fw6 red hover-white pointer'
-                                  onClick={() => {this._deleteWeeklyPostSchedule(time.id)}}>X</span>
-                        </div>
-                    )
-                })
-            }
-            return (
-                <div className='flex flex-column flex-1 justify-center  overflow-y-auto'>
-                    <WeeklySchedules />
-                </div>
-            )
+            return sortedWeeklySchedules.map((time,index) => {
+                return (
+                    <div key={index} className='sch-weekly-box-item h20p flex justify-center mt1'>
+                        <span className='font-couriernew fw4 tc'>{time.hour}:{time.minute}</span>
+                        <span className='ml3 fw6 red hover-white pointer'
+                              onClick={() => {this._deleteWeeklyPostSchedule(time.id)}}>X</span>
+                    </div>
+                )
+            })
         }
-        const FullDropdown = () => {
+        const FullDropdown = () => {//
             return (
-                <div className=' inline-flex ma1'>
+                <div className='sch-weekly-box-dropdown inline-flex justify-center'>
                     <Dropdown
                         className='w50p mr2'
                         onChange={async (object)=> await this.setState({hour: object.value})}
@@ -49,7 +42,7 @@ class Scheduler extends Component {
                         onChange={async (object)=> await this.setState({minute: object.value })}
                         value={this.state.minute}
                         placeholder='min' options={minutes} />
-                    <div className='hover-green pointer w50p ml2 flex items-center'
+                    <div className='hover-green pointer ml2 flex items-center'
                         onClick={()=> {this._addWeeklyPostSchedule()}}>
                         <i className="fa fa-calendar-check-o fa-lg" aria-hidden="true"> </i>
                     </div>
@@ -57,8 +50,8 @@ class Scheduler extends Component {
             )
         }
         return (
-            <div className='flex flex-column bg-black-05 h-100 ba br2 b--black-20'>
-                <h3 className='tc bg-black-20 mt0 mb1'>{this.props.day}</h3>
+            <div className='sch-weekly-box flex flex-column items-center'>
+                <h3 className=''>{this.props.day}</h3>
                 <FullDropdown />
                 <UserPostTimes />
             </div>
