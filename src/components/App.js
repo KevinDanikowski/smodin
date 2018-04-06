@@ -38,12 +38,12 @@ class App extends Component {
                         />
                         <BottomNavigationItem
                             label="Source Code"
-                            icon={<FontAwesome name='github' size='lg'/>}
+                            icon={<FontAwesome name='github-square' size='lg'/>}
                             onClick={() => window.open('https://github.com/KevinDanikowski/smodin')}
                         />
                         <BottomNavigationItem
                             label="My GiHub"
-                            icon={<FontAwesome name='github' size='lg'/>}
+                            icon={<FontAwesome name='github-square' size='lg'/>}
                             onClick={() => window.open('https://github.com/KevinDanikowski')}
                         />
                         <BottomNavigationItem

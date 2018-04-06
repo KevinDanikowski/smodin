@@ -11,6 +11,11 @@ import SmodinSVG from '../../images/smodin-logo.svg'
 import '../../scss/components.scss'
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/MenuItem';
+import FontIcon from 'material-ui/FontIcon';
 
 function handleClick() {
     window.location = '/login'
@@ -40,40 +45,67 @@ class Header extends Component {
         }
         const ConsoleHeader = () => {
             const SPIcon = profileIcons.find(profileIcon => profileIcon.profile === this.props.sp.spSite)
-            const color = (SPIcon) ? SPIcon.color : ''
-            const icon = (SPIcon) ? SPIcon.icon : ''
+            const color = (SPIcon) ? SPIcon.color : '';
+            const icon = (SPIcon) ? SPIcon.icon : '';
+
+            const MenuElements = (props) => (
+                <IconMenu
+                    {...props}
+                    iconButtonElement={
+                        <IconButton><MoreVertIcon/></IconButton>
+                    }
+                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                >
+                    <MenuItem primaryText="Console"
+                              onClick={() => window.location = '/console'}
+                              className={`link${(path === '/console') ? '-active' : ' '}`}
+                              leftIcon={<FontIcon className="material-icons">dashboard</FontIcon>}
+                    />
+                    <MenuItem primaryText="Settings"
+                              onClick={() => window.location = '/settings'}
+                              className={`link${(path === '/settings') ? '-active' : ' '}`}
+                              leftIcon={<FontIcon className="material-icons">settings</FontIcon>}
+                    />
+                    <MenuItem primaryText="Tutorial"
+                              onClick={() => window.location = '/tutorial'}
+                              className={`link${(path === '/tutorial') ? '-active' : ' '}`}
+                              leftIcon={<FontIcon className="material-icons">help_outline</FontIcon>}
+                    />
+                    <MenuItem primaryText="Log Out"
+                              onClick={() => {
+                                  localStorage.removeItem(GC_USER_ID)
+                                  localStorage.removeItem(GC_AUTH_TOKEN)
+                                  localStorage.setItem('headerPath', '')
+                                  this.props.history.push(`/login`)
+                              }}
+                              leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
+                    />
+                </IconMenu>
+            );
+            MenuElements.muiName = 'IconMenu';
+
             return (
                 <div className='subheader flex justify-between w-100'>
-                    <div className='flex justify-center items-center relative'>
-                        <div className='sp-icon flex justify-center items-center'>
-                            {(this.props.sp.spPhotoUrl) ?
-                                <img src={this.props.sp.spPhotoUrl} alt={this.props.sp.spName}/> :
-                                <span>{this.props.sp.spName.charAt(0)}</span>}
-                            <FontAwesomeIcon className='sp-icon-site' style={{color: color}}
-                                             icon={icon || faFacebookSquare}/>
-                        </div>
-                        <span className='sp-name i flex justify-center items-center'>
-                            {this.props.sp.spName}
-                        </span>
-                    </div>
-                    <div className='left-header flex items-center  mr2'>
-                        <Link to='/console' className={`link${(path === '/console') ? '-active' : ' '}`}>Console</Link>
-                        <div>|</div>
-                        <Link to='/settings'
-                              className={`link${(path === '/settings') ? '-active' : ' '}`}>Settings</Link>
-                        <div>|</div>
-                        <div className='link' onClick={() => {
-                            localStorage.removeItem(GC_USER_ID)
-                            localStorage.removeItem(GC_AUTH_TOKEN)
-                            localStorage.setItem('headerPath', '')
-                            this.props.history.push(`/login`)
-                        }}>logout
-                        </div>
-                        <div>|</div>
-                        <Link to='/tutorial'
-                              className={`link${(path === '/tutorial') ? '-active' : ' '}`}>tutorial</Link>
-                        <SmodinSVG className='ml3' width={50} height={50}/>
-                    </div>
+                    <AppBar title={this.props.sp.spName}
+                            iconElementRight={<MenuElements/>}
+                    />
+
+                    {/*<div className='flex justify-center items-center relative'>*/}
+                        {/*<div className='sp-icon flex justify-center items-center'>*/}
+                            {/*{(this.props.sp.spPhotoUrl) ?*/}
+                                {/*<img src={this.props.sp.spPhotoUrl} alt={this.props.sp.spName}/> :*/}
+                                {/*<span>{this.props.sp.spName.charAt(0)}</span>}*/}
+                            {/*<FontAwesomeIcon className='sp-icon-site' style={{color: color}}*/}
+                                             {/*icon={icon || faFacebookSquare}/>*/}
+                        {/*</div>*/}
+                        {/*<span className='sp-name i flex justify-center items-center'>*/}
+
+                        {/*</span>*/}
+                    {/*</div>*/}
+                    {/*<div className='left-header flex items-center  mr2'>*/}
+                        {/*<SmodinSVG className='ml3' width={50} height={50}/>*/}
+                    {/*</div>*/}
                 </div>
             )
         }
