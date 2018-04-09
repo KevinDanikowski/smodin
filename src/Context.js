@@ -1,17 +1,7 @@
 import React, { Component, createContext } from 'react'
 
 const defaultContext = {
-    language: 'en',
-    processingLanguages: ['es'],
-    lastCalledLanguage: '',
-    lastProcessedLanguages: '',//unused except to set it's state
-    loading: false,
-    rated: false,
-    text: '',
-    rewrite: '',
-    autocorrect: false,
-    thesaurus: false,
-    translator: 'google'
+    sp: {}
 }
 
 //accepts defaultState if no value passed

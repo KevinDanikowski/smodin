@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {Consumer} from "../../Context"
 import {withRouter} from 'react-router'
 import {GC_USER_ID, GC_AUTH_TOKEN, sampleSocialProfile} from '../../constants'
 import {USER_SETTINGS_QUERY} from "../../graphql/users"
@@ -110,9 +111,13 @@ class Header extends Component {
             )
         }
         return (
+            <Consumer>{(state)=>{
+                const { sp } = state
+                return(
             <div className='h-100 w-100 nowrap flex items-center justify-center' id='header'>
                 {(userId) ? <ConsoleHeader/> : <DefaultHeader/>}
             </div>
+            )}}</Consumer>
         )
     }
 
