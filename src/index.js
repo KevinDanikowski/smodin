@@ -12,6 +12,8 @@ import './scss/npm.components.scss'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {deepPurple500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Provider } from "./Context"
+
 
 const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
 console.log(GRAPHCOOL_PROJECT_ID)
@@ -51,11 +53,13 @@ const muiTheme = getMuiTheme({
 
 ReactDOM.render(
     <MuiThemeProvider muiTheme={muiTheme}>
-        <BrowserRouter>
-            <ApolloProvider client={client}>
-                <App/>
-            </ApolloProvider>
-        </BrowserRouter>
+        <Provider>
+            <BrowserRouter>
+                <ApolloProvider client={client}>
+                    <App/>
+                </ApolloProvider>
+            </BrowserRouter>
+        </Provider>
     </MuiThemeProvider>
     , document.getElementById('root')
 )
