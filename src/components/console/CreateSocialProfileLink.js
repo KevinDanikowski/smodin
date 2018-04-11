@@ -7,9 +7,9 @@ class CreateSocialProfileLink extends Component {
             <div className='flex justify-center items-center'>
                 <Link to='/create-profile' className=''>
                     <button className='h-100 w-100'>
-                        <i className="pr1 fa fa-plus" aria-hidden="true"></i>
+                        <i className="pr1 fa fa-plus" aria-hidden="true"/>
                         Add Your First Profile
-                        <i className="pl1 fa fa-plus" aria-hidden="true"></i>
+                        <i className="pl1 fa fa-plus" aria-hidden="true"/>
                     </button>
                 </Link>
             </div>

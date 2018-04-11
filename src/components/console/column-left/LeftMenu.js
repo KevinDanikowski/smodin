@@ -5,6 +5,7 @@ import ProfileList from './ProfileList-2.1'
 
 class LeftMenu extends Component {
     render(){
+        console.log('sp', this.props.sp)
         return(
             <React.Fragment>
             {/*column 1*/}

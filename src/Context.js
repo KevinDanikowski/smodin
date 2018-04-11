@@ -1,7 +1,22 @@
 import React, { Component, createContext } from 'react'
 
+const defaultSearchText = ''
+const defaultTab = 'posts'
+const defaultScheduleType = 'monthly'
+const defaultSite = 'facebook'
+const defaultColumnTwo = 'profilemenu'
+const defaultSelectedSocialProfileId = null
+const defaultSelectedSocialProfile = {id: null, site: 'facebook', name: 'Name...', industry: {id: null}}
+
 const defaultContext = {
-    sp: {}
+    sp: defaultSelectedSocialProfile,
+    searchText: defaultSearchText,
+    tab: defaultTab,
+    scheduleType: defaultScheduleType,
+    selectedSocialProfile: defaultSelectedSocialProfile,//todo get rid of
+    selectedSocialProfileId: defaultSelectedSocialProfileId,
+    site: defaultSite,
+    columnTwo: defaultColumnTwo
 }
 
 //accepts defaultState if no value passed

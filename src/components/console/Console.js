@@ -3,12 +3,19 @@ import { USER_SETTINGS_QUERY } from '../../graphql/users'
 import { ALL_SOCIAL_PROFILES_QUERY} from "../../graphql/socialProfiles"
 import { graphql, compose } from 'react-apollo'
 import { GC_USER_ID, sampleSocialProfile } from '../../constants'
+import PropTypes from 'prop-types'
 import ParameterList from './ParameterList'
 import SocialPostList from './SocialPostList'
 import SchedulePage from './SchedulePage'
 import QueuePage from './QueuePage'
 import CreateSocialProfileLink from './CreateSocialProfileLink'
 import LeftMenu from './column-left/LeftMenu'
+import {Consumer} from "../../Context";
+
+ParameterList.propTypes = {
+    setContext: PropTypes.func.isRequired,
+    sp: PropTypes.object.isRequired,
+}
 
 class Console extends Component {
     constructor(props) {
@@ -30,39 +37,44 @@ class Console extends Component {
             columnTwo: defaultColumnTwo
         }
     }
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.searchText === !this.state.searchText) {}
-        if (nextState.tab === !this.state.tab) {}
-    }
     componentWillReceiveProps(nextProps) {
         //sets profile and id
-        if (this.state.selectedSocialProfileId === null && nextProps.allSocialProfilesQuery &&
+        if (this.props.sp.id === null && nextProps.allSocialProfilesQuery &&
             (!nextProps.allSocialProfilesQuery.loading && !nextProps.allSocialProfilesQuery.error)) {
             const firstSocialProfile = nextProps.allSocialProfilesQuery.allSocialProfiles[0]
-            this.setState({
+            this.props.setContext({
                 //todo doesn't work for guest or any profile with no first profiles
-                selectedSocialProfileId: (firstSocialProfile)? firstSocialProfile.id : sampleSocialProfile.id,
+                sp: (firstSocialProfile)? firstSocialProfile : sampleSocialProfile,
                 site: (firstSocialProfile)?firstSocialProfile.site : sampleSocialProfile.site,
-                selectedSocialProfile: (firstSocialProfile)? firstSocialProfile : sampleSocialProfile
             })
-            this.props.sendSPToParent(firstSocialProfile.id, firstSocialProfile.name, firstSocialProfile.site, null)
-            //todo probably dont need this localStorages any more since pass info to App.js
-            localStorage.setItem('sp_id', (firstSocialProfile)? firstSocialProfile.id : sampleSocialProfile.id)
-            localStorage.setItem('sp_name', (firstSocialProfile)? firstSocialProfile.name : sampleSocialProfile.name)
-            localStorage.setItem('sp_site', (firstSocialProfile)? firstSocialProfile.site : sampleSocialProfile.site)
+            //this.props.sendSPToParent(firstSocialProfile.id, firstSocialProfile.name, firstSocialProfile.site, null)
         }
     }
     render() {
         return (
+            <Consumer>{(state)=>{
+                const {
+                    sp,
+                    searchText,
+                    tab,
+                    scheduleType,
+                    selectedSocialProfile,
+                    selectedSocialProfileId,
+                    site,
+                    columnTwo,
+                    setContext
+                } = state
+                return(
             <div className='w-100 h-100 flex justify-start items-stretch-content-stretch'>
                 <LeftMenu
-                    socialProfile={this.state.site}
+                    sp={sp}
+                    socialProfile={site}
                     receiveSocialProfile={this._passSocialProfile}
-                    tab={this.state.tab}
-                    site={this.state.site}
+                    tab={tab}
+                    site={site}
                     receiveTab={this._passTab}
-                    columnTwo={this.state.columnTwo}
-                    selectedSocialProfileId={this.state.selectedSocialProfileId}
+                    columnTwo={columnTwo}
+                    selectedSocialProfileId={sp.id}
                     receiveSelectedSocialProfile={this._passSelectedSocialProfile}
                     />
                 {/*if no social profile*/}
@@ -70,43 +82,48 @@ class Console extends Component {
                     <CreateSocialProfileLink />
                 :<div className='flex-1 overflow-auto fill-area-col'>
                     <div className='flex-1 overflow-auto'>
-                        {(this.state.tab === 'parameters')?
+                        {(tab === 'parameters')?
                         <ParameterList
-                            selectedSocialProfileId={this.state.selectedSocialProfileId}
-                            searchText={this.state.searchText}/> : null }
-                        {(this.state.tab === 'posts')?
+                            selectedSocialProfileId={sp.id}
+                            searchText={searchText}/> : null }
+                        {(tab === 'posts')?
                         <SocialPostList
-                            selectedSocialProfileId={this.state.selectedSocialProfileId}
-                            socialProfileIndustryId={this.state.selectedSocialProfile.industry.id}
+                            selectedSocialProfileId={sp.id}
+                            socialProfileIndustryId={(sp.industry)? sp.industry.id : null}
                             receiveSearchText={this._passSearch}
-                            defaultSearchText={this.state.searchText}
-                            searchText={this.state.searchText}/> : null }
-                        {(this.state.tab === 'schedule')?
+                            defaultSearchText={searchText}
+                            searchText={searchText}/> : null }
+                        {(tab === 'schedule')?
                         <SchedulePage
-                            selectedSocialProfileId={this.state.selectedSocialProfileId}
-                            scheduleType={this.state.scheduleType}
+                            selectedSocialProfileId={sp.id}
+                            scheduleType={scheduleType}
                             allSocialProfilesQuery={this.props.allSocialProfilesQuery}/> : null }
-                        {(this.state.tab === 'queue')?
+                        {(tab === 'queue')?
                         <QueuePage
-                            selectedSocialProfileId={this.state.selectedSocialProfileId}
-                            scheduleType={this.state.scheduleType}/> : null }
+                            selectedSocialProfileId={sp.id}
+                            scheduleType={scheduleType}/> : null }
                     </div>
                 </div>}
             </div>
+            )}}</Consumer>
         )
     }
     _passSearch = (searchText) => {
-        this.setState({ searchText: searchText })
+        this.props.setContext({ searchText: searchText })
     }
     _passTab = (tab) => {
-        this.setState({ tab: tab })
+        this.props.setContext({ tab: tab })
     }
     _passSocialProfile = (socialProfile) => {
-        this.setState({ site: socialProfile })
+        this.props.setContext({ site: socialProfile })
     }
     _passSelectedSocialProfile = (spId, spName, spSite, spPhotoUrl) => {
-        this.props.sendSPToParent(spId, spName, spSite, spPhotoUrl)
-        this.setState({ selectedSocialProfileId: spId })
+        let sp = Object.assign({},this.props.sp)
+        sp.id = spId
+        sp.name = spName
+        sp.site = spSite
+        //todo left off changing all counsole and app, need to now change names in components to new setting
+        this.props.setContext({sp: sp})
     }
 }
 

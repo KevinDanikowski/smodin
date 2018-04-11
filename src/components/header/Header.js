@@ -36,7 +36,7 @@ class Header extends Component {
         const path = window.location.pathname;
         const userId = localStorage.getItem(GC_USER_ID);
         const titleStyle = {cursor: 'pointer'};
-        const DefaultHeader = () => {
+        const DefaultHeader = ({sp}) => {
             return (
                 <AppBar title={<span style={titleStyle}>Smodin</span>}
                         onTitleClick={handleClick}
@@ -44,8 +44,8 @@ class Header extends Component {
                 />
             )
         }
-        const ConsoleHeader = () => {
-            const SPIcon = profileIcons.find(profileIcon => profileIcon.profile === this.props.sp.spSite)
+        const ConsoleHeader = ({sp}) => {
+            const SPIcon = profileIcons.find(profileIcon => profileIcon.profile === sp.spSite)
             const color = (SPIcon) ? SPIcon.color : '';
             const icon = (SPIcon) ? SPIcon.icon : '';
 
@@ -88,7 +88,7 @@ class Header extends Component {
 
             return (
                 <div className='subheader flex justify-between w-100'>
-                    <AppBar title={this.props.sp.spName}
+                    <AppBar title={sp.spName}
                             iconElementRight={<MenuElements/>}
                     />
 
@@ -115,7 +115,7 @@ class Header extends Component {
                 const { sp } = state
                 return(
             <div className='h-100 w-100 nowrap flex items-center justify-center' id='header'>
-                {(userId) ? <ConsoleHeader/> : <DefaultHeader/>}
+                {(userId) ? <ConsoleHeader sp={sp}/> : <DefaultHeader sp={sp}/>}
             </div>
             )}}</Consumer>
         )

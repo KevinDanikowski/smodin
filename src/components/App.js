@@ -7,6 +7,7 @@ import UserSettings from './independent/UserSettings'
 import TutorialPage from './independent/TutorialPage'
 import CreateSocialProfilePage from './independent/CreateSocialProfilePage'
 import FontAwesome from 'react-fontawesome'
+import {Consumer} from '../Context'
 import {GC_USER_ID} from '../constants'
 import '../scss/base/base.scss'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
@@ -56,9 +57,12 @@ class App extends Component {
             )
         };
         return (
+            <Consumer>{(state)=>{
+                const { setContext, sp } = state//todo don't know if need
+                return(
             <div className='flexbox-parent'>
                 <div className=''>
-                    <Header sp={this.state.sp}/>
+                    <Header/>
                 </div>
                 <div className='flex-1 overflow-auto fill-area background-gray'>
                     <Switch>
@@ -67,7 +71,7 @@ class App extends Component {
                             : <Route exact path='/' render={() => <Redirect to='/login'/>}/>}
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/console'
-                               render={(props) => <Console sendSPToParent={this._updateSP} {...props}/>}/>
+                               render={(props) => <Console sp={sp} setContext={setContext} {...props}/>}/>
                         <Route exact path='/settings' component={UserSettings}/>
                         <Route exact path='/tutorial' component={TutorialPage}/>
                         <Route exact path='/create-profile' render={(props) => <CreateSocialProfilePage {...props}/>}/>
@@ -75,11 +79,8 @@ class App extends Component {
                 </div>
                 <Footer/>
             </div>
+            )}}</Consumer>
         )
-    }
-
-    _updateSP = (spId, spName, spSite, spPhotoUrl) => {
-        this.setState({sp: {spId: spId, spName: spName, spSite: spSite, spPhotoUrl: null}})
     }
 }
 
