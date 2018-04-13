@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { socialProfiles, profileIcons } from '../../../constants'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { Consumer} from "../../../Context"
 //import {faCoffee} from '@fortawesome/fontawesome-free-solid'
 import {faTwitterSquare, faFacebookSquare, faLinkedin} from '@fortawesome/fontawesome-free-brands'//used from import
 
@@ -13,15 +14,15 @@ class SocialProfilesMenu extends Component {
         }
     }
     render() {
-        const SocialProfileMenuMap = () => {
+        const SocialProfileMenuMap = ({setContext, sp}) => {
             return socialProfiles.map((profile, index) => {
                 const SPIcon = profileIcons.find(profileIcon=> profileIcon.profile === profile.profile)
-                return (this.props.socialProfile === profile.profile)? //profile = full name
+                return (sp.site === profile.profile)? //profile = full name
                     <div key={index} className='sp-menu-col-1-box-active flex justify-center items-center '>
                             <FontAwesomeIcon className='sp-menu-col-1-box-icon' style={{color: SPIcon.color}} icon={SPIcon.icon} />
                     </div>
                     :<div key={index} className='sp-menu-col-1-box flex justify-center items-center'
-                          onClick={()=>{this._passSocialProfileToParent(profile.profile)}}>
+                          onClick={()=>{setContext({sp: {...sp, site: profile.profile}})}}>
                             <FontAwesomeIcon className='sp-menu-col-1-box-icon' style={{color: SPIcon.color }} icon={SPIcon.icon} />
                     </div>
 
@@ -29,13 +30,14 @@ class SocialProfilesMenu extends Component {
         }
 
         return (
+            <Consumer>{(state)=>{
+                const { setContext, sp } = state
+                return(
             <div className='sp-menu-col-1 flex flex-column justify-start pt3'>
-                <SocialProfileMenuMap />
+                <SocialProfileMenuMap setContext={setContext} sp={sp}/>
             </div>
+                )}}</Consumer>
         )
-    }
-    _passSocialProfileToParent = (socialProfile) => {
-        this.props.receiveSocialProfile(socialProfile)
     }
 }
 

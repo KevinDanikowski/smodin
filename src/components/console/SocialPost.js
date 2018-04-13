@@ -178,7 +178,7 @@ class SocialPost extends Component {
             update: (store) => {
                 console.log('test')
                 const userId = localStorage.getItem(GC_USER_ID)
-                const SPId = this.props.selectedSocialProfileId
+                const SPId = this.props.spId
                 const data = store.readQuery({query: ALL_SOCIAL_POSTS_QUERY, variables: {
                     id: userId,
                     socialProfileId: SPId,
@@ -241,7 +241,7 @@ class SocialPost extends Component {
 }
 
 SocialPost.propTypes = {
-    selectedSocialProfileId: PropTypes.string
+    spId: PropTypes.string
 }
 
 export default compose(

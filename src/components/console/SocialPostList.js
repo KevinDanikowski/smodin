@@ -22,50 +22,26 @@ class SocialPostList extends Component {
             newSocialPost: ''
         }
     }
-    componentWillUpdate(nextProps, nextState){
-        if (nextProps === this.props) return false
-    }
     render() {
-        const userId = localStorage.getItem(GC_USER_ID)
-        if (!userId){
-            return(
-                <div>
-                    <h1 className="tc">Oops! You're not logged in!</h1>
-                    <button onClick={() => {
-                        this.props.history.push('/login')
-                    }}>Login
-                    </button>
-                </div>
-            )
-        }
+        const sp = this.props.sp
         const SocialPostArrayMap = () => {
-            if (this.props.allSocialPostsQuery && this.props.allSocialPostsQuery.loading) {
+            if (!this.props.allSocialPostsQuery || this.props.allSocialPostsQuery.loading) {
                 return <LoadingIcon />
             }
-            if (this.props.allSocialPostsQuery && this.props.allSocialPostsQuery.error) {
+            if (this.props.allSocialPostsQuery.error) {
                 return <ErrorIcon/>
             }
-            if (this.props.allSocialPostsQuery){
-                return this.props.allSocialPostsQuery.allSocialPosts.map((socialPost, index) => (
+            return this.props.allSocialPostsQuery.allSocialPosts.map((socialPost, index) =>
                 <SocialPost
                     key={socialPost.id}
                     socialPost={socialPost}
                     index={index}
                     searchText={this.props.searchText}
-                    selectedSocialProfileId={this.props.selectedSocialProfileId}
+                    spId={sp.id}
                     deleteSocialPost={this._handleDeleteSocialPost}
                     updateSocialPost={this._handleUpdateSocialPost}
                     updateSocialPostImage={this._handleUpdateSocialPostImage}
-                    allParametersQuery={this.props.allParametersQuery}/>
-            ))}
-            return (
-                <SocialPost
-                    socialPost={{message: 'Last Result', id: '0'}}
-                    index={0}
-                    deleteSocialPost={(e)=>console.log('Last Result')}
-                    updateSocialPost={(e)=>console.log('Last Result')}
-                    allParametersQuery={{allParameters: [{param: 'non param', response: 'non response', id:'0000'}]}}/>
-            )
+                    allParametersQuery={this.props.allParametersQuery}/>)
         }
         return (
             <div className='flex-1 flexbox-parent-console'>
@@ -83,17 +59,15 @@ class SocialPostList extends Component {
                     </div>
                 </div>
                 <div className='flex flex-column w350p overflow-hidden bg-smodin-black'>
-                    <SocialPostRibbon
-                        defaultSearchText={this.props.searchText}
-                        receiveSearchText={this._sendSearchTextToParent}/>
+                    <SocialPostRibbon setContext={this.props.setContext}/>
                     <div className='w-100 flex flex-column flex-1'>
                         <div className='w-100 h-50'>
                             <ParametersBox
-                                selectedSocialProfileId={this.props.selectedSocialProfileId} />
+                                spId={sp.id} />
                         </div>
                         <div className='w-100 h-50'>
                             <SocialPostBox
-                                selectedIndustryId={this.props.socialProfileIndustryId} />
+                                industryId={sp.industry.id || null} />
                         </div>
                     </div>
                 </div>
@@ -106,7 +80,7 @@ class SocialPostList extends Component {
                 id: id
             },
             update: (store) => {
-                const SPId = this.props.selectedSocialProfileId
+                const SPId = this.props.sp.id
                 const data = store.readQuery({query: ALL_SOCIAL_POSTS_QUERY, variables: {
                     socialProfileId: SPId,
                     searchText: this.props.searchText
@@ -138,7 +112,7 @@ class SocialPostList extends Component {
     }
     _handleNewSocialPost = async () => {
         const { newSocialPost } = this.state
-        const SPId = this.props.selectedSocialProfileId
+        const SPId = this.props.sp.id
         await this.props.addSocialPostMutation({
             variables: {
                 socialProfileId: SPId,
@@ -165,29 +139,25 @@ class SocialPostList extends Component {
         })
         this.setState({ newSocialPost: '' })
     }
-    _sendSearchTextToParent = (searchText) => {
-        this.props.receiveSearchText(searchText)
-    }
 }
 
 SocialPostList.propTypes = {
-    selectedSocialProfileId: PropTypes.string,
-    socialProfileIndustryId: PropTypes.string
+    sp: PropTypes.object.isRequired
 }
 export default compose(
     graphql(ALL_SOCIAL_POSTS_QUERY, {
         name: 'allSocialPostsQuery',
         options: (ownProps) => {
-            const SPId = ownProps.selectedSocialProfileId
+            const SPId = ownProps.sp.id
             const searchText = ownProps.searchText
             return {
                 variables: { socialProfileId: SPId, searchText: searchText }
             }}}),
     graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',
-        skip: (ownProps)=>ownProps.selectedSocialProfileId === null,
+        skip: (ownProps)=>ownProps.sp.id === null,
         options: (ownProps) => {
-            const SPId = ownProps.selectedSocialProfileId
+            const SPId = ownProps.sp.id
             return {
                 variables: { socialProfileId: SPId }
             }}}),

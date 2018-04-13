@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
-import { GC_USER_ID } from '../../constants'
 import { ALL_PARAMETERS_QUERY,
     ADD_PARAMETER_MUTATION,
     DELETE_PARAMETER_MUTATION,
@@ -18,41 +17,14 @@ class ParameterList extends Component {
             newResponse: '',
         }
     }
-    componentWillUpdate(nextProps, nextState){//not sure why this here
-        if (nextProps === this.props || nextState === this.state) return false
-    }
     render() {
-        const userId = localStorage.getItem(GC_USER_ID)
-        if (!userId){
-            return(
-                <div>
-                    <h1 className="tc">Oops! You are not logged in!</h1>
-                    <button onClick={() => {
-                        this.props.history.push('/login')
-                    }}>Login
-                    </button>
-                </div>
-            )
+        if (!this.props.allParametersQuery || this.props.allParametersQuery.loading) {
+            return <LoadingIcon/>
         }
-        const RowHeader = () => {
-            return(
-                <thead>
-                    <tr>
-                        <th id='parameterstable-th-td'>Number</th>
-                        <th id='parameterstable-th-td'>Parameter</th>
-                        <th id='parameterstable-th-td'>Response</th>
-                        <th id='parameterstable-th-td'>Options</th>
-                    </tr>
-                </thead>
-            )
+        if (this.props.allParametersQuery.error) {
+            return <ErrorIcon/>
         }
         const RowsParameterArrayMap = () => {
-            if (this.props.allParametersQuery && this.props.allParametersQuery.loading) {
-                return <LoadingIcon/>
-            }
-            if (this.props.allParametersQuery && this.props.allParametersQuery.error) {
-                return <ErrorIcon/>
-            }
             return this.props.allParametersQuery.allParameters.map((parameter, index) => (
                 <Parameter
                     key={parameter.id}
@@ -63,9 +35,14 @@ class ParameterList extends Component {
             ))
         }
         return (
-            <div>
-                <table className='mt2 center' id='parameterstable'>
-                    <RowHeader />
+            <table className='mt2 center' id='parameterstable'>
+                <tbody>
+                    <tr>
+                        <th id='parameterstable-th-td'>Number</th>
+                        <th id='parameterstable-th-td'>Parameter</th>
+                        <th id='parameterstable-th-td'>Response</th>
+                        <th id='parameterstable-th-td'>Options</th>
+                    </tr>
                     <RowsParameterArrayMap />
                     <tr id='parameterstable-tr'>
                         <td id='parameterstable-th-td'>#</td>
@@ -95,8 +72,8 @@ class ParameterList extends Component {
                                 onClick={() => {this._handleNewParameter()}}>Submit</button>
                         </td>
                     </tr>
-                </table>
-            </div>
+                    </tbody>
+            </table>
         )
     }
     _handleDeleteParameter =  (id) => {
@@ -146,10 +123,6 @@ class ParameterList extends Component {
         })
         this.setState({ newParameter: '', newResponse: ''})
     }
-}
-
-ParameterList.propTypes = {
-    selectedSocialProfileId: PropTypes.string
 }
 
 export default compose(

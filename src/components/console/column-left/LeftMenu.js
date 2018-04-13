@@ -1,37 +1,26 @@
-import React, { Component } from 'react'
-import SocialProfileColumn from './SocialProfilesMenu-1'
-import ProfileMenu from './ProfileMenu-2.2'
-import ProfileList from './ProfileList-2.1'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import SocialProfileColumn from './SocialProfileColumn'
+import SocialProfilesArray from './SocialProfilesArray'
+import PostAutonomyTabs from './ProfileMenu'
 
-class LeftMenu extends Component {
-    render(){
-        console.log('sp', this.props.sp)
-        return(
-            <React.Fragment>
-            {/*column 1*/}
-                <SocialProfileColumn
-                    socialProfile={this.props.site}
-                    receiveSocialProfile={this._passSocialProfile}/>
-                <div className='sp-menu-col-2 flex-1 flex flex-column overflow-y-scroll'>
-                        <ProfileList
-                            socialProfile={this.props.site}
-                            selectedSocialProfileId={this.props.selectedSocialProfileId}
-                            receiveSelectedSocialProfile={this._passSelectedSocialProfile}/>
-                        <ProfileMenu
-                            tab={this.props.tab}
-                            receiveTab={this._passTab}/>
-                </div>
-            </React.Fragment>
-        )
-    }
-    _passSocialProfile = (socialProfile) => {
-        this.props.receiveSocialProfile(socialProfile)
-    }
-    _passTab = (tab) => {
-        this.props.receiveTab(tab)
-    }
-    _passSelectedSocialProfile = (spId, spName, spSite, spPhotoUrl) => {
-        this.props.receiveSelectedSocialProfile(spId, spName, spSite, spPhotoUrl)
-    }
-}
+const LeftMenu = () =>
+    <React.Fragment>
+        <SocialProfileColumn />
+        <div className='sp-menu-col-2 flex-1 flex flex-column overflow-y-scroll'>
+            <div className='flex-column justify-start pt3 items-center pl2 w-100'>
+                <h2>Profiles</h2>
+                <SocialProfilesArray />
+                <Link to='/create-profile' className='link h--smodin-white-p mt4 pl3p mb3 flex justify-between fs23p seg-regular smodin-black pointer'>
+                    Add Profile
+                    <i className="fa fa-plus" aria-hidden="true"/>
+                </Link>
+            </div>
+            <div className='flex-column justify-start pt3 items-center pl2'>
+                <h2>Tabs</h2>
+                <PostAutonomyTabs />
+            </div>
+        </div>
+    </React.Fragment>
+
 export default LeftMenu

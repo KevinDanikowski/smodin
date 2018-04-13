@@ -26,7 +26,7 @@ class UserSettings extends Component {
                 </div>
             )
         }
-        if (this.props.userSettingsQuery && this.props.userSettingsQuery.loading) {
+        if (!this.props.userSettingsQuery || this.props.userSettingsQuery.loading) {
             return (
                 <div>
                     <h1 className="tc">Settings</h1>
@@ -35,7 +35,7 @@ class UserSettings extends Component {
                 </div>
             )
         }
-        if (this.props.userSettingsQuery && this.props.userSettingsQuery.error) {
+        if (this.props.userSettingsQuery.error) {
             console.log(this.props.userSettingsQuery)
             console.log(userId)
             return (

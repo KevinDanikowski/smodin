@@ -140,7 +140,7 @@ class SchedulePage extends Component {
             },
             update: (store) => {//TODO getting internal server error if make post, then delete one?
                 console.log(id)
-                const SPId = this.props.selectedSocialProfileId
+                const SPId = this.props.spId
                 const data = store.readQuery({query: ALL_WEEKLY_POST_SCHEDULES_QUERY, variables: {
                     socialProfileId: SPId
                 }})
@@ -158,7 +158,7 @@ class SchedulePage extends Component {
                 id: id
             },
             update: (store) => {
-                const SPId = this.props.selectedSocialProfileId
+                const SPId = this.props.spId
                 const data = store.readQuery({query: ALL_MONTHLY_POST_SCHEDULES_QUERY, variables: {
                         socialProfileId: SPId
                     }})
@@ -171,7 +171,7 @@ class SchedulePage extends Component {
         })
     }
     _handleAddWeeklyPostSchedule = async (day, hour, minute) => {
-        const SPId = this.props.selectedSocialProfileId
+        const SPId = this.props.spId
         await this.props.addWeeklyPostScheduleMutation({
             variables: {
                 day: day,
@@ -198,7 +198,7 @@ class SchedulePage extends Component {
         })
     }
     _handleAddMonthlyPostSchedule = async (monthlyScheduleType, monthDate, monthDay, hour, minute) => {
-        const SPId = this.props.selectedSocialProfileId
+        const SPId = this.props.spId
         await this.props.addMonthlyPostScheduleMutation({
             variables: {
                 monthlyScheduleType: monthlyScheduleType,
@@ -291,25 +291,25 @@ class SchedulePage extends Component {
 }
 
 SchedulePage.propTypes = {
-    selectedSocialProfileId: PropTypes.string,
+    spId: PropTypes.string,
 }
 
 export default compose(
     graphql(ALL_WEEKLY_POST_SCHEDULES_QUERY, {
         name: 'allWeeklyPostSchedulesQuery',
-        skip: (ownProps) => ownProps.selectedSocialProfileId === null,
+        skip: (ownProps) => ownProps.spId === null,
         options: (ownProps) => {
             return {
                 variables: {
-                    socialProfileId: ownProps.selectedSocialProfileId
+                    socialProfileId: ownProps.spId
                 }}}}),
     graphql(ALL_MONTHLY_POST_SCHEDULES_QUERY, {
         name: 'allMonthlyPostSchedulesQuery',
-        skip: (ownProps) => ownProps.selectedSocialProfileId === null,
+        skip: (ownProps) => ownProps.spId === null,
         options: (ownProps) => {
             return {
                 variables: {
-                    socialProfileId: ownProps.selectedSocialProfileId
+                    socialProfileId: ownProps.spId
                 }}}}),
     graphql(DELETE_WEEKLY_POST_SCHEDULE_MUTATION, { name: 'deleteWeeklyPostScheduleMutation'}),
     graphql(DELETE_MONTHLY_POST_SCHEDULE_MUTATION, { name: 'deleteMonthlyPostScheduleMutation'}),

@@ -14,18 +14,6 @@ class QueuePage extends Component {
         }
     }
     render() {
-        const userId = localStorage.getItem(GC_USER_ID)
-        if (!userId){
-            return(
-                <div>
-                    <h1 className="tc">Oops! You are not logged in!</h1>
-                    <button onClick={() => {
-                        this.props.history.push('/login')
-                    }}>Login
-                    </button>
-                </div>
-            )
-        }
         const BuildSidebar = () => {
             const scheduleLengths = buildTimeFrames.map(timeFrame => {return timeFrame.display})
             return (

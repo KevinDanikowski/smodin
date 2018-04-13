@@ -59,18 +59,16 @@ class SocialPostBox extends Component {
 export default compose(
     graphql(ALL_SOCIAL_POST_EXAMPLES_QUERY, {
         name: 'allSocialPostExamplesQuery',
-        skip: (ownProps)=> ownProps.selectedIndustryId === null,
+        skip: (ownProps)=> ownProps.industryId === null,
         options: (ownProps) => {
-            const industryId = ownProps.selectedIndustryId
             return {
-                variables: { industryId: industryId }
+                variables: { industryId: ownProps.industryId }
             }}}),
     graphql(ALL_SOCIAL_POST_IDEAS_QUERY, {
         name: 'allSocialPostIdeasQuery',
-        skip: (ownProps)=> ownProps.selectedIndustryId === null,
+        skip: (ownProps)=> ownProps.industryId === null,
         options: (ownProps) => {
-            const industryId = ownProps.selectedIndustryId
             return {
-                variables: { industryId: industryId }
+                variables: { industryId: ownProps.industryId }
             }}})
 )(SocialPostBox)

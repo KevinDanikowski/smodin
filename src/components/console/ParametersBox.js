@@ -42,15 +42,14 @@ class ParametersBox extends Component {
 }
 
 ParametersBox.propTypes = {
-    selectedSocialProfileId: PropTypes.string
+    spId: PropTypes.string
 }
 
 export default graphql(ALL_PARAMETERS_QUERY, {
     name: 'allParametersQuery',
-    skip: (ownProps)=>ownProps.selectedSocialProfileId === null,
+    skip: (ownProps)=>ownProps.spId === null,
     options: (ownProps) => {
-            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { socialProfileId: SPId }
+                variables: { socialProfileId: ownProps.spId }
             }}}
 )(ParametersBox)

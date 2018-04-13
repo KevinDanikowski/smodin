@@ -12,45 +12,30 @@ import CreateSocialProfileLink from './CreateSocialProfileLink'
 import LeftMenu from './column-left/LeftMenu'
 import {Consumer} from "../../Context";
 
-ParameterList.propTypes = {
-    setContext: PropTypes.func.isRequired,
-    sp: PropTypes.object.isRequired,
-}
-
 class Console extends Component {
-    constructor(props) {
-        super(props)
-        const defaultSearchText = ''
-        const defaultTab = 'posts'
-        const defaultScheduleType = 'monthly'
-        const defaultSite = 'facebook'
-        const defaultColumnTwo = 'profilemenu'
-        const defaultSelectedSocialProfileId = null
-        const defaultSelectedSocialProfile = {id: null, site: 'facebook', name: 'Name...', industry: {id: null}}
-        this.state = {
-            searchText: defaultSearchText,
-            tab: defaultTab,
-            scheduleType: defaultScheduleType,
-            selectedSocialProfile: defaultSelectedSocialProfile,
-            selectedSocialProfileId: defaultSelectedSocialProfileId,
-            site: defaultSite,
-            columnTwo: defaultColumnTwo
-        }
-    }
     componentWillReceiveProps(nextProps) {
-        //sets profile and id
+        //sets socialprofile on load
         if (this.props.sp.id === null && nextProps.allSocialProfilesQuery &&
             (!nextProps.allSocialProfilesQuery.loading && !nextProps.allSocialProfilesQuery.error)) {
             const firstSocialProfile = nextProps.allSocialProfilesQuery.allSocialProfiles[0]
             this.props.setContext({
-                //todo doesn't work for guest or any profile with no first profiles
                 sp: (firstSocialProfile)? firstSocialProfile : sampleSocialProfile,
-                site: (firstSocialProfile)?firstSocialProfile.site : sampleSocialProfile.site,
             })
-            //this.props.sendSPToParent(firstSocialProfile.id, firstSocialProfile.name, firstSocialProfile.site, null)
         }
     }
     render() {
+        const userId = localStorage.getItem(GC_USER_ID)
+        if (!userId) {
+            return (
+                <div>
+                    <h1 className="tc">Oops! You are not logged in!</h1>
+                    <button onClick={() => {
+                        this.props.history.push('/login')
+                    }}>Login
+                    </button>
+                </div>
+            )
+        }
         return (
             <Consumer>{(state)=>{
                 const {
@@ -58,25 +43,11 @@ class Console extends Component {
                     searchText,
                     tab,
                     scheduleType,
-                    selectedSocialProfile,
-                    selectedSocialProfileId,
-                    site,
-                    columnTwo,
                     setContext
                 } = state
                 return(
             <div className='w-100 h-100 flex justify-start items-stretch-content-stretch'>
-                <LeftMenu
-                    sp={sp}
-                    socialProfile={site}
-                    receiveSocialProfile={this._passSocialProfile}
-                    tab={tab}
-                    site={site}
-                    receiveTab={this._passTab}
-                    columnTwo={columnTwo}
-                    selectedSocialProfileId={sp.id}
-                    receiveSelectedSocialProfile={this._passSelectedSocialProfile}
-                    />
+                <LeftMenu />
                 {/*if no social profile*/}
                 {(this.defaultSelectedSocialProfileId === '')?
                     <CreateSocialProfileLink />
@@ -88,19 +59,16 @@ class Console extends Component {
                             searchText={searchText}/> : null }
                         {(tab === 'posts')?
                         <SocialPostList
-                            selectedSocialProfileId={sp.id}
-                            socialProfileIndustryId={(sp.industry)? sp.industry.id : null}
-                            receiveSearchText={this._passSearch}
-                            defaultSearchText={searchText}
+                            sp={sp}
+                            setContext={setContext}
                             searchText={searchText}/> : null }
                         {(tab === 'schedule')?
                         <SchedulePage
-                            selectedSocialProfileId={sp.id}
+                            spId={sp.id}
                             scheduleType={scheduleType}
                             allSocialProfilesQuery={this.props.allSocialProfilesQuery}/> : null }
                         {(tab === 'queue')?
                         <QueuePage
-                            selectedSocialProfileId={sp.id}
                             scheduleType={scheduleType}/> : null }
                     </div>
                 </div>}
@@ -108,23 +76,11 @@ class Console extends Component {
             )}}</Consumer>
         )
     }
-    _passSearch = (searchText) => {
-        this.props.setContext({ searchText: searchText })
-    }
-    _passTab = (tab) => {
-        this.props.setContext({ tab: tab })
-    }
-    _passSocialProfile = (socialProfile) => {
-        this.props.setContext({ site: socialProfile })
-    }
-    _passSelectedSocialProfile = (spId, spName, spSite, spPhotoUrl) => {
-        let sp = Object.assign({},this.props.sp)
-        sp.id = spId
-        sp.name = spName
-        sp.site = spSite
-        //todo left off changing all counsole and app, need to now change names in components to new setting
-        this.props.setContext({sp: sp})
-    }
+}
+
+Console.propTypes = {
+    setContext: PropTypes.func.isRequired,
+    sp: PropTypes.object.isRequired,
 }
 
 export default compose(
