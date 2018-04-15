@@ -16,7 +16,7 @@ import { Provider } from "./Context"
 
 
 const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
-console.log(GRAPHCOOL_PROJECT_ID)
+
 const networkInterface = createNetworkInterface({
     uri: 'https://api.graph.cool/simple/v1/' + GRAPHCOOL_PROJECT_ID
 })

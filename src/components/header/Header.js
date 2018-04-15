@@ -10,7 +10,6 @@ import {profileIcons} from '../../constants'
 import {faTwitterSquare, faFacebookSquare, faLinkedin} from '@fortawesome/fontawesome-free-brands'//used from import
 import SmodinSVG from '../../images/smodin-logo.svg'
 import '../../scss/components.scss'
-import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
@@ -18,30 +17,26 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 
-function handleClick() {
-    window.location = '/login'
-}
+const windowPath = window.location.pathname
 
 class Header extends Component {
-
-    state = {
-      reading: false,
-    };
-
-    handleChange = (event, reading) => {
-        this.setState({reading: reading});
-    };
-
     render() {
         const path = window.location.pathname;
         const userId = localStorage.getItem(GC_USER_ID);
-        const titleStyle = {cursor: 'pointer'};
-        const DefaultHeader = ({sp}) => {
+        const DefaultHeader = () => {
             return (
-                <AppBar title={<span style={titleStyle}>Smodin</span>}
-                        onTitleClick={handleClick}
-                        iconElementRight={this.state.reading ? <FlatButton label="login" href="/login"/> : <FlatButton label="tutorial" href="/tutorial"/>}
-                />
+                <div className='subheader flex justify-between w-100'>
+                    <div className='flex items-center'>
+                        <SmodinSVG className='ml3' width={50} height={50}/>
+                        <span onClick={()=>this.props.history.push('/')} className='pointer sp-name flex justify-center items-center'>
+                            Smodin
+                        </span>
+                    </div>
+                    <div className='flex items-center  mr2'>
+                        {(windowPath !== '/tutorial')?<FlatButton label="Tutorial" href="/tutorial"/>: null}
+                        {(windowPath !== '/login')?<FlatButton label="Login" href="/login"/>: null}
+                    </div>
+                </div>
             )
         }
         const ConsoleHeader = ({sp}) => {
@@ -53,7 +48,7 @@ class Header extends Component {
                 <IconMenu
                     {...props}
                     iconButtonElement={
-                        <IconButton><MoreVertIcon/></IconButton>
+                        <IconButton iconStyle={{color: 'white'}}><MoreVertIcon/></IconButton>
                     }
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -73,11 +68,16 @@ class Header extends Component {
                               className={`link${(path === '/tutorial') ? '-active' : ' '}`}
                               leftIcon={<FontIcon className="material-icons">help_outline</FontIcon>}
                     />
+                    <MenuItem primaryText="About Project"
+                              onClick={() => window.location = '/about'}
+                              className={`link${(path === '/about') ? '-active' : ' '}`}
+                              leftIcon={<FontIcon className="material-icons">help_outline</FontIcon>}
+                    />
                     <MenuItem primaryText="Log Out"
                               onClick={() => {
                                   localStorage.removeItem(GC_USER_ID)
                                   localStorage.removeItem(GC_AUTH_TOKEN)
-                                  localStorage.setItem('headerPath', '')
+                                  //todo what is this line? localStorage.setItem('headerPath', '')
                                   this.props.history.push(`/login`)
                               }}
                               leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
@@ -88,25 +88,24 @@ class Header extends Component {
 
             return (
                 <div className='subheader flex justify-between w-100'>
-                    <AppBar title={sp.spName}
-                            iconElementRight={<MenuElements/>}
-                    />
-
-                    {/*<div className='flex justify-center items-center relative'>*/}
-                        {/*<div className='sp-icon flex justify-center items-center'>*/}
-                            {/*{(this.props.sp.spPhotoUrl) ?*/}
-                                {/*<img src={this.props.sp.spPhotoUrl} alt={this.props.sp.spName}/> :*/}
-                                {/*<span>{this.props.sp.spName.charAt(0)}</span>}*/}
-                            {/*<FontAwesomeIcon className='sp-icon-site' style={{color: color}}*/}
-                                             {/*icon={icon || faFacebookSquare}/>*/}
-                        {/*</div>*/}
-                        {/*<span className='sp-name i flex justify-center items-center'>*/}
-
-                        {/*</span>*/}
-                    {/*</div>*/}
-                    {/*<div className='left-header flex items-center  mr2'>*/}
-                        {/*<SmodinSVG className='ml3' width={50} height={50}/>*/}
-                    {/*</div>*/}
+                    <div className='flex justify-center items-center relative'>
+                        <div className='sp-icon flex justify-center items-center'>
+                            {(sp.PhotoUrl) ?
+                                <img src={sp.PhotoUrl} alt={sp.name}/> :
+                                <span>{sp.name.charAt(0)}</span>}
+                            <FontAwesomeIcon className='sp-icon-site' style={{color: color}}
+                                             icon={icon || faFacebookSquare}/>
+                        </div>
+                        <span className='sp-name i flex justify-center items-center'>
+                            {sp.name}
+                        </span>
+                    </div>
+                    <div className='left-header flex items-center  mr2'>
+                        <Link to='/console'  className='ml3' >
+                            <SmodinSVG width={50} height={50}/>
+                        </Link>
+                        <MenuElements/>
+                    </div>
                 </div>
             )
         }
@@ -114,7 +113,7 @@ class Header extends Component {
             <Consumer>{(state)=>{
                 const { sp } = state
                 return(
-            <div className='h-100 w-100 nowrap flex items-center justify-center' id='header'>
+            <div className='w-100 nowrap flex items-center justify-center' id='header'>
                 {(userId) ? <ConsoleHeader sp={sp}/> : <DefaultHeader sp={sp}/>}
             </div>
             )}}</Consumer>

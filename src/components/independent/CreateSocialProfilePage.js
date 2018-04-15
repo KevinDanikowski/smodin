@@ -3,6 +3,7 @@ import { GC_USER_ID, socialProfiles } from './../../constants'
 import { graphql, compose } from 'react-apollo'
 import { client } from "../../index"
 import Dropdown from 'react-dropdown'
+import TextField from 'material-ui/TextField';
 import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
 import {
     ALL_SOCIAL_PROFILES_QUERY,
@@ -31,26 +32,19 @@ class CreateSocialProfilePage extends Component {
         }
         const industriesList = industries().map(industry => {return industry.industry})
         return (
-            <div className='w-60 flex flex-column justify-start '>
-                <h1 className=' tc mb4 mt5 dark-gray'>Create Profile</h1>
+            <React.Fragment>
+                <h1>Create Profile</h1>
                 <div className='flex flex-column'>
-                    <div className='flex justify-between '>
-                        <div className='seg-regular fs20p smodin-black'>Name:</div>
-                        <input
-                            className='w200p ma2 br4p bw1p b--smodin-gray pa1'
-                            onChange={(object)=> this.setState({name: object.target.value})}
-                            placeholder='name...' />
-                    </div>
-                    <div className='flex justify-between '>
-                        <div className='seg-regular fs20p smodin-black'>Site:</div>
+                    <div className='flex flex-column justify-center items-center'>
+                        <TextField fullWidth={false}
+                                   floatingLabelText="Name"
+                                   value={this.state.name}
+                                   onChange={(e) => this.setState({name: e.target.value})}/>
                         <Dropdown
                             className='w200p ma2'
                             onChange={async (object)=> await this.setState({site: object.value})}
                             value={this.state.site}
                             placeholder='site...' options={socialProfilesArray} />
-                    </div>
-                    <div className='flex justify-between '>
-                        <div className='seg-regular fs20p smodin-black'>Industry:</div>
                         <Dropdown
                             className='w200p ma2'
                             onChange={(object)=> {this.setState({industry: object.value});this._setIndustryId(object.value)}}
@@ -62,7 +56,7 @@ class CreateSocialProfilePage extends Component {
                         Create
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 
