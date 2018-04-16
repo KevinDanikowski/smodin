@@ -37,18 +37,39 @@
       h2 {
         font-size: 25px;
         color: $smodin-black;
-        margin-bottom: 10px;
+        margin: 4px;
       }
-      h2:after {
-        bottom: 0;
-        content: "";
-        background: linear-gradient(to right, $smodin-purple 50%, rgba(255,255,255,0));
-        display: block;
-        border-radius: 1px;
-        height: 3px;
-        position: relative;
-        width: 90%;
+      hr {
+        padding: 0;
+        margin: 10px 0;
+        background-color: $smodin-dark-purple;
       }
+      .add-profile {
+        padding: 6px 8px;
+        background-color: white;
+        border-radius: 3px;
+        border: 1px solid $smodin-light-purple;
+        color: $smodin-purple
+      }
+      .add-profile:hover {
+        color: white;
+        background-color: $smodin-purple;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        cursor: pointer;
+        text-decoration: none;
+        border: none;
+        transition: all 0.2ms;
+      }
+      //h2:after {
+      //  bottom: 0;
+      //  content: "";
+      //  background: linear-gradient(to right, $smodin-purple 50%, rgba(255,255,255,0));
+      //  display: block;
+      //  border-radius: 1px;
+      //  height: 3px;
+      //  position: relative;
+      //  width: 90%;
+      //}
     }
   }
 }

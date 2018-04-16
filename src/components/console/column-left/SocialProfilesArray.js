@@ -23,12 +23,10 @@ const SocialProfilesArray = (props) => {
                 (sp.id === socialProfile.id)?
                     <div key={index} className='truncate seg-semibold pa2p mb3 flex justify-between fs23p smodin-black bw2p b--smodin-gray br4p bg-smodin-white'>
                         {socialProfile.name}
-                        <i className='fa fa-cog' aria-hidden="true"/>
                     </div>
                     :<div key={index} className='pl3p mb3 flex justify-between fs23p smodin-black pointer'
                           onClick={()=>{setContext({sp: socialProfile})}}>
                         {socialProfile.name}
-                        <i className='fa fa-cog h--smodin-white-p' aria-hidden="true"/>
                     </div>: null
         )}
         </React.Fragment>

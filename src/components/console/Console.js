@@ -8,6 +8,7 @@ import ParameterList from './ParameterList'
 import SocialPostList from './SocialPostList'
 import SchedulePage from './SchedulePage'
 import QueuePage from './QueuePage'
+import SettingsPage from './SettingsPage'
 import CreateSocialProfileLink from './CreateSocialProfileLink'
 import LeftMenu from './column-left/LeftMenu'
 import {Consumer} from "../../Context";
@@ -46,7 +47,7 @@ class Console extends Component {
                     setContext
                 } = state
                 return(
-            <div className='w-100 h-100 flex justify-start items-stretch-content-stretch'>
+            <div id='console' className='w-100 h-100 flex justify-start items-stretch-content-stretch'>
                 <LeftMenu />
                 {/*if no social profile*/}
                 {(this.defaultSelectedSocialProfileId === '')?
@@ -70,6 +71,8 @@ class Console extends Component {
                         {(tab === 'queue')?
                         <QueuePage
                             scheduleType={scheduleType}/> : null }
+                        {(tab === 'settings')?
+                        <SettingsPage sp={sp}/> : null }
                     </div>
                 </div>}
             </div>

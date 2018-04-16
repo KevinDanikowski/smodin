@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
-import { GC_USER_ID } from '../../constants'
 import SocialPost from './SocialPost'
 import ParametersBox from './ParametersBox'
 import SocialPostBox from './SocialPostBox'

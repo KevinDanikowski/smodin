@@ -76,3 +76,27 @@
 
     }
 }
+
+/* CONSOLE TABS */
+#console {
+    .settings-page {
+        color: $smodin-dark-purple;
+
+        .field {
+            padding: 10px 20px;
+        }
+        .platform-tabs {
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            margin-top: 20px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+            &-content {
+                padding: 8px;
+            }
+            &-field{
+                color: $smodin-dark-purple;
+            }
+        }
+    }
+}

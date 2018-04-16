@@ -60,7 +60,7 @@ class CreateSocialProfilePage extends Component {
         )
     }
 
-    _createSocialProfileMutation = async () => {
+    _createSocialProfileMutation = async () => {//TODO need to add posting Profile creation!!
         const userId = localStorage.getItem(GC_USER_ID)
         const site = this.state.site
         const industryId = this.state.industryId

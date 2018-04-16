@@ -6,7 +6,9 @@ const profileMenuArray = [
     {tab: 'posts', display: 'Posts', icon: 'fa-pencil'},
     {tab: 'parameters', display: 'Parameters', icon: 'fa-commenting'},
     {tab: 'schedule', display: 'Schedule', icon: 'fa-calendar'},
-    {tab: 'queue', display: 'Queue', icon: 'fa-tasks'}]
+    {tab: 'queue', display: 'Queue', icon: 'fa-tasks'},
+    {tab: 'settings', display: 'Settings', icon: 'fa-gear'},
+]
 const PostAutonomyTabs = () => {
     return(
     <Consumer>{(state)=>{

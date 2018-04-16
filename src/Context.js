@@ -1,9 +1,12 @@
 import React, { Component, createContext } from 'react'
 
-const defaultContext = {
-    sp: {id: null, site: 'facebook', name: 'Name...', industry: {id: null}},
+export const defaultContext = {//exported to reference defaults
+    sp: {id: null, site: 'facebook', name: 'Choose Profile...',
+        industry: {id: null, industry: 'Null'},
+        postingPlatform: {id: null, platform: 'IFTTT', iftttEventName: '', iftttKey: '', zapierUrl: ''}
+        },
     searchText: '',
-    tab: 'posts',
+    tab: 'settings',
     scheduleType: 'monthly',
 }
 

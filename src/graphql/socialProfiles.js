@@ -5,9 +5,10 @@ export const ALL_SOCIAL_PROFILES_QUERY = gql`
   query AllSocialProfilesQuery ($id: ID!) {
     allSocialProfiles (filter: {user: {id: $id}}){
           id site name
-          industry {id} 
+          industry {id industry} 
           weeklySchedules { id day hour minute }
           monthlySchedules { id monthlyScheduleType monthDay monthDate hour minute }
+          postingPlatform { id platform iftttEventName iftttKey zapierUrl }
         }}`
 export const CREATE_SOCIAL_PROFILE_MUTATION = gql`
     mutation CreateSocialProfileMutation(
@@ -20,7 +21,11 @@ export const CREATE_SOCIAL_PROFILE_MUTATION = gql`
             site: $site,
             industryId: $industryId,
             name: $name){
-            id site industry {id industry} name
+            id site name 
+            industry { id industry }
+            weeklySchedules { id day hour minute }
+            monthlySchedules { id monthlyScheduleType monthDay monthDate hour minute }
+            postingPlatform { id platform iftttEventName iftttKey zapierUrl }
         }
     }
 `
