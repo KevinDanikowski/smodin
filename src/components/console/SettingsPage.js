@@ -61,7 +61,7 @@ class SettingsPage extends Component {
                                         <TextField fullWidth={false}
                                                    floatingLabelText="Event Name"
                                                    value={this.state.iftttKey}
-                                                   onChange={(e) => this.setState({iftttKey: e.target.value})}/>
+                                                   onChange={(e) => this.setState({iftttEventName: e.target.value})}/>
                                     </div>
                                     {(sp.postingPlatform && sp.postingPlatform.platform === 'IFTTT')?
                                         <RaisedButton label="Set to Post from IFTTT"
@@ -73,8 +73,22 @@ class SettingsPage extends Component {
                                 </div>
                             </Tab>
                             <Tab label='Zapier' value='ZAPIER'>
-                                <div>url</div>
-                                <div>Make chosen platform</div>
+                                <div className='platform-tabs-content'>
+                                    <div className='flex justify-between items-center'>
+                                        <span className='platform-tabs-field'>Url:</span>
+                                        <TextField fullWidth={false}
+                                                   floatingLabelText="Key"
+                                                   value={this.state.zapierUrl}
+                                                   onChange={(e) => this.setState({zapierUrl: e.target.value})}/>
+                                    </div>
+                                    {(sp.postingPlatform && sp.postingPlatform.platform === 'ZAPIER')?
+                                        <RaisedButton label="Set to Post from Zapier"
+                                                      fullWidth={true}
+                                                      backgroundColor={'#673AB7'}
+                                                      labelColor={'white'}
+                                                      onClick={this._setPostingPlatform}/>
+                                        :null}
+                                </div>
                             </Tab>
                         </Tabs>
                         </div>
