@@ -1,5 +1,12 @@
 import {faFacebookSquare, faLinkedin, faTwitterSquare} from "@fortawesome/fontawesome-free-brands/index";
 
+export const tabsMenu = [
+    {tab: 'posts', display: 'Posts', icon: 'fa-pencil'},
+    {tab: 'parameters', display: 'Parameters', icon: 'fa-commenting'},
+    {tab: 'schedule', display: 'Schedule', icon: 'fa-calendar'},
+    {tab: 'queue', display: 'Queue', icon: 'fa-tasks'},
+    {tab: 'settings', display: 'Settings', icon: 'fa-gear'},
+]
 export const GC_USER_ID = 'graphcool-user-id'
 export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 export const sampleSocialProfile = {

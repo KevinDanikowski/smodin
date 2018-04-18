@@ -39,7 +39,7 @@ class Header extends Component {
                 </div>
             )
         }
-        const ConsoleHeader = ({sp}) => {
+        const ConsoleHeader = ({sp, tab}) => {
             const SPIcon = profileIcons.find(profileIcon => profileIcon.profile === sp.spSite)
             const color = (SPIcon) ? SPIcon.color : '';
             const icon = (SPIcon) ? SPIcon.icon : '';
@@ -101,6 +101,11 @@ class Header extends Component {
                         </span>
                     </div>
                     <div className='left-header flex items-center  mr2'>
+                        {(sp.id)?
+                            <div className='header-tab'>
+                                <span>TAB</span>
+                                {tab}
+                            </div>:null}
                         <Link to='/console'  className='ml3' >
                             <SmodinSVG width={50} height={50}/>
                         </Link>
@@ -111,10 +116,10 @@ class Header extends Component {
         }
         return (
             <Consumer>{(state)=>{
-                const { sp } = state
+                const { sp, tab } = state
                 return(
             <div className='w-100 nowrap flex items-center justify-center' id='header'>
-                {(userId) ? <ConsoleHeader sp={sp}/> : <DefaultHeader sp={sp}/>}
+                {(userId) ? <ConsoleHeader sp={sp} tab={tab}/> : <DefaultHeader sp={sp}/>}
             </div>
             )}}</Consumer>
         )

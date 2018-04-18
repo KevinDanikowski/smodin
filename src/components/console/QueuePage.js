@@ -14,43 +14,43 @@ class QueuePage extends Component {
         }
     }
     render() {
-        const BuildSidebar = () => {
+        const Ribbon = () => {
             const scheduleLengths = buildTimeFrames.map(timeFrame => {return timeFrame.display})
-            return (
-                <div className='flex flex-column h-100 items-center justify-between w200p overflow-hidden'>
-                    <div className=''>
-                        <h4 className='mb0 tc'>Schedule Type</h4>
-                        <div className='flex inline-flex justify-center mt2'>
+
+            return(
+                <div className='c-ribbon'>
+                    <div className='flex items-center justify-between'>
+                        <div className='inline-flex'>
                             {(this.state.scheduleType === 'monthly')?
                                 <div className='scheduletypebutton-chosen scheduletypebuttonleft fw6 pa2'>Monthly</div>
                                 :<div className='scheduletypebutton scheduletypebuttonleft fw6 pa2'
-                                      onClick={() => {this.setState({scheduleType: 'monthly'})}}>Monthly</div>}
+                                      onClick={() => {this.setState({scheduleType:'monthly'})}}>Monthly</div>}
                             {(this.state.scheduleType === 'weekly')?
-                                <div className='scheduletypebutton-chosen scheduletypebuttonright fw6 pa2 '>Weekly</div>
-                                :<div className='scheduletypebutton scheduletypebuttonright fw6 pa2 '
+                                <div className='scheduletypebutton-chosen scheduletypebuttonright fw6 pa2 mr3'>Weekly</div>
+                                :<div className='scheduletypebutton scheduletypebuttonright fw6 pa2 mr3'
                                       onClick={() => {this.setState({scheduleType: 'weekly'})}}>Weekly</div>}
                         </div>
-                    </div>
-                    <div className=''>
                         <Dropdown
-                            className='w100p ma2'
-                            onChange={async (object)=> await this.setState({scheduleLengthDisplay: object.value})}
-                            value={this.state.scheduleLengthDisplay}
-                            options={scheduleLengths} />
-                    </div>
-                    <div className='mb3 w160p flex items-end'>
-                        <div className='pa1 tc bg-green white ba br2 b--black-20'
-                             onClick={(e)=>console.log('need to generate schedule with ALERT')}>Generate {this.state.scheduleLengthDisplay} of Posts</div>
+                                className='w100p ma2'
+                                onChange={async (object)=> await this.setState({scheduleLengthDisplay: object.value})}
+                                value={this.state.scheduleLengthDisplay}
+                                options={scheduleLengths} />
+                        <div className='w160p flex items-end'>
+                            <div className='pa1 tc bg-green white ba br2 b--black-20'
+                                 onClick={(e)=>console.log('need to generate schedule with ALERT')}>Generate {this.state.scheduleLengthDisplay} of Posts</div>
+                        </div>
                     </div>
                 </div>
             )
         }
         return (
-            <div className='h-100 flex inline-flex overflow-x-hidden w-100'>
-                <div className='flex-1 pa1 overflow-y-scroll'>
-                    <FullCalendar />
+            <div className='h-100 flex flex-column  w-100'>
+                <Ribbon />
+                <div className='h-100 inline-flex overflow-x-hidden w-100'>
+                    <div className='flex-1 pa1 overflow-y-scroll'>
+                        <FullCalendar />
+                    </div>
                 </div>
-                <BuildSidebar />
             </div>
         )
     }

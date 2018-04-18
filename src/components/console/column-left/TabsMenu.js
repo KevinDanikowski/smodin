@@ -1,21 +1,14 @@
 import React from 'react'
 import {Consumer} from "../../../Context";
+import { tabsMenu } from "../../../constants";
 
-
-const profileMenuArray = [
-    {tab: 'posts', display: 'Posts', icon: 'fa-pencil'},
-    {tab: 'parameters', display: 'Parameters', icon: 'fa-commenting'},
-    {tab: 'schedule', display: 'Schedule', icon: 'fa-calendar'},
-    {tab: 'queue', display: 'Queue', icon: 'fa-tasks'},
-    {tab: 'settings', display: 'Settings', icon: 'fa-gear'},
-]
 const PostAutonomyTabs = () => {
     return(
     <Consumer>{(state)=>{
         const { tab, setContext } = state
         return(
             <React.Fragment>
-        {profileMenuArray.map((menuItem, index) => {
+        {tabsMenu.map((menuItem, index) => {
             let className = 'pr1 fa ' + menuItem.icon
             return (
                 (tab === menuItem.tab)?

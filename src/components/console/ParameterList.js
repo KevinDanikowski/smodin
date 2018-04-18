@@ -38,7 +38,7 @@ class ParameterList extends Component {
             <table className='mt2 center' id='parameterstable'>
                 <tbody>
                     <tr>
-                        <th id='parameterstable-th-td'>Number</th>
+                        <th id='parameterstable-th-td'></th>
                         <th id='parameterstable-th-td'>Parameter</th>
                         <th id='parameterstable-th-td'>Response</th>
                         <th id='parameterstable-th-td'>Options</th>
