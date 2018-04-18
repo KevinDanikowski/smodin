@@ -7,6 +7,10 @@ import {ApolloProvider, createNetworkInterface, ApolloClient} from 'react-apollo
 import {SubscriptionClient} from 'subscriptions-transport-ws' // addGraphQLSubscriptions deprecated in newer versions
 import {addGraphQLSubscriptions} from 'add-graphql-subscriptions'
 import {GC_AUTH_TOKEN} from './constants'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { withClientState } from 'apollo-link-state'
+import { ApolloLink } from 'apollo-link'
 import './scss/index.scss'
 import './scss/npm.components.scss'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,9 +20,17 @@ import { Provider } from "./Context"
 
 
 const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
+const cache = new InMemoryCache()
+const defaultState = { }
 
+const stateLink = withClientState({
+    cache,
+    defaults: defaultState,
+    resolvers: { Mutation: { } }
+})
+const graphCoolUrl = 'https://api.graph.cool/simple/v1/' + GRAPHCOOL_PROJECT_ID
 const networkInterface = createNetworkInterface({
-    uri: 'https://api.graph.cool/simple/v1/' + GRAPHCOOL_PROJECT_ID
+    uri: graphCoolUrl
 })
 const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/' + GRAPHCOOL_PROJECT_ID, {
     reconnect: true,
@@ -40,10 +52,15 @@ networkInterface.use([{
         next()
     }
 }])
-export const client = new ApolloClient({
-    networkInterface: networkInterfaceWithSubscriptions
-});
 
+export const client = new ApolloClient({
+    networkInterface: networkInterfaceWithSubscriptions,
+    link: ApolloLink.from([
+        stateLink,
+        new HttpLink({ uri: graphCoolUrl })
+    ]),
+    cache
+})
 const muiTheme = getMuiTheme({
     palette: {
         primary1Color: deepPurple500
