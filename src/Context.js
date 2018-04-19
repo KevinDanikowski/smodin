@@ -6,7 +6,7 @@ export const defaultContext = {//exported to reference defaults
         postingPlatform: {id: null, platform: 'IFTTT', iftttEventName: '', iftttKey: '', zapierUrl: ''}
         },
     searchText: '',
-    tab: 'queue',
+    tab: 'posts',
     scheduleType: 'monthly',
 }
 

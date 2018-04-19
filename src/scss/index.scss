@@ -89,21 +89,6 @@ input[type=checkbox] {
 .flex-basis-auto {
   flex-basis: auto;
 }
-.fill-area {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; /* align items in Main Axis */
-  align-items: stretch; /* align items in Cross Axis */
-  align-content: stretch; /* Extra space in Cross Axis */
-}
-.fill-area-col {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: flex-start; /* align items in Main Axis */
-  align-items: stretch; /* align items in Cross Axis */
-  align-content: stretch; /* Extra space in Cross Axis */
-}
 .flex-grow {
   flex-grow: 1;
 }

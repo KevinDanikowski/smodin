@@ -11,9 +11,9 @@ class Parameter extends Component {
     }
     render() {
         return (
-            <tr id='parameterstable-tr'>
-                <td id='parameterstable-th-td'>{this.props.index + 1}</td>
-                <td id='parameterstable-th-td'>
+            <div className='parameter-row'>
+                <div className='param-number'>{this.props.index + 1}</div>
+                <div className='param-parameter'>
                     {(this.props.parameter.default)?
                         <span className='parameterinputsidetext nowrap'>
                             <span>{'{{'}</span>
@@ -31,8 +31,8 @@ class Parameter extends Component {
                                             :   this.setState({ updateParameter: false })}}/>
                             <span>{'}}'}</span>
                         </span>}
-                </td>
-                <td id='parameterstable-th-td'>
+                </div>
+                <div className='param-response'>
                     <input
                         type='text'
                         className='pa1 br3 b--solid-ns b--black-40'
@@ -41,14 +41,14 @@ class Parameter extends Component {
                             (this.props.parameter.response !== e.target.value) ?
                                 this.setState({ updateParameter: true })
                                 :   this.setState({ updateParameter: false })}}/>
-                </td>
-                <td id='parameterstable-th-td'>
+                </div>
+                <div className='param-options'>
                     <a className='ml1 dark-blue hover-gray pointer' onClick={this._deleteParameter}>Delete</a>
                     {(this.state.updateParameter)?
                         <a className='ml1 red hover-gray pointer' onClick={this._updateParameter}>Update</a>
                     :   null }
-                </td>
-            </tr>
+                </div>
+            </div>
         )
     }
     _updateParameter = () => {

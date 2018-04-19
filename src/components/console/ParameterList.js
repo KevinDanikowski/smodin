@@ -4,7 +4,7 @@ import { ALL_PARAMETERS_QUERY,
     ADD_PARAMETER_MUTATION,
     DELETE_PARAMETER_MUTATION,
     UPDATE_PARAMETER_MUTATION} from "../../graphql/parameters";
-import Parameter from './Parameter'
+import Parameter from './ParameterRow'
 import PropTypes from 'prop-types'
 import LoadingIcon from '../independent/LoadingIcon'
 import ErrorIcon from '../independent/ErrorIcon'
@@ -35,45 +35,26 @@ class ParameterList extends Component {
             ))
         }
         return (
-            <table className='mt2 center' id='parameterstable'>
-                <tbody>
-                    <tr>
-                        <th id='parameterstable-th-td'></th>
-                        <th id='parameterstable-th-td'>Parameter</th>
-                        <th id='parameterstable-th-td'>Response</th>
-                        <th id='parameterstable-th-td'>Options</th>
-                    </tr>
+            <div id='parameters-page'>
+                <div className='parameters-header'>
+                    <span className='param-number'/>
+                    <span className='param-parameter'>Parameter</span>
+                    <span className='param-response'>Response</span>
+                    <span className='param-options'>Options</span>
+                </div>
+                <div className='parameters-table'>
                     <RowsParameterArrayMap />
-                    <tr id='parameterstable-tr'>
-                        <td id='parameterstable-th-td'>#</td>
-                        <td id='parameterstable-th-td'>
-                                <span className='parameterinputsidetext nowrap mr5'>
-                                    <span>{'{{'}</span>
-                                        <input
-                                        className='parameterinput b--solid-ns b--black-10'
-                                        onChange={(e) => this.setState({ newParameter: e.target.value })}
-                                        value={this.state.newParameter}
-                                        placeholder='Your New Parameter...'
-                                        type='text'/>
-                                        <span>{'}}'}</span>
-                                </span>
-                        </td>
-                        <td id='parameterstable-th-td'>
-                            <input
-                                className='pa1 br3 b--solid-ns b--black-40'
-                                onChange={(e) => this.setState({ newResponse: e.target.value })}
-                                value={this.state.newResponse}
-                                placeholder='Your New Response...'
-                                type='text'/>
-                        </td>
-                        <td id='parameterstable-th-td'>
-                            <button
-                                className='bg-green b--dark-green br3 pr2 pl2 pb1 pt1 white-90 fw8'
-                                onClick={() => {this._handleNewParameter()}}>Submit</button>
-                        </td>
-                    </tr>
-                    </tbody>
-            </table>
+                </div>
+                <div className='new-parameter'>
+                    <input
+                        onChange={(e) => this.setState({ newResponse: e.target.value })}
+                        value={this.state.newResponse}
+                        placeholder='Your New Response...'
+                        type='text'/>
+                    <button
+                        onClick={() => {this._handleNewParameter()}}>Submit</button>
+                </div>
+            </div>
         )
     }
     _handleDeleteParameter =  (id) => {
@@ -133,7 +114,7 @@ export default compose(
             const SPId = ownProps.selectedSocialProfileId
             return {
                 variables: { socialProfileId: SPId }
-        }}}),
+            }}}),
     graphql(ADD_PARAMETER_MUTATION, {name: 'addParameterMutation'}),
     graphql(UPDATE_PARAMETER_MUTATION, {name: 'updateParameterMutation'}),
     graphql(DELETE_PARAMETER_MUTATION, {name: 'deletedParameterMutation'})

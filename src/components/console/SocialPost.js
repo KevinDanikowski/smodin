@@ -116,7 +116,7 @@ class SocialPost extends Component {
         }
         const BottomBar = () => {
             return (
-                <div className='fs20p bg-smodin-blue-gray flex border-top b--smodin-gray w-100 pt1p smodin-dark-gray pb2p nowrap'>
+                <div className='post-bottom fs20p bg-smodin-blue-gray flex border-top b--smodin-gray  pt1p smodin-dark-gray pb2p nowrap'>
                     <div className='flex inline-flex justify-start ml1 items-center flex-1'>
                         <i className="ps2p fa fa-link mr1" aria-hidden="true"/>
                         <div className=''>Link...</div>
@@ -151,8 +151,8 @@ class SocialPost extends Component {
             )
         }
         return (
-            <div className='bg-smodin-white b--smodin-gray bw2p br4p ml2 mr2 mt1 overflow-hidden'>
-                <div className='flex pa1'>
+            <div className='social-post'>
+                <div className='post-top'>
                     <PostArea />
                     <ImageArea />
                 </div>

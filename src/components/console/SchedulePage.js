@@ -124,7 +124,7 @@ class SchedulePage extends Component {
             )
         }
         return (
-            <div className='h-100 overflow-x-hidden flex flex-column'>
+            <div id='schedule-page'>
                 <Ribbon />
                 {(this.state.scheduleType === 'weekly')?
                     <WeeklyScheduleType />: null}

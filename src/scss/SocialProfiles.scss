@@ -6,6 +6,7 @@
     &-col-1{
       overflow: hidden;
       width: 55px;
+      min-width: 55px;
       background-color: $smodin-black;
       &-box {
         height: 55px;
@@ -32,6 +33,7 @@
     }
     &-col-2 {
       max-width: 200px;
+      min-width: 200px;
       padding-right: 5px;
       h2 {
         font-size: 25px;

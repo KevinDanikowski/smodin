@@ -52,29 +52,27 @@ class Console extends Component {
                 {/*if no social profile*/}
                 {(this.defaultSelectedSocialProfileId === '')?
                     <CreateSocialProfileLink />
-                :<div className='flex-1 overflow-auto fill-area-col'>
-                    <div className='flex-1 overflow-auto'>
-                        {(tab === 'parameters')?
-                        <ParameterList
-                            selectedSocialProfileId={sp.id}
-                            searchText={searchText}/> : null }
-                        {(tab === 'posts')?
-                        <SocialPostList
-                            sp={sp}
-                            setContext={setContext}
-                            searchText={searchText}/> : null }
-                        {(tab === 'schedule')?
-                        <SchedulePage
-                            spId={sp.id}
-                            scheduleType={scheduleType}
-                            allSocialProfilesQuery={this.props.allSocialProfilesQuery}/> : null }
-                        {(tab === 'queue')?
-                        <QueuePage
-                            scheduleType={scheduleType}/> : null }
-                        {(tab === 'settings')?
-                        <SettingsPage sp={sp}/> : null }
-                    </div>
-                </div>}
+                :<React.Fragment>
+                    {(tab === 'parameters')?
+                    <ParameterList
+                        selectedSocialProfileId={sp.id}
+                        searchText={searchText}/> : null }
+                    {(tab === 'posts')?
+                    <SocialPostList
+                        sp={sp}
+                        setContext={setContext}
+                        searchText={searchText}/> : null }
+                    {(tab === 'schedule')?
+                    <SchedulePage
+                        spId={sp.id}
+                        scheduleType={scheduleType}
+                        allSocialProfilesQuery={this.props.allSocialProfilesQuery}/> : null }
+                    {(tab === 'queue')?
+                    <QueuePage
+                        scheduleType={scheduleType}/> : null }
+                    {(tab === 'settings')?
+                    <SettingsPage sp={sp}/> : null }
+                </React.Fragment>}
             </div>
             )}}</Consumer>
         )

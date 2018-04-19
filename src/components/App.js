@@ -34,9 +34,9 @@ class App extends Component {
             <Consumer>{(state)=>{
                 const { setContext, sp } = state//todo don't know if need
                 return(
-            <div className='flexbox-parent'>
+            <div id='app' className='flexbox-parent'>
                 <Header/>
-                <div className='flex-1 overflow-auto fill-area background-gray'>
+                <div className='body-content'>
                     <Switch>
                         {(userId) ?
                             <Route exact path='/' render={() => <Redirect to='/console'/>}/>

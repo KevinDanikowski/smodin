@@ -42,34 +42,40 @@ class SocialPostList extends Component {
                     updateSocialPostImage={this._handleUpdateSocialPostImage}
                     allParametersQuery={this.props.allParametersQuery}/>)
         }
+        const RightColumn = () =>
+            <div className='right-post-column'>
+                <SocialPostRibbon setContext={this.props.setContext}/>
+                <div className='w-100 flex flex-column flex-1'>
+                    <div className='w-100 h-50'>
+                        <ParametersBox
+                            spId={sp.id} />
+                    </div>
+                    <div className='w-100 h-50'>
+                        <SocialPostBox
+                            industryId={sp.industry.id || null} />
+                    </div>
+                </div>
+            </div>
+
+        const NewSocialPost = () =>
+            <div className='new-post'>
+                <input
+                    onChange={(e) => this.setState({ newSocialPost: e.target.value })}
+                    value={this.state.newSocialPost}
+                    placeholder='Your New Post...'
+                    type='text'/>
+                <button onClick={() => this._handleNewSocialPost()}>Submit</button>
+            </div>
+
         return (
-            <div className='flex-1 flexbox-parent-console'>
-                <div className='flex-1 overflow-auto overflow-y-scroll overflow-x-hidden mr2 mt1 mb1'>
-                    <SocialPostArrayMap />
-                    <div className='inline-flex items-center mt3 w-100 ml2 mb2'>
-                        <input
-                            className='flex-1 pa1 br3 b--solid-ns b--black-40'
-                            onChange={(e) => this.setState({ newSocialPost: e.target.value })}
-                            value={this.state.newSocialPost}
-                            placeholder='Your New Post...'
-                            type='text'/>
-                        <button className='ml3 mr3 bg-green b--dark-green br3 pr2 pl2 pb1 pt1 white-90 fw8'
-                                onClick={() => this._handleNewSocialPost()}>Submit</button>
+            <div id='social-post-page'>
+                <div className='post-column'>
+                    <div className='posts'>
+                        <SocialPostArrayMap />
                     </div>
+                    <NewSocialPost />
                 </div>
-                <div className='flex flex-column w350p overflow-hidden bg-smodin-black'>
-                    <SocialPostRibbon setContext={this.props.setContext}/>
-                    <div className='w-100 flex flex-column flex-1'>
-                        <div className='w-100 h-50'>
-                            <ParametersBox
-                                spId={sp.id} />
-                        </div>
-                        <div className='w-100 h-50'>
-                            <SocialPostBox
-                                industryId={sp.industry.id || null} />
-                        </div>
-                    </div>
-                </div>
+                <RightColumn />
             </div>
         )
     }
@@ -81,15 +87,15 @@ class SocialPostList extends Component {
             update: (store) => {
                 const SPId = this.props.sp.id
                 const data = store.readQuery({query: ALL_SOCIAL_POSTS_QUERY, variables: {
-                    socialProfileId: SPId,
-                    searchText: this.props.searchText
-                }})
+                        socialProfileId: SPId,
+                        searchText: this.props.searchText
+                    }})
                 const deletedSocialPostIndex = data.allSocialPosts.findIndex((socialPost) => (socialPost.id === id))
                 data.allSocialPosts.splice(deletedSocialPostIndex, 1)
                 store.writeQuery({query: ALL_SOCIAL_POSTS_QUERY, data, variables: {
-                    socialProfileId: SPId,
-                    searchText: this.props.searchText
-                }})
+                        socialProfileId: SPId,
+                        searchText: this.props.searchText
+                    }})
             }
         })
     }

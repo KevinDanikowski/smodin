@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { graphql, gql, compose } from 'react-apollo'
-import { GC_USER_ID, buildTimeFrames } from '../../constants'
-import FullCalendar from './Calendar'
+import { GC_USER_ID, buildTimeFrames } from '../../src/constants'
+import FullCalendar from '../../src/components/console/Calendar'
 import ScheduledList from './ScheduledList'
 import Dropdown from 'react-dropdown'
-import '../../scss/BuildPage.scss'
+import '../../src/scss/BuildPage.scss'
 
 class SchedulePage extends Component {
     constructor(props) {
