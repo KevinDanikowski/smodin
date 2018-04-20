@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default ({ allParametersQuery, children }) => {
+    //todo make look for {{}} and match param with dif color, currently looks for {{parametername}}, not generic
     let parameters = ['{{89098_placeholder_90128}}']
     if (allParametersQuery.allParameters && (!allParametersQuery.allParameters.loading && !allParametersQuery.allParameters.error))
         parameters = allParametersQuery.allParameters.map((parameter) => {return  '{{' + parameter.param + '}}'})

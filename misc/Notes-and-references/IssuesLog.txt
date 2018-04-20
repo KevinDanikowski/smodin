@@ -1,0 +1,2 @@
+component loses focus on rerender
+ - this may be because you use a stateless component in same file, make sure there isn't a unnecessary parent layer to cause this problem. This thing keeps rerendering which is the issue

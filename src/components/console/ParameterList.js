@@ -47,9 +47,14 @@ class ParameterList extends Component {
                 </div>
                 <div className='new-parameter'>
                     <input
+                        onChange={(e) => this.setState({ newParameter: e.target.value })}
+                        value={this.state.newParameter}
+                        placeholder='Parameter...'
+                        type='text'/>
+                    <input
                         onChange={(e) => this.setState({ newResponse: e.target.value })}
                         value={this.state.newResponse}
-                        placeholder='Your New Response...'
+                        placeholder='Response...'
                         type='text'/>
                     <button
                         onClick={() => {this._handleNewParameter()}}>Submit</button>

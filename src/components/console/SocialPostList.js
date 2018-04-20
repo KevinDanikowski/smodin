@@ -57,15 +57,6 @@ class SocialPostList extends Component {
                 </div>
             </div>
 
-        const NewSocialPost = () =>
-            <div className='new-post'>
-                <input
-                    onChange={(e) => this.setState({ newSocialPost: e.target.value })}
-                    value={this.state.newSocialPost}
-                    placeholder='Your New Post...'
-                    type='text'/>
-                <button onClick={() => this._handleNewSocialPost()}>Submit</button>
-            </div>
 
         return (
             <div id='social-post-page'>
@@ -73,7 +64,14 @@ class SocialPostList extends Component {
                     <div className='posts'>
                         <SocialPostArrayMap />
                     </div>
-                    <NewSocialPost />
+                    <div className='new-post'>
+                        <input
+                               onChange={(e) => this.setState({ newSocialPost: e.target.value })}
+                               value={this.state.newSocialPost}
+                               placeholder='Your New Post...'
+                               type='text'/>
+                        <button onClick={() => this._handleNewSocialPost()}>Submit</button>
+                    </div>
                 </div>
                 <RightColumn />
             </div>

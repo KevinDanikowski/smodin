@@ -1,0 +1,32 @@
+Functional Tests Completed
+
+social profiles
++ change chosen social profile
+- add profile
+- delete profile
+- edit profile
+
+social posts
+- add social post
+    > lose focus after character
++ delete social post
+- edit social post
+    > lose focus after character
++ search social posts
+
+files
+- add image
+- delete image
+
+Parameters
++ add new parameter
++ edit parameter and response
++ delete parameter
+    > need loading bar
+-
+
+schedules
+- delete schedule
+- add schedule
+- edit schedule
+- generate sample schedule
