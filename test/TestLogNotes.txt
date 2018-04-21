@@ -7,8 +7,7 @@ social profiles
 - edit profile
 
 social posts
-- add social post
-    > lose focus after character
++ add social post
 + delete social post
 - edit social post
     > lose focus after character

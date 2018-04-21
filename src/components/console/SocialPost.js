@@ -68,7 +68,6 @@ class SocialPost extends Component {
                         allParametersQuery={this.props.allParametersQuery}>{this.state.message}</SocialPostWithCSS>
                 </div>
             )
-
         }
         const ImageArea = () => {
             if (this.state.hasImage) return(
@@ -241,7 +240,13 @@ class SocialPost extends Component {
 }
 
 SocialPost.propTypes = {
-    spId: PropTypes.string
+    spId: PropTypes.string,
+    socialPost: PropTypes.object.isRequired,
+    searchText: PropTypes.string.isRequired,
+    deleteSocialPost: PropTypes.func.isRequired,
+    updateSocialPost: PropTypes.func.isRequired,
+    updateSocialPostImage: PropTypes.func.isRequired,
+    allParametersQuery: PropTypes.object
 }
 
 export default compose(

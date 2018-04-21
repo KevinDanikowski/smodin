@@ -34,7 +34,6 @@ class SocialPostList extends Component {
                 <SocialPost
                     key={socialPost.id}
                     socialPost={socialPost}
-                    index={index}
                     searchText={this.props.searchText}
                     spId={sp.id}
                     deleteSocialPost={this._handleDeleteSocialPost}
