@@ -9,8 +9,7 @@ social profiles
 social posts
 + add social post
 + delete social post
-- edit social post
-    > lose focus after character
++ edit social post
 + search social posts
 
 files

@@ -39,21 +39,7 @@ class SocialPost extends Component {
     }
     render() {
         const PostArea = () => {
-            if (this.state.editing) return (
-                <div className='flex-5'>
-                    <TextareaAutosize
-                        onBlur={() => {this.setState({ editing: false})}}
-                        type='text'
-                        className='socialpostboxresponse'
-                        innerRef={(input)=>{this.textarea=input}}
-                        value={this.state.message}
-                        onChange={(e) => {
-                            this.setState({ message: e.target.value});
-                            (this.props.socialPost.message !== e.target.value) ?
-                                this.setState({ postChanged: true }) : this.setState({ postChanged: false })}}/>
-                </div>
-            )
-            if (!this.state.editing && this.state.viewResponse) {
+            if (this.state.viewResponse) {
                 if (this.props.allParametersQuery.loading) return (
                     <div className='flex-5 pa0 ma0'><strong>Generating Your Messages.....</strong></div>
                 )
@@ -152,7 +138,20 @@ class SocialPost extends Component {
         return (
             <div className='social-post'>
                 <div className='post-top'>
-                    <PostArea />
+                    {(this.state.editing)?
+                        <div className='flex-5'>
+                            <TextareaAutosize
+                                onBlur={() => {this.setState({ editing: false})}}
+                                type='text'
+                                className='socialpostboxresponse'
+                                innerRef={(input)=>{this.textarea=input}}
+                                value={this.state.message}
+                                onChange={(e) => {
+                                    this.setState({ message: e.target.value});
+                                    (this.props.socialPost.message !== e.target.value) ?
+                                        this.setState({ postChanged: true }) : this.setState({ postChanged: false })}}/>
+                        </div>
+                        :<PostArea />}
                     <ImageArea />
                 </div>
                 <BottomBar />
