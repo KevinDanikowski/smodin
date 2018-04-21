@@ -68,7 +68,7 @@ class ParameterList extends Component {
                 id: id
             },
             update: (store) => {
-                const SPId = this.props.selectedSocialProfileId
+                const SPId = this.props.sp.id
                 const data = store.readQuery({query: ALL_PARAMETERS_QUERY, variables: { socialProfileId: SPId }})
                 const deletedParameterIndex = data.allParameters.findIndex((parameter) => (parameter.id === id))
                 data.allParameters.splice(deletedParameterIndex, 1)
@@ -87,7 +87,7 @@ class ParameterList extends Component {
     }
     _handleNewParameter = async () => {
         const { newParameter, newResponse } = this.state
-        const SPId = this.props.selectedSocialProfileId
+        const SPId = this.props.sp.id
         await this.props.addParameterMutation({
             variables: {
                 socialProfileId: SPId,
@@ -111,14 +111,18 @@ class ParameterList extends Component {
     }
 }
 
+ParameterList.propTypes = {
+    searchText: PropTypes.string,
+    sp: PropTypes.object.isRequired
+}
+
 export default compose(
     graphql(ALL_PARAMETERS_QUERY, {
         name: 'allParametersQuery',
-        skip: (ownProps)=>ownProps.selectedSocialProfileId === null,
+        skip: (ownProps)=>ownProps.sp.id === null,
         options: (ownProps) => {
-            const SPId = ownProps.selectedSocialProfileId
             return {
-                variables: { socialProfileId: SPId }
+                variables: { socialProfileId: ownProps.sp.id }
             }}}),
     graphql(ADD_PARAMETER_MUTATION, {name: 'addParameterMutation'}),
     graphql(UPDATE_PARAMETER_MUTATION, {name: 'updateParameterMutation'}),

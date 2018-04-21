@@ -55,7 +55,7 @@ class Console extends Component {
                 :<React.Fragment>
                     {(tab === 'parameters')?
                     <ParameterList
-                        selectedSocialProfileId={sp.id}
+                        sp={sp}
                         searchText={searchText}/> : null }
                     {(tab === 'posts')?
                     <SocialPostList
