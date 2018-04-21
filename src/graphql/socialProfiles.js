@@ -29,6 +29,20 @@ export const CREATE_SOCIAL_PROFILE_MUTATION = gql`
         }
     }
 `
+export const UPDATE_SOCIAL_PROFILE_MUTATION = gql`
+    mutation UpdateSocialProfileMutation(
+        $id: ID!, $name: String
+        ){
+        updateSocialProfile(
+            id: $id, name: $name){
+            id site name 
+            industry { id industry }
+            weeklySchedules { id day hour minute }
+            monthlySchedules { id monthlyScheduleType monthDay monthDate hour minute }
+            postingPlatform { id platform iftttEventName iftttKey zapierUrl }
+        }
+    }
+`
 export const ALL_DEFAULT_SOCIAL_POSTS_QUERY = gql`
   query AllSocialPostsQuery($industryId: ID!) {
     allDefaultSocialPosts(filter: {

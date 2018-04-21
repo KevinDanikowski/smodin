@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import { GC_USER_ID, socialProfiles } from './../../constants'
 import { graphql, compose } from 'react-apollo'
+import PropTypes from 'prop-types'
 import { client } from "../../index"
 import Dropdown from 'react-dropdown'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton'
 import LoadingIcon from '../independent/LoadingIcon'
 import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
+import {CREATE_POSTING_PLATFORM_MUTATION} from "../../graphql/postingPlatforms";
 import {
     ALL_SOCIAL_PROFILES_QUERY,
     CREATE_SOCIAL_PROFILE_MUTATION,
     ALL_DEFAULT_PARAMETERS_QUERY,
-    ALL_DEFAULT_SOCIAL_POSTS_QUERY, ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION,
+    ALL_DEFAULT_SOCIAL_POSTS_QUERY,
+    ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION,
     ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION
 } from '../../graphql/socialProfiles'
 
@@ -116,6 +119,15 @@ class CreateSocialProfilePage extends Component {
                     }
                 })
             })
+            //add posting platform
+            await this.props.createPostingPlatformMutation({
+                variables: {socialProfileId: createSocialProfile.id},
+                update: (store, {data: {createPostingPlatform}}) => {
+                    //todo update socialprofile query
+                    this.props.setContext({sp: {...this.props.sp, postingPlatform: createPostingPlatform}})
+                }
+            })
+
             this.setState({loadingNewProfile: false})
         })
         this.props.history.push('/console')
@@ -125,10 +137,14 @@ class CreateSocialProfilePage extends Component {
         this.setState({industryId: industryId})
     }
 }
-
+CreateSocialProfilePage.propTypes = {
+    sp: PropTypes.object.isRequired,
+    setContext: PropTypes.func.isRequired
+}
 export default compose(
     graphql(ALL_INDUSTRIES_QUERY, {name: 'allIndustriesQuery'}),
     graphql(CREATE_SOCIAL_PROFILE_MUTATION, {name: 'createSocialProfileMutation'}),
+    graphql(CREATE_POSTING_PLATFORM_MUTATION, {name: 'createPostingPlatformMutation'}),
     graphql(ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION, {name: 'addAllDefaultParametersOneByOneMutation'}),
     graphql(ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION, {name: 'addAllDefaultSocialPostsOneByOneMutation'}),
     graphql(ALL_SOCIAL_PROFILES_QUERY, {//todo change this when user query is source of social profiles

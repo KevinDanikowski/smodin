@@ -71,7 +71,9 @@ class Console extends Component {
                     <QueuePage
                         scheduleType={scheduleType}/> : null }
                     {(tab === 'settings')?
-                    <SettingsPage sp={sp}/> : null }
+                    <SettingsPage
+                        sp={sp}
+                        setContext={setContext}/> : null }
                 </React.Fragment>}
             </div>
             )}}</Consumer>

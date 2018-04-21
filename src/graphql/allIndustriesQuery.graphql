@@ -1,7 +1,0 @@
-query AllIndustriesQuery {
-    allIndustries (orderBy: default_DESC){
-      id
-      default
-      industry
-    }
-}
