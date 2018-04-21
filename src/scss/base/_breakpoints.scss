@@ -1,0 +1,39 @@
+/**
+ *  Responsive Breakpoints
+ *  @access private
+ *  @type Breakpoints
+ */
+
+$breakpoints : (
+        'xl' : (min-width: 1200px),
+        'lg' : (min-width: 992px),
+        'md' : (min-width: 768px),
+        'sm' : (min-width: 576px),
+        'xs' : (max-width: 576px),
+        'xsm': (max-width: 320px)
+);
+
+/**
+ *  Responsive Breakpoints
+ *  @access private
+ *  @type  Breakpoint function to define $breakpoints
+ *  @param {Media Query} $breakpoints
+ *
+ */
+
+@mixin break($breakpoint) {
+    $raw-query: map-get($breakpoints, $breakpoint);
+
+    @if $raw-query {
+        $query: if(
+                        type-of($raw-query) == 'string',
+                        unquote($raw-query),
+                        inspect($raw-query)
+        );
+        @media only screen and #{$query} {
+            @content;
+        }
+    } @else {
+        @error 'No value found for `#{$breakpoint}`. '
+    }
+}

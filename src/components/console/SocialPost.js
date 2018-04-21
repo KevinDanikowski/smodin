@@ -101,20 +101,20 @@ class SocialPost extends Component {
         }
         const BottomBar = () => {
             return (
-                <div className='post-bottom fs20p bg-smodin-blue-gray flex border-top b--smodin-gray  pt1p smodin-dark-gray pb2p nowrap'>
-                    <div className='flex inline-flex justify-start ml1 items-center flex-1'>
-                        <i className="ps2p fa fa-link mr1" aria-hidden="true"/>
-                        <div className=''>Link...</div>
+                <div className='post-bottom'>
+                    <div className='p-item p-item-url'>
+                        <i className="fa fa-link" aria-hidden="true"/>
+                        <span className=''>Link...</span>
                     </div>
-                    <div className='flex inline-flex justify-start items-center flex-1'>
-                        <i className="ps2p fa fa-picture-o mr1 " aria-hidden="true"/>
-                        <div className=''>Image Link...</div>
+                    <div className='p-item p-item-img-url'>
+                        <i className="fa fa-picture-o" aria-hidden="true"/>
+                        <span className=''>Image Link...</span>
                     </div>
-                    <div className='flex inline-flex justify-start items-center pr2'>
-                        <i className="ps2p fa fa-clock-o mr1" aria-hidden="true"/>
-                        <div className=''>8/2/17 16:12</div>
+                    <div className='p-item p-item-date'>
+                        <i className="fa fa-clock-o" aria-hidden="true"/>
+                        <span className=''>8/2/17 16:12</span>
                     </div>
-                    <div className='pl2 flex inline-flex justify-end self-end items-center'>
+                    <div className='p-item p-item-links'>
                         {(this.state.viewResponse)?
                             <div className='br4 bg-smodin-red pl1 pr1 mt1p mr1 h--bg-smodin-red-p white'
                                  onClick={() => this.setState({viewResponse: true})}>
