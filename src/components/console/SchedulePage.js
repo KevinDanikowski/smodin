@@ -93,7 +93,7 @@ class SchedulePage extends Component {
                                           onClick={() => this._handleGenerateRecommendedWeeklySchedule()}
                                           style={{minWidth: '80%'}}
                                           backgroundColor={'#673AB7'}
-                                          labelColor={'white'}/>
+                                          labelColor={'#ffffff'}/>
                         </div>
 
                     </div>

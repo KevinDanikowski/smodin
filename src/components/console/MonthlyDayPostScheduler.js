@@ -97,7 +97,7 @@ class MonthlyDayPostScheduler extends Component {
                                   onClick={() => this._generateRecommendedMonthlySchedule()}
                                   style={{minWidth: '80%'}}
                                   backgroundColor={'#673AB7'}
-                                  labelColor={'white'}/>
+                                  labelColor={'#ffffff'}/>
                 </div>
             </div>
         )

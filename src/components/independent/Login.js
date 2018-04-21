@@ -76,7 +76,7 @@ class Login extends Component {
                                           onClick={() => this._confirm()}
                                           fullWidth={true}
                                           backgroundColor={'#673AB7'}
-                                          labelColor={'white'}/>
+                                          labelColor={'#ffffff'}/>
                         </CardActions>
                         <CardText style={createAccount}
                                   onClick={() => this.setState({login: !this.state.login})}>

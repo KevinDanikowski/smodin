@@ -7,12 +7,9 @@ import UserSettings from './independent/UserSettings'
 import TutorialPage from './independent/staticPages/TutorialPage'
 import StaticAbout from './independent/staticPages/AboutPage'
 import CreateSocialProfilePage from './independent/CreateSocialProfilePage'
-import FontAwesome from 'react-fontawesome'
 import {Consumer} from '../Context'
 import {GC_USER_ID} from '../constants'
 import '../scss/base/base.scss'
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import Paper from 'material-ui/Paper';
 import SPT from './independent/SinglePageTemplate'
 
 class App extends Component {

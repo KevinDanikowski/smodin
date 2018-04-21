@@ -1,30 +1,30 @@
-Functional Tests Completed
+Functional Tests Completed (Dev Branch)
 
 social profiles
-+ change chosen social profile
++ change chosen social profile 4/20
 - add profile
 - delete profile
 - edit profile
 
 social posts
-+ add social post
-+ delete social post
-+ edit social post
-+ search social posts
++ add social post 4/20
++ delete social post 4/20
++ edit social post 4/21
++ search social posts 4/20
 
 files
-- add image
++ add image 4/21
 - delete image
+    > Deletes, but doesn't update to get rid of image from being seen
 
 Parameters
-+ add new parameter
-+ edit parameter and response
-+ delete parameter
++ add new parameter 4/20
++ edit parameter and response 4/20
++ delete parameter 4/20
     > need loading bar
 -
 
 schedules
-- delete schedule
-- add schedule
-- edit schedule
-- generate sample schedule
++ delete schedule 4/20
++ add schedule 4/21
++ generate sample schedule 4/21

@@ -67,7 +67,7 @@ class SettingsPage extends Component {
                                         <RaisedButton label="Set to Post from IFTTT"
                                                       fullWidth={true}
                                                       backgroundColor={'#673AB7'}
-                                                      labelColor={'white'}
+                                                      labelColor={'#ffffff'}
                                                       onClick={this._setPostingPlatform}/>
                                         :null}
                                 </div>
@@ -85,7 +85,7 @@ class SettingsPage extends Component {
                                         <RaisedButton label="Set to Post from Zapier"
                                                       fullWidth={true}
                                                       backgroundColor={'#673AB7'}
-                                                      labelColor={'white'}
+                                                      labelColor={'#ffffff'}
                                                       onClick={this._setPostingPlatform}/>
                                         :null}
                                 </div>

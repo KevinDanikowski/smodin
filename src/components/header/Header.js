@@ -48,7 +48,7 @@ class Header extends Component {
                 <IconMenu
                     {...props}
                     iconButtonElement={
-                        <IconButton iconStyle={{color: 'white'}}><MoreVertIcon/></IconButton>
+                        <IconButton iconStyle={{color: '#ffffff'}}><MoreVertIcon/></IconButton>
                     }
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
