@@ -145,7 +145,9 @@ class SocialPostList extends Component {
 }
 
 SocialPostList.propTypes = {
-    sp: PropTypes.object.isRequired
+    sp: PropTypes.object.isRequired,
+    setContext: PropTypes.func.isRequired,
+    searchText: PropTypes.string.isRequired
 }
 export default compose(
     graphql(ALL_SOCIAL_POSTS_QUERY, {

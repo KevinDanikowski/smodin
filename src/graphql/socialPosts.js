@@ -23,14 +23,17 @@ export const ADD_SOCIAL_POSTS_MUTATION = gql`
             id
             default
             socialProfile {id}
+            image {id size url}
     }}`
 
 export const UPDATE_SOCIAL_POSTS_IMAGE_MUTATION = gql`
     mutation UpdateSocialPostImage($id: ID!, $imageId: ID!){
         updateSocialPost(id: $id, imageId: $imageId){
-            id
             message
-            image {id}
+            id
+            default
+            socialProfile {id}
+            image {id size url}
     }}`
 export const UPDATE_SOCIAL_POSTS_MUTATION = gql`
     mutation UpdateSocialPost($id: ID!, $message: String!){
