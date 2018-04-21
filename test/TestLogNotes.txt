@@ -14,15 +14,14 @@ social posts
 
 files
 + add image 4/21
-- delete image
-    > Deletes, but doesn't update to get rid of image from being seen
++ delete image 4/21
 
 Parameters
 + add new parameter 4/20
 + edit parameter and response 4/20
 + delete parameter 4/20
     > need loading bar
--
+
 
 schedules
 + delete schedule 4/20

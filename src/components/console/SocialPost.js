@@ -166,15 +166,13 @@ class SocialPost extends Component {
         setTimeout(function(){_setNewState()}, 2500)
     }
     _deleteImageFile = async () => {
-        // THIS DOESN'T WORK, GET AN ERROR, SEND NILAN ok  MESSAGE
-        const socialPostId = this.props.socialPost.id
-        //const imageId = this.props.socialPost.image.id
         await this.props.deleteImageFileMutation({
             variables: {
                 id: this.props.socialPost.image.id
             },
+            /* THIS DOESN'T WORK BECAUSE OF GRAPHCOOL
             update: (store) => {
-                console.log('test')
+                const socialPostId = this.props.socialPost.id
                 const userId = localStorage.getItem(GC_USER_ID)
                 const SPId = this.props.spId
                 const data = store.readQuery({query: ALL_SOCIAL_POSTS_QUERY, variables: {
@@ -189,8 +187,15 @@ class SocialPost extends Component {
                     id: userId,
                     socialProfileId: SPId,
                     searchText: this.props.searchText
-                }}).catch(res => { const errors = res.graphQLErrors; console.log(errors)})
-            }
+                }})
+            }*/
+        }).catch(res => {
+            //res is only logs error, nothing else
+            //const errors = res.graphQLErrors;
+            //todo change actual query store, not just state
+            this.setState({
+                hasImage: false,
+            })
         })
     }
     _deleteSocialPost = () => {
