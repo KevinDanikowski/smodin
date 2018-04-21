@@ -44,7 +44,7 @@ class App extends Component {
                         <Route exact path='/settings' render={(props) =>
                             <SPT><UserSettings {...props}/></SPT>}/>
                         <Route exact path='/create-profile' render={(props) =>
-                            <SPT><CreateSocialProfilePage {...props}/></SPT>}/>
+                            <SPT><CreateSocialProfilePage setContext={setContext} {...props}/></SPT>}/>
                         {/*static pages*/}
                         <Route exact path='/tutorial' render={(props) =>
                             <SPT><TutorialPage/></SPT>}/>

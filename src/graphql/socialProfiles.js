@@ -1,6 +1,6 @@
 import {gql} from "react-apollo/index";
 
-//todo get rid of this, have it in user data
+//todo get rid of this, have it in user data?
 export const ALL_SOCIAL_PROFILES_QUERY = gql`
   query AllSocialProfilesQuery ($id: ID!) {
     allSocialProfiles (filter: {user: {id: $id}}){
@@ -29,7 +29,6 @@ export const CREATE_SOCIAL_PROFILE_MUTATION = gql`
         }
     }
 `
-//todo filter for industry
 export const ALL_DEFAULT_SOCIAL_POSTS_QUERY = gql`
   query AllSocialPostsQuery($industryId: ID!) {
     allDefaultSocialPosts(filter: {
@@ -59,7 +58,7 @@ export const ADD_ALL_DEFAULT_SOCIAL_POSTS_ONE_BY_ONE_MUTATION = gql`
 }`
 export const ADD_ALL_DEFAULT_PARAMETERS_ONE_BY_ONE_MUTATION = gql`
   mutation AddAllDefaultParametersOneByOneMutation(
-        $socialProfileId: String!, $param: String!, $response: String!, $default: Boolean!){
+        $socialProfileId: ID!, $param: String!, $response: String!, $default: Boolean!){
     createParameter(param: $param, response: $response, default: $default, socialProfileId: $socialProfileId) {
     id default param response socialProfile {id}
   }

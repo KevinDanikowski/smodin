@@ -498,3 +498,8 @@ div::-webkit-scrollbar-thumb {
   background-color: white;
   -webkit-box-shadow: inset 0 2px 2px rgba(0,0,0,0.5);
 }
+.smodin-card {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+  box-sizing: border-box;
+}

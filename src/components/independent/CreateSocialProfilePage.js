@@ -4,6 +4,8 @@ import { graphql, compose } from 'react-apollo'
 import { client } from "../../index"
 import Dropdown from 'react-dropdown'
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton'
+import LoadingIcon from '../independent/LoadingIcon'
 import { ALL_INDUSTRIES_QUERY} from "../../graphql/industries";
 import {
     ALL_SOCIAL_PROFILES_QUERY,
@@ -20,47 +22,51 @@ class CreateSocialProfilePage extends Component {
             site: '',
             industryId: '',
             industry: '',
-            name: ''
+            name: '',
+            loadingNewProfile: false
         }
     }
     render() {
         const socialProfilesArray = socialProfiles.map(socialProfile => {return socialProfile.profile})
         const industries = () => {
-            if (this.props.allIndustriesQuery && this.props.allIndustriesQuery.loading) return [{id: '', industry: 'loading...'}]
-            if (this.props.allIndustriesQuery && this.props.allIndustriesQuery.error) return [{id: '', industry: 'ERR'}]
+            if (this.props.allIndustriesQuery && this.props.allIndustriesQuery.loading) return [{id: '', industry: 'Loading...'}]
+            if (this.props.allIndustriesQuery && this.props.allIndustriesQuery.error) return [{id: '', industry: 'ERR, try reloading'}]
             return this.props.allIndustriesQuery.allIndustries
         }
         const industriesList = industries().map(industry => {return industry.industry})
         return (
             <React.Fragment>
-                <h1>Create Profile</h1>
-                <div className='flex flex-column'>
-                    <div className='flex flex-column justify-center items-center'>
-                        <TextField fullWidth={false}
-                                   floatingLabelText="Name"
-                                   value={this.state.name}
-                                   onChange={(e) => this.setState({name: e.target.value})}/>
-                        <Dropdown
-                            className='w200p ma2'
-                            onChange={async (object)=> await this.setState({site: object.value})}
-                            value={this.state.site}
-                            placeholder='site...' options={socialProfilesArray} />
-                        <Dropdown
-                            className='w200p ma2'
-                            onChange={(object)=> {this.setState({industry: object.value});this._setIndustryId(object.value)}}
-                            value={this.state.industry}
-                            placeholder='industry...' options={industriesList} />
-                    </div>
-                    <div className='self-center w-50 tc seg-regular fs23p mt5 pa3 b--smodin-gray bg-smodin-white h--bg-smodin-red-p br4p bw2p'
-                        onClick={()=> this._createSocialProfileMutation()}>
-                        Create
-                    </div>
+                {(!this.state.loadingNewProfile)? <h1>Create Profile</h1>: <h1>Setting Up {this.state.name}...</h1>}
+                {(!this.state.loadingNewProfile)?
+                <div className='flex flex-column justify-center items-center smodin-card pb3'>
+                    <TextField fullWidth={false}
+                               style={{minWidth: 200, width: 400}}
+                               floatingLabelText="Profile Name"
+                               value={this.state.name}
+                               onChange={(e) => this.setState({name: e.target.value})}/>
+                    <Dropdown
+                        className='w200p ma2'
+                        onChange={async (object)=> await this.setState({site: object.value})}
+                        value={this.state.site}
+                        placeholder='site...' options={socialProfilesArray} />
+                    <Dropdown
+                        className='w200p mb5 ma2'
+                        onChange={(object)=> {this.setState({industry: object.value});this._setIndustryId(object.value)}}
+                        value={this.state.industry}
+                        placeholder='industry...' options={industriesList} />
+                    <RaisedButton label="Create"
+                          style={{minWidth: 200, width: 400}}
+                          backgroundColor={'#673AB7'}
+                          labelColor={'#ffffff'}
+                          onClick={this._createSocialProfileMutation}/>
                 </div>
+                :<LoadingIcon />}
             </React.Fragment>
         )
     }
 
     _createSocialProfileMutation = async () => {//TODO need to add posting Profile creation!!
+        this.setState({loadingNewProfile: true})
         const userId = localStorage.getItem(GC_USER_ID)
         const site = this.state.site
         const industryId = this.state.industryId
@@ -72,42 +78,45 @@ class CreateSocialProfilePage extends Component {
                 industryId: industryId,
                 name: name
             },
-            update: (store, {data: {createSocialProfile} }) => {
-                const SPId = createSocialProfile.id
-
-                //add all default parameters
-                client.query({
-                    query: ALL_DEFAULT_PARAMETERS_QUERY,
-                    variables: { industryId: industryId }
-                }).then(({data: {allDefaultParameters}})=>{
-                    allDefaultParameters.map(defaultParameter => {
-                        this.props.addAllDefaultParametersOneByOneMutation({
-                            variables: {
-                                socialProfileId: SPId,
-                                default: true,
-                                param: defaultParameter.param,
-                                response: defaultParameter.response
-                            }
-                        })
-                    })
-                })
-
-                //add all default social posts
-                client.query({
-                    query: ALL_DEFAULT_SOCIAL_POSTS_QUERY,
-                    variables: { industryId: industryId }
-                }).then(({data: {allDefaultSocialPosts}})=>{
-                    allDefaultSocialPosts.map(defaultSocialPost => {
-                        this.props.addAllDefaultSocialPostsOneByOneMutation({
-                            variables: {
-                                socialProfileId: SPId,
-                                default: true,
-                                message: defaultSocialPost.message
-                            }
-                        })
-                    })
-                })
+            update: async (store, {data: {createSocialProfile} }) => {
+                this.props.setContext({sp: createSocialProfile, tab: 'settings'})
             }
+        }).then(async( {data: {createSocialProfile} }) => {
+            const {allDefaultParameters} = await client.query({
+                query: ALL_DEFAULT_PARAMETERS_QUERY,
+                variables: { industryId: industryId }
+            }).then(({data: {allDefaultParameters}})=>{
+                return {allDefaultParameters}
+            })
+            const {allDefaultSocialPosts} = await client.query({
+                query: ALL_DEFAULT_SOCIAL_POSTS_QUERY,
+                variables: { industryId: industryId }
+            }).then(({data: {allDefaultSocialPosts}})=>{
+                return {allDefaultSocialPosts}
+            })
+
+            //add parameters
+            await allDefaultParameters.map(defaultParameter => {
+                return this.props.addAllDefaultParametersOneByOneMutation({
+                    variables: {
+                        socialProfileId: createSocialProfile.id,
+                        default: true,
+                        param: defaultParameter.param,
+                        response: defaultParameter.response
+                    }
+                })
+            })
+            //add posts
+            await allDefaultSocialPosts.map(defaultSocialPost => {
+                return this.props.addAllDefaultSocialPostsOneByOneMutation({
+                    variables: {
+                        socialProfileId: createSocialProfile.id,
+                        default: true,
+                        message: defaultSocialPost.message
+                    }
+                })
+            })
+            this.setState({loadingNewProfile: false})
         })
         this.props.history.push('/console')
     }
