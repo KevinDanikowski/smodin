@@ -6,8 +6,7 @@ import SocialPostWithCSS from './SocialPostWithCSS'
 import TextareaAutosize from 'react-autosize-textarea'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
-import {ADD_SOCIAL_POST_IMAGE_MUTATION,
-    ALL_SOCIAL_POSTS_QUERY} from '../../graphql/socialPosts'
+import {ADD_SOCIAL_POST_IMAGE_MUTATION} from '../../graphql/socialPosts'
 import {UPDATE_FILE_MUTATION,
     DELETE_FILE_MUTATION} from '../../graphql/files'
 import PropTypes from 'prop-types'
