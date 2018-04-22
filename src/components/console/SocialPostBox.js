@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {ALL_SOCIAL_POST_EXAMPLES_QUERY, ALL_SOCIAL_POST_IDEAS_QUERY} from "../../graphql/socialPosts";
 import LoadingIcon from '../independent/LoadingIcon'
+import HighlightParameters from './HighlightParameters'
 
 class SocialPostBox extends Component {
     constructor(props) {
@@ -19,7 +20,11 @@ class SocialPostBox extends Component {
                 return this.props.allSocialPostExamplesQuery.allSocialPostExamples.map((SocialPost, index) => (
                     <div
                         key={index}
-                        className='social-post-example' >{SocialPost.message}</div>
+                        className='p-box p-box-example' >
+                        <HighlightParameters>
+                            {SocialPost.message}
+                        </HighlightParameters>
+                    </div>
                 ))
             else return <LoadingIcon/>
         }
@@ -30,7 +35,7 @@ class SocialPostBox extends Component {
                 return this.props.allSocialPostIdeasQuery.allSocialPostIdeas.map((SocialPost, index) => (
                     <div
                         key={index}
-                        className='social-post-idea' >{SocialPost.idea}</div>
+                        className='p-box p-box-idea' >{SocialPost.idea}</div>
                 ))
             else return <LoadingIcon/>
         }

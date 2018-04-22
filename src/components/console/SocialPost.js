@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import { findAllParametersInString } from '../../utils'
 import { GC_USER_ID } from '../../constants'
-import SocialPostWithCSS from './SocialPostWithCSS'
+import HighlightParameters from './HighlightParameters'
 import TextareaAutosize from 'react-autosize-textarea'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
@@ -49,8 +49,8 @@ class SocialPost extends Component {
             return(
                 <div className='flex-5 pointer'
                      onClick={async ()=>{await this.setState({editing: true}); this._clickToEdit()}}>
-                    <SocialPostWithCSS
-                        allParametersQuery={this.props.allParametersQuery}>{this.state.message}</SocialPostWithCSS>
+                    <HighlightParameters
+                        allParametersQuery={this.props.allParametersQuery}>{this.state.message}</HighlightParameters>
                 </div>
             )
         }

@@ -20,7 +20,7 @@ class ParametersBox extends Component {
                     {this.props.allParametersQuery.allParameters.map((parameter, index) => (
                         <div
                             key={index}
-                            className='parameterhover seg-regular fs14p inline-flex flex-wrap ma2p parameterborder bg-smodin-purple smodin-black' >{'{{' + parameter.param + '}}'}</div>
+                            className='par-border' >{'{{' + parameter.param + '}}'}</div>
                     ))}
                 </div>
             )

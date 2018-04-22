@@ -2,6 +2,28 @@
  * ALL ABREVIATED WITH PAR FOR PARAMETERS
  */
 
+.par-highlight {
+  background-color: $smodin-light-purple;
+  color: $smodin-black;
+  padding: 0 5px 3px;
+  border-radius: 12px;
+}
+.par-border {
+  padding: 0 4px 2px;
+  border-radius: 12px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 2px;
+  background-color: $smodin-light-purple;
+  color: $smodin-black;
+  &:hover {
+    background-color: #ff9cb0;
+    color: #262626;
+    cursor: pointer;
+  }
+}
 /**** PARAMETERS ****/
 .parameterinputsidetext {
   background-color: rgb(193, 174, 186);
@@ -23,15 +45,7 @@
 }
 
 /**** PARAMETERBOX ****/
-.parameterhover:hover {
-  background-color: #ff9cb0;
-  color: #262626;
-  cursor: pointer;
-}
-.parameterborder {
-  padding: 0px 4px 2px;
-  border-radius: 12px;
-}
+
 .borders {
   border-top: 1px solid #d7d0cc;
   border-left: 1px solid #d7d0cc;

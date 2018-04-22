@@ -9,20 +9,24 @@
   font-size: 16px;
   font-weight: 600;
 }
-.social-post-example {
-  background-color: #fffffb;
-  border: 2px solid #c8c4c5;
-  border-radius: 10px;
-  padding: 3px 10px 4px;
-  margin: 2px;
+.p-box {
+  font-size: 14px;
+  &-example {
+    background-color: #fffffb;
+    border: 2px solid #c8c4c5;
+    border-radius: 10px;
+    padding: 3px 10px 4px;
+    margin: 2px;
+  }
+  &-idea {
+    background-color: #fffffb;
+    border: 2px solid #c8c4c5;
+    border-radius: 10px;
+    padding: 3px 10px 4px;
+    margin: 2px;
+  }
 }
-.social-post-idea {
-  background-color: #fffffb;
-  border: 2px solid #c8c4c5;
-  border-radius: 10px;
-  padding: 3px 10px 4px;
-  margin: 2px;
-}
+
 .post-side-tab:hover {
   color: #423c37;
   background-color: #fffefd;
@@ -86,11 +90,6 @@
   min-width: 40px;
   display: flex;
 }
-/**** SOCIAL POST WITH CSS ****/
-.parameterborderthin {
-  padding: 0 5px 3px;
-  border-radius: 12px;
-}
 
 #social-post-page {
   flex: 1;
@@ -138,6 +137,7 @@
       border-radius: 4px;
       margin: 2px 4px;
       overflow: hidden;
+      font-size: 16px;
       .post-top {
         display: flex;
         padding: 4px;
