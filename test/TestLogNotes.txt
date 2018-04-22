@@ -3,8 +3,8 @@ Functional Tests Completed (Dev Branch)
 social profiles
 + change chosen social profile 4/20
 + add profile 4/21
-- delete profile
-- edit profile
++ delete profile 4/22
++ edit profile 4/22
 
 social posts
 + add social post 4/20

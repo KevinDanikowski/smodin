@@ -3,10 +3,12 @@ import React, { Component, createContext } from 'react'
 export const defaultContext = {//exported to reference defaults
     sp: {id: null, site: 'facebook', name: 'Choose Profile...',
         industry: {id: null, industry: 'Null'},
+        weeklySchedules: [],
+        monthlySchedules: [],
         postingPlatform: {id: null, platform: 'IFTTT', iftttEventName: '', iftttKey: '', zapierUrl: ''}
         },
     searchText: '',
-    tab: 'settings',
+    tab: 'posts',
     scheduleType: 'monthly',
 }
 

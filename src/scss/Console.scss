@@ -98,6 +98,11 @@
                 color: $smodin-dark-purple;
             }
         }
+        .delete-btn {
+            margin: 40px auto 20px;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 
