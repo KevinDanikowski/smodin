@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import PropTypes from 'prop-types'
 import {ALL_PARAMETERS_QUERY} from "../../graphql/parameters";
+import HighlightParameters from './HighlightParameters'
 import LoadingIcon from '../independent/LoadingIcon'
 
 class ParametersBox extends Component {
@@ -12,23 +13,26 @@ class ParametersBox extends Component {
         }
     }
     render() {
+        //par-border
         const PostListArray = () => {
             if (this.props.allParametersQuery &&
                 !this.props.allParametersQuery.loading &&
                 !this.props.allParametersQuery.error) return(
-                <div>
+                <React.Fragment>
                     {this.props.allParametersQuery.allParameters.map((parameter, index) => (
-                        <div
-                            key={index}
-                            className='par-border' >{'{{' + parameter.param + '}}'}</div>
+                        <div key={index} className='par-wrapper'>
+                            <HighlightParameters
+                                key={index}
+                                allParametersQuery={this.props.allParametersQuery}>{`{{${parameter.param}}}`}</HighlightParameters>
+                        </div>
                     ))}
-                </div>
+                </React.Fragment>
             )
             else return <LoadingIcon/>
         }
         return (
             <div className='borders flexbox-parent-console bg-smodin-black overflow-hidden b--smodin-gray mr0'>
-                <div className='flex-auto bg-smodin-white pa1 h-100 flex-auto overflow-auto'>
+                <div className='flex flex-wrap flex-auto bg-smodin-white pa1 h-100 overflow-y-auto overflow-x-hidden'>
                     <PostListArray />
                 </div>
                 <div className='w25p self-center flex'>

@@ -21,7 +21,8 @@ class SocialPostBox extends Component {
                     <div
                         key={index}
                         className='p-box p-box-example' >
-                        <HighlightParameters>
+                        <HighlightParameters
+                            allParametersQuery={this.props.allParametersQuery}>
                             {SocialPost.message}
                         </HighlightParameters>
                     </div>

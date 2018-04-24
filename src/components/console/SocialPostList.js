@@ -47,10 +47,12 @@ class SocialPostList extends Component {
                 <div className='w-100 flex flex-column flex-1'>
                     <div className='w-100 h-50'>
                         <ParametersBox
+                            allParametersQuery={this.props.allParametersQuery}
                             spId={sp.id} />
                     </div>
                     <div className='w-100 h-50'>
                         <SocialPostBox
+                            allParametersQuery={this.props.allParametersQuery}
                             industryId={sp.industry.id || null} />
                     </div>
                 </div>

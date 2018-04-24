@@ -11,7 +11,6 @@ todo dragable resize
 todo > social post
     todo get keywords from post
         > add image search based on keywords
-    todo highlight params that are present and those that aren't
     todo make new social post multi line
 
  * after TESTING STARTS

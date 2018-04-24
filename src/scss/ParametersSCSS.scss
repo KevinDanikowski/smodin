@@ -2,26 +2,54 @@
  * ALL ABREVIATED WITH PAR FOR PARAMETERS
  */
 
-.par-highlight {
-  background-color: $smodin-light-purple;
-  color: $smodin-black;
-  padding: 0 5px 3px;
-  border-radius: 12px;
+.par-wrapper {
+  margin: 2px 4px;
+  font-size: 14px;
+  line-height: 15px;
 }
-.par-border {
+.par-highlight {
   padding: 0 4px 2px;
   border-radius: 12px;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 14px;
   display: inline-flex;
+  position: relative;
+  font-family: "Segoe UI", sans-serif;
   flex-wrap: wrap;
-  margin: 2px;
-  background-color: $smodin-light-purple;
-  color: $smodin-black;
-  &:hover {
-    background-color: #ff9cb0;
-    color: #262626;
-    cursor: pointer;
+  .par-tooltip {
+    visibility: hidden;
+    background-color: $smodin-gray;
+    color: black;
+    text-align: center;
+    border-radius: 3px;
+    padding: 0 3px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    z-index: 1;
+  }
+  &:hover .par-tooltip {
+    visibility: visible;
+    transform-origin: center top;
+  }
+  &-missing {
+    background-color: $smodin-gray;
+    color: $smodin-dark-gray;
+    &:hover {
+      background-color: $smodin-light-red;
+    }
+  }
+  &-present {
+    background-color: $smodin-light-purple;
+    color: $smodin-black;
+    &:hover {
+      background-color: $smodin-light-red;
+    }
+  }
+  &-static {
+    background-color: $smodin-light-purple;
+    color: $smodin-black;
   }
 }
 /**** PARAMETERS ****/
