@@ -10,7 +10,6 @@ class SocialPostBottomBar extends Component {
     }
     render(){
         const socialPost = this.props.socialPost
-        console.log(socialPost)
         const regexUrl = /(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
         const regexMessageLink = regexUrl.exec(socialPost.message)
         const link = (regexMessageLink)?regexMessageLink[0] : 'Link...'
@@ -39,16 +38,14 @@ class SocialPostBottomBar extends Component {
                     <i className="fa fa-clock-o" aria-hidden="true"/>
                     <span className=''>{date}</span>
                 </div>
-                <div className='p-item p-item-links'>
-                    <div className={viewResponseClasses}
-                         onClick={() => this.props.passState({viewResponse: !this.props.viewResponse})}>
-                        <i className="fa fa-eye mr1" aria-hidden="true"/>
-                        <i className="fa fa-pencil-square-o" aria-hidden="true"/>
-                    </div>
-                    <i className="ps2p fa fa-files-o pl1 pr1 mr1" aria-hidden="true"/>
-                    <i className={postChangedClasses} aria-hidden="true" onClick={this.props.updateSocialPost}/>
-                    <i className="mr1 ps2p fa fa-trash h--smodin-red-p" aria-hidden="true" onClick={this.props.deleteSocialPost}/>
+                <div className={viewResponseClasses}
+                     onClick={() => this.props.passState({viewResponse: !this.props.viewResponse})}>
+                    <i className="fa fa-eye mr1" aria-hidden="true"/>
+                    <i className="fa fa-pencil-square-o" aria-hidden="true"/>
                 </div>
+                <i className="ps2p fa fa-files-o pl1 pr1 mr1" aria-hidden="true"/>
+                <i className={postChangedClasses} aria-hidden="true" onClick={this.props.updateSocialPost}/>
+                <i className="mr1 ps2p fa fa-trash h--smodin-red-p" aria-hidden="true" onClick={this.props.deleteSocialPost}/>
             </div>
         )
     }

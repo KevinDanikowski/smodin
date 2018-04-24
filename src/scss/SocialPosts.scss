@@ -148,12 +148,10 @@
         padding: 1px 0 2px;
         color: $smodin-dark-gray;
         white-space: nowrap;
-        display: none;
         border-top: 1px solid $smodin-gray;
-        @include break(md) {
-          display: flex;
-          justify-content: space-between;
-        }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         .p-item {
           display: inline-flex;
           align-items: center;

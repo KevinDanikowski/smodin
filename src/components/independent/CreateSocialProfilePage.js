@@ -82,6 +82,20 @@ class CreateSocialProfilePage extends Component {
                 name: name
             },
             update: async (store, {data: {createSocialProfile} }) => {
+                const data = store.readQuery({
+                    query: ALL_SOCIAL_PROFILES_QUERY,
+                    variables: {
+                        id: userId
+                    }
+                })
+                data.allSocialProfiles.push(createSocialProfile)
+                store.writeQuery({
+                    query: ALL_SOCIAL_PROFILES_QUERY,
+                    variables: {
+                        id: userId
+                    },
+                    data
+                })
                 this.props.setContext({sp: createSocialProfile, tab: 'settings'})
             }
         }).then(async( {data: {createSocialProfile} }) => {
