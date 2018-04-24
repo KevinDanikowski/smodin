@@ -119,6 +119,7 @@ class SocialPost extends Component {
                     <ImageArea />
                 </div>
                 <SocialPostBottomBar
+                    socialPost={this.props.socialPost}
                     viewResponse={this.state.viewResponse}
                     postChanged={this.state.postChanged}
                     passState={(val)=>this.setState(val)}

@@ -10,6 +10,7 @@ export const ALL_SOCIAL_POSTS_QUERY = gql`
         message_contains: $searchText
       }]}){
           id
+          updatedAt
           default
           message
           socialProfile {id}

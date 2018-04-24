@@ -9,7 +9,16 @@ class SocialPostBottomBar extends Component {
         }
     }
     render(){
+        const socialPost = this.props.socialPost
+        console.log(socialPost)
         const regexUrl = /(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+        const regexMessageLink = regexUrl.exec(socialPost.message)
+        const link = (regexMessageLink)?regexMessageLink[0] : 'Link...'
+        const linkClass = (regexMessageLink)?'smodin-blue':''
+        const imageLink = (socialPost.image)?socialPost.image.url : 'Img Link...'
+        const imageLinkClass = (socialPost.image)?'smodin-blue':''
+        const updatedAt = new Date(socialPost.updatedAt)
+        const date = `${updatedAt.getMonth()+1}/${updatedAt.getDate()}/${updatedAt.getFullYear().toString().substr(2)}`
         const viewResponseClasses = (this.props.viewResponse)?
             'br4 bg-smodin-red h--bg-smodin-red-p white pl1 pr1 mt1p mr1'
             :'br4 bg-smodin-gray h--bg-smodin-red-p hover-white pl1 pr1 mt1p mr1'
@@ -20,15 +29,15 @@ class SocialPostBottomBar extends Component {
             <div className='post-bottom'>
                 <div className='p-item p-item-url'>
                     <i className="fa fa-link" aria-hidden="true"/>
-                    <span className=''>Link...</span>
+                    <span className={linkClass}>{link}</span>
                 </div>
                 <div className='p-item p-item-img-url'>
                     <i className="fa fa-picture-o" aria-hidden="true"/>
-                    <span className=''>Image Link...</span>
+                    <span className={imageLinkClass}>{imageLink}</span>
                 </div>
                 <div className='p-item p-item-date'>
                     <i className="fa fa-clock-o" aria-hidden="true"/>
-                    <span className=''>8/2/17 16:12</span>
+                    <span className=''>{date}</span>
                 </div>
                 <div className='p-item p-item-links'>
                     <div className={viewResponseClasses}
@@ -46,6 +55,7 @@ class SocialPostBottomBar extends Component {
 }
 
 SocialPostBottomBar.propTypes = {
+    socialPost: PropTypes.object.isRequired,
     viewResponse: PropTypes.bool.isRequired,
     postChanged: PropTypes.bool.isRequired,
     passState: PropTypes.func.isRequired,
