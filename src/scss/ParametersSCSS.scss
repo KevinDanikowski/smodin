@@ -82,10 +82,12 @@
 
 #parameters-page {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   .parameters-table {
-    height: calc(100% - 80px);
+    flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     .parameter-row {
@@ -110,8 +112,8 @@
     }
   }
   .parameters-header{
-    height: 40px;
     display: flex;
+    padding: 5px;
     align-items: center;
     justify-content: space-between;
     background-color: $smodin-light-purple;
@@ -132,30 +134,34 @@
       min-width: 40px;
     }
   }
-  .new-parameter {
-    height: 40px;
+  .bottom-ribbon {
+    padding: 5px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     background-color: $smodin-light-purple;
-    box-shadow: 0 -5px 10px rgba(0,0,0,0.12);
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.12);
     border-top: 1px solid $smodin-dark-purple;
-    input {
-      padding: 5px;
-      margin: 0 8px;
-      flex: 1;
-      border: 1px solid $smodin-dark-gray;
-      border-radius: 5px;
-    }
-    button {
-      border-radius: 4px;
-      border: none;
-      color: white;
-      background-color: $smodin-dark-purple;
-      font-weight: 600;
-      box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-      margin: 0 8px;
-      padding: 5px;
-      cursor: pointer;
+    .new-parameter {
+      display: flex;
+      align-items: center;
+      input {
+        padding: 5px;
+        margin: 0 8px;
+        flex: 1;
+        border: 1px solid $smodin-dark-gray;
+        border-radius: 5px;
+      }
+      button {
+        border-radius: 4px;
+        border: none;
+        color: white;
+        background-color: $smodin-dark-purple;
+        font-weight: 600;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin: 0 8px;
+        padding: 5px;
+        cursor: pointer;
+      }
     }
   }
 }

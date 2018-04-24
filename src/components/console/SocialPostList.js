@@ -18,7 +18,8 @@ class SocialPostList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            newSocialPost: ''
+            newSocialPost: '',
+            errorMessage: false
         }
     }
     render() {
@@ -65,13 +66,21 @@ class SocialPostList extends Component {
                     <div className='posts'>
                         <SocialPostArrayMap />
                     </div>
-                    <div className='new-post'>
-                        <input
-                               onChange={(e) => this.setState({ newSocialPost: e.target.value })}
-                               value={this.state.newSocialPost}
-                               placeholder='Your New Post...'
-                               type='text'/>
-                        <button onClick={() => this._handleNewSocialPost()}>Submit</button>
+                    <div className='bottom-ribbon'>
+                        {(this.state.errorMessage)?<span className='smodin-red pb1 tc'>Error: No Message</span>:null}
+                        <div className='new-post'>
+                            <input
+                                   onChange={(e) => {
+                                       if(this.state.errorMessage && e.target.value.length > 0){
+                                           this.setState({errorMessage: false})
+                                       }
+                                       this.setState({ newSocialPost: e.target.value })}
+                                   }
+                                   value={this.state.newSocialPost}
+                                   placeholder='Your New Post...'
+                                   type='text'/>
+                            <button onClick={() => this._handleNewSocialPost()}>Submit</button>
+                        </div>
                     </div>
                 </div>
                 <RightColumn />
@@ -115,33 +124,37 @@ class SocialPostList extends Component {
         })
     }
     _handleNewSocialPost = async () => {
-        const { newSocialPost } = this.state
-        const SPId = this.props.sp.id
-        await this.props.addSocialPostMutation({
-            variables: {
-                socialProfileId: SPId,
-                message: newSocialPost,
-            },
-            update: (store, {data: {createSocialPost} }) => {
-                const data = store.readQuery({
-                    query: ALL_SOCIAL_POSTS_QUERY,
-                    variables: {
-                        socialProfileId: SPId,
-                        searchText: this.props.searchText
-                    }
-                })
-                data.allSocialPosts.push(createSocialPost)
-                store.writeQuery({
-                    query: ALL_SOCIAL_POSTS_QUERY,
-                    data,
-                    variables: {
-                        socialProfileId: SPId,
-                        searchText: this.props.searchText
-                    }
-                })
-            }
-        })
-        this.setState({ newSocialPost: '' })
+        if (this.state.newSocialPost.length === 0) {
+            this.setState({errorMessage: true})
+        } else {
+            const {newSocialPost} = this.state
+            const SPId = this.props.sp.id
+            await this.props.addSocialPostMutation({
+                variables: {
+                    socialProfileId: SPId,
+                    message: newSocialPost,
+                },
+                update: (store, {data: {createSocialPost}}) => {
+                    const data = store.readQuery({
+                        query: ALL_SOCIAL_POSTS_QUERY,
+                        variables: {
+                            socialProfileId: SPId,
+                            searchText: this.props.searchText
+                        }
+                    })
+                    data.allSocialPosts.push(createSocialPost)
+                    store.writeQuery({
+                        query: ALL_SOCIAL_POSTS_QUERY,
+                        data,
+                        variables: {
+                            socialProfileId: SPId,
+                            searchText: this.props.searchText
+                        }
+                    })
+                }
+            })
+            this.setState({newSocialPost: ''})
+        }
     }
 }
 

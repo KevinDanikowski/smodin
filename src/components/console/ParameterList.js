@@ -15,6 +15,7 @@ class ParameterList extends Component {
         this.state = {
             newParameter: '',
             newResponse: '',
+            errorMessage: false
         }
     }
     render() {
@@ -45,19 +46,28 @@ class ParameterList extends Component {
                 <div className='parameters-table'>
                     <RowsParameterArrayMap />
                 </div>
-                <div className='new-parameter'>
-                    <input
-                        onChange={(e) => this.setState({ newParameter: e.target.value })}
-                        value={this.state.newParameter}
-                        placeholder='Parameter...'
-                        type='text'/>
-                    <input
-                        onChange={(e) => this.setState({ newResponse: e.target.value })}
-                        value={this.state.newResponse}
-                        placeholder='Response...'
-                        type='text'/>
-                    <button
-                        onClick={() => {this._handleNewParameter()}}>Submit</button>
+                <div className='bottom-ribbon'>
+                    {(this.state.errorMessage)?<span className='smodin-red pb1 tc'>Error: No Parameter or Parameter Already Exists</span>:null}
+
+                    <div className='new-parameter'>
+                        <input
+                            onChange={(e) => {
+                                if(this.state.errorMessage && e.target.value.length > 0){
+                                    this.setState({errorMessage: false})
+                                }
+                                this.setState({ newParameter: e.target.value })
+                            }}
+                            value={this.state.newParameter}
+                            placeholder='Parameter...'
+                            type='text'/>
+                        <input
+                            onChange={(e) => this.setState({ newResponse: e.target.value })}
+                            value={this.state.newResponse}
+                            placeholder='Response...'
+                            type='text'/>
+                        <button
+                            onClick={() => {this._handleNewParameter()}}>Submit</button>
+                    </div>
                 </div>
             </div>
         )
@@ -86,28 +96,33 @@ class ParameterList extends Component {
         })
     }
     _handleNewParameter = async () => {
-        const { newParameter, newResponse } = this.state
-        const SPId = this.props.sp.id
-        await this.props.addParameterMutation({
-            variables: {
-                socialProfileId: SPId,
-                param: newParameter,
-                response: newResponse,
-            },
-            update: (store, {data: {createParameter} }) => {
-                const data = store.readQuery({
-                    query: ALL_PARAMETERS_QUERY,
-                    variables: { socialProfileId: SPId }
-                })
-                data.allParameters.push(createParameter)
-                store.writeQuery({
-                    query: ALL_PARAMETERS_QUERY,
-                    data,
-                    variables: { socialProfileId: SPId }
-                })
-            }
-        })
-        this.setState({ newParameter: '', newResponse: ''})
+        const parameterExists = this.props.allParametersQuery.allParameters.findIndex(parameter=>parameter.param === this.state.newParameter)
+        if (this.state.newParameter.length === 0 || parameterExists) {
+            this.setState({errorMessage: true})
+        } else {
+            const {newParameter, newResponse} = this.state
+            const SPId = this.props.sp.id
+            await this.props.addParameterMutation({
+                variables: {
+                    socialProfileId: SPId,
+                    param: newParameter,
+                    response: newResponse,
+                },
+                update: (store, {data: {createParameter}}) => {
+                    const data = store.readQuery({
+                        query: ALL_PARAMETERS_QUERY,
+                        variables: {socialProfileId: SPId}
+                    })
+                    data.allParameters.push(createParameter)
+                    store.writeQuery({
+                        query: ALL_PARAMETERS_QUERY,
+                        data,
+                        variables: {socialProfileId: SPId}
+                    })
+                }
+            })
+            this.setState({newParameter: '', newResponse: ''})
+        }
     }
 }
 
