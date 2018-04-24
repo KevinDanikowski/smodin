@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import FontAwesome from 'react-fontawesome'
 
 class Parameter extends Component {
     constructor(props) {
@@ -16,9 +17,7 @@ class Parameter extends Component {
                 <div className='param-parameter'>
                     {(this.props.parameter.default)?
                         <span className='parameterinputsidetext nowrap'>
-                            <span>{'{{'}</span>
-                                {this.props.parameter.param}
-                            <span>{'}}'}</span>
+                            <span>{`{{${this.props.parameter.param}}}`}</span>
                         </span>
                     :   <span className='parameterinputsidetext nowrap'>
                             <span>{'{{'}</span>
@@ -36,6 +35,7 @@ class Parameter extends Component {
                     <input
                         type='text'
                         className='pa1 br3 b--solid-ns b--black-40'
+                        placeholder='Empty!'
                         value={this.state.response}
                         onChange={(e) => { this.setState({ response: e.target.value});
                             (this.props.parameter.response !== e.target.value) ?
@@ -43,10 +43,10 @@ class Parameter extends Component {
                                 :   this.setState({ updateParameter: false })}}/>
                 </div>
                 <div className='param-options'>
-                    <a className='ml1 dark-blue hover-gray pointer' onClick={this._deleteParameter}>Delete</a>
+                    <FontAwesome name='trash' className='dark-blue hover-gray pointer' onClick={this._deleteParameter} size='lg'/>
                     {(this.state.updateParameter)?
-                        <a className='ml1 red hover-gray pointer' onClick={this._updateParameter}>Update</a>
-                    :   null }
+                        <FontAwesome name='save' className='ml2 red hover-gray pointer' onClick={this._updateParameter} size='lg'/>
+                        :   null }
                 </div>
             </div>
         )

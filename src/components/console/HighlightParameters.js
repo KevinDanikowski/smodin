@@ -37,10 +37,10 @@ export default ({ allParametersQuery, children }) => {
                 if(response.length > 23) {
                     return response.substr(0,20)+'...'
                 } else {
-                    return (response)? response : 'No Response'
+                    return (response)? response : 'Empty Response!'
                 }
             } else {
-                return 'Missing Parameter'
+                return 'Missing Parameter!'
             }
         }
         result.push(message.slice(0, parameterPresent.index));//pushes string before {{

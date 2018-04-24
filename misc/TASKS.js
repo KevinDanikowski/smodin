@@ -5,8 +5,6 @@ TODO
 todo make enum for accepted / archived / etc.
 todo (after set up proper deployment) add alert on createSocialProfile if haven't chosen all data, then provide option to add IFTTT/ Zapier/ Etc. connection
 todo pop up and out menus
-todo add icons to parameter list page
-todo throw erros if new parameter or something has no characters
 todo dragable resize
 todo > social post
     todo get keywords from post

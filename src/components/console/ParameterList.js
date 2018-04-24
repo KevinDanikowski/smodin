@@ -4,7 +4,7 @@ import { ALL_PARAMETERS_QUERY,
     ADD_PARAMETER_MUTATION,
     DELETE_PARAMETER_MUTATION,
     UPDATE_PARAMETER_MUTATION} from "../../graphql/parameters";
-import Parameter from './ParameterRow'
+import ParameterRow from './ParameterRow'
 import PropTypes from 'prop-types'
 import LoadingIcon from '../independent/LoadingIcon'
 import ErrorIcon from '../independent/ErrorIcon'
@@ -27,7 +27,7 @@ class ParameterList extends Component {
         }
         const RowsParameterArrayMap = () => {
             return this.props.allParametersQuery.allParameters.map((parameter, index) => (
-                <Parameter
+                <ParameterRow
                     key={parameter.id}
                     parameter={parameter}
                     index={index}

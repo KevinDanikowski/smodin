@@ -2,31 +2,6 @@
  * ALL ABREVIATED WITH P FOR (SOCIAL) POST
  */
 /*** SOCIAL POST BOX ****/
-.socialpostboxsocialpost {
-  display: inline;
-  text-align: left;
-  color: #2d3232;
-  font-size: 16px;
-  font-weight: 600;
-}
-.p-box {
-  font-size: 14px;
-  &-example {
-    background-color: #fffffb;
-    border: 2px solid #c8c4c5;
-    border-radius: 10px;
-    padding: 3px 10px 4px;
-    margin: 2px;
-  }
-  &-idea {
-    background-color: #fffffb;
-    border: 2px solid #c8c4c5;
-    border-radius: 10px;
-    padding: 3px 10px 4px;
-    margin: 2px;
-  }
-}
-
 .post-side-tab:hover {
   color: #423c37;
   background-color: #fffefd;
@@ -226,8 +201,12 @@
   .right-post-column {
     display: flex;
     flex-direction: column;
-    min-width: 350px;
-    width: 350px;
+    min-width: 250px;
+    width: 250px;
+    @include break(lg) {
+      min-width: 350px;
+      width: 350px;
+    }
     overflow: hidden;
     background-color: $smodin-black;
     .post-ribbon {
@@ -246,6 +225,7 @@
         flex: 1;
         border: 1px solid $smodin-dark-gray;
         border-radius: 5px;
+        width: 10px;/*makes work at small screens?*/
       }
       button {
         border-radius: 4px;
@@ -257,6 +237,23 @@
         margin: 0 8px;
         padding: 5px;
         cursor: pointer;
+      }
+    }
+    .p-box {
+      font-size: 14px;
+      &-example {
+        background-color: #fffffb;
+        border: 2px solid #c8c4c5;
+        border-radius: 10px;
+        padding: 3px 10px 4px;
+        margin: 2px;
+      }
+      &-idea {
+        background-color: #fffffb;
+        border: 2px solid #c8c4c5;
+        border-radius: 10px;
+        padding: 3px 10px 4px;
+        margin: 2px;
       }
     }
   }
