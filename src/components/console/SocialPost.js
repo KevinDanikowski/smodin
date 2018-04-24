@@ -4,6 +4,7 @@ import { findAllParametersInString } from '../../utils'
 import { GC_USER_ID } from '../../constants'
 import HighlightParameters from './HighlightParameters'
 import TextareaAutosize from 'react-autosize-textarea'
+import SocialPostBottomBar from './SocialPostBottomBar'
 import axios from 'axios'
 import Dropzone from 'react-dropzone'
 import {ADD_SOCIAL_POST_IMAGE_MUTATION} from '../../graphql/socialPosts'
@@ -98,42 +99,6 @@ class SocialPost extends Component {
                     </Dropzone>
             )
         }
-        const BottomBar = () => {
-            return (
-                <div className='post-bottom'>
-                    <div className='p-item p-item-url'>
-                        <i className="fa fa-link" aria-hidden="true"/>
-                        <span className=''>Link...</span>
-                    </div>
-                    <div className='p-item p-item-img-url'>
-                        <i className="fa fa-picture-o" aria-hidden="true"/>
-                        <span className=''>Image Link...</span>
-                    </div>
-                    <div className='p-item p-item-date'>
-                        <i className="fa fa-clock-o" aria-hidden="true"/>
-                        <span className=''>8/2/17 16:12</span>
-                    </div>
-                    <div className='p-item p-item-links'>
-                        {(this.state.viewResponse)?
-                            <div className='br4 bg-smodin-red pl1 pr1 mt1p mr1 h--bg-smodin-red-p white'
-                                 onClick={() => this.setState({viewResponse: true})}>
-                                <i className="fa fa-eye mr1" aria-hidden="true"/>
-                                <i className="fa fa-pencil-square-o" aria-hidden="true"/>
-                            </div>
-                            :<div className='br4 bg-smodin-gray pl1 pr1 mt1p mr1 h--bg-smodin-red-p hover-white'
-                                  onClick={() => this.setState({viewResponse: true})}>
-                                <i className="fa fa-eye mr1" aria-hidden="true"/>
-                                <i className="fa fa-pencil-square-o" aria-hidden="true"/>
-                            </div>}
-                        <i className="ps2p fa fa-files-o pl1 pr1 mr1" aria-hidden="true"/>
-                        {(this.state.postChanged) ?
-                            <i className="ps2p fa fa-floppy-o mr1 bg-smodin-red br2 pl1 pr1 pointer white" aria-hidden="true" onClick={this._updateSocialPost}/>
-                            :<i className="ps2p fa fa-floppy-o pl1 pr1 mr1" aria-hidden="true"/>}
-                        <i className="mr1 ps2p fa fa-trash h--smodin-red-p" aria-hidden="true" onClick={this._deleteSocialPost}/>
-                    </div>
-                </div>
-            )
-        }
         return (
             <div className='social-post'>
                 <div className='post-top'>
@@ -153,7 +118,12 @@ class SocialPost extends Component {
                         :<PostArea />}
                     <ImageArea />
                 </div>
-                <BottomBar />
+                <SocialPostBottomBar
+                    viewResponse={this.state.viewResponse}
+                    postChanged={this.state.postChanged}
+                    passState={(val)=>this.setState(val)}
+                    deleteSocialPost={this._deleteSocialPost}
+                    updateSocialPost={this._updateSocialPost}/>
             </div>
         )
     }
