@@ -15,7 +15,7 @@ class SocialPostBottomBar extends Component {
         const regexMessageLink = regexUrl.exec(socialPost.message)
         const link = (regexMessageLink)?regexMessageLink[0] : 'Link...'
         const linkClass = (regexMessageLink)?'smodin-blue':''
-        const imageLink = (socialPost.image)?socialPost.image.url : 'Img Link...'
+        const imageLink = (socialPost.image)?socialPost.image.url.substr(0,30)+'...' : 'Img Link...'
         const imageLinkClass = (socialPost.image)?'smodin-blue':''
         const updatedAt = new Date(socialPost.updatedAt)
         const date = `${updatedAt.getMonth()+1}/${updatedAt.getDate()}/${updatedAt.getFullYear().toString().substr(2)}`

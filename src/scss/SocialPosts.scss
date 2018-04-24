@@ -172,6 +172,8 @@
               @include break(lg) {
                 display: block;
                 font-size: 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
           }
@@ -183,14 +185,14 @@
             i {
               padding: 0 2px;
               margin-right: 4px;
-
             }
             span {
               display: none;
               @include break(lg) {
                 display: block;
                 font-size: 10px;
-                max-width: 50px;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
           }
