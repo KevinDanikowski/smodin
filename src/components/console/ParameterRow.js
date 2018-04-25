@@ -16,12 +16,12 @@ class Parameter extends Component {
                 <div className='param-number'>{this.props.index + 1}</div>
                 <div className='param-parameter'>
                     {(this.props.parameter.default)?
-                        <span className='parameterinputsidetext nowrap'>
+                        <span className='param-text'>
                             <span>{`{{${this.props.parameter.param}}}`}</span>
                         </span>
-                    :   <span className='parameterinputsidetext nowrap'>
+                    :   <span className='param-text'>
                             <span>{'{{'}</span>
-                                <input  className='parameterinput b--solid-ns b--black-10'
+                                <input
                                         type='text'
                                         value={this.state.param}
                                         onChange={(e) => { this.setState({ param: e.target.value});
@@ -32,9 +32,8 @@ class Parameter extends Component {
                         </span>}
                 </div>
                 <div className='param-response'>
-                    <input
-                        type='text'
-                        className='pa1 br3 b--solid-ns b--black-40'
+                    <textarea
+                        rows='1'
                         placeholder='Empty!'
                         value={this.state.response}
                         onChange={(e) => { this.setState({ response: e.target.value});

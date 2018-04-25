@@ -10,6 +10,7 @@ todo > social post
     todo get keywords from post
         > add image search based on keywords
     todo make new social post multi line
+    todo post rewrites
 
  * after TESTING STARTS
 todo (do once ready to set up testing) once all schemas are done, go duplicate the database for testing purposes, create test data, keep that on hand to test deleting or something

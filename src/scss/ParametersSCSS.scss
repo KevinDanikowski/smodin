@@ -53,24 +53,7 @@
   }
 }
 /**** PARAMETERS ****/
-.parameterinputsidetext {
-  background-color: rgb(193, 174, 186);
-  color: #ffffff;
-  font-weight: 600;
-  padding: 4px 6px 6px;
-  border-radius: 12px;
-  border: none;
-}
-.parameterinput {
-  background-color: rgb(238, 218, 231);
-  color: #3a3a3a;
-  width: 225px;
-  font-weight: 600;
-  padding: 3px 6px 3px;
-  border-radius: 12px;
-  outline: none;
-  -webkit-appearance: none;
-}
+
 
 /**** PARAMETERBOX ****/
 
@@ -93,17 +76,48 @@
     .parameter-row {
       display: flex;
       align-items: center;
-      padding: 5px;
+      padding: 2px;
       border-bottom: 1px solid $smodin-gray;
       text-align: center;
       .param-number {
         flex: 1;
       }
       .param-parameter {
+        font-size: 16px;
         flex: 8;
+        .param-text {
+          text-wrap: none;
+          background-color: rgb(193, 174, 186);
+          color: #ffffff;
+          font-weight: 500;
+          padding: 4px 6px 6px;
+          border-radius: 12px;
+          border: none;
+        }
+        input {
+          background-color: rgb(238, 218, 231);
+          color: #3a3a3a;
+          width: 200px;
+          font-weight: 600;
+          padding: 1px 6px 2px;
+          border-radius: 12px;
+          border: 2px solid rgba(0,0,0,0.1);
+          outline: none;
+          -webkit-appearance: none;
+        }
       }
       .param-response {
+        font-size: 14px;
+        font-weight: 400;
         flex: 10;
+        display: flex;
+        justify-content: stretch;
+        textarea {
+          width: 100%;
+          padding: 4px;
+          border-radius: 6px;
+          border: 2px solid rgba(0,0,0,0.4);
+        }
       }
       .param-options {
         flex: 4;

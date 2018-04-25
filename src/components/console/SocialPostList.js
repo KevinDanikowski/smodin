@@ -69,16 +69,16 @@ class SocialPostList extends Component {
                     <div className='bottom-ribbon'>
                         {(this.state.errorMessage)?<span className='smodin-red pb1 tc'>Error: No Message</span>:null}
                         <div className='new-post'>
-                            <input
-                                   onChange={(e) => {
-                                       if(this.state.errorMessage && e.target.value.length > 0){
-                                           this.setState({errorMessage: false})
-                                       }
-                                       this.setState({ newSocialPost: e.target.value })}
+                            <textarea
+                                rows='1'
+                               onChange={(e) => {
+                                   if(this.state.errorMessage && e.target.value.length > 0){
+                                       this.setState({errorMessage: false})
                                    }
-                                   value={this.state.newSocialPost}
-                                   placeholder='Your New Post...'
-                                   type='text'/>
+                                   this.setState({ newSocialPost: e.target.value })}
+                               }
+                               value={this.state.newSocialPost}
+                               placeholder='Your New Post...'/>
                             <button onClick={() => this._handleNewSocialPost()}>Submit</button>
                         </div>
                     </div>
