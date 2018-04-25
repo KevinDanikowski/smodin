@@ -24,6 +24,9 @@ Parameters
 
 
 schedules
-+ delete schedule 4/20
-+ add schedule 4/21
-+ generate sample schedule 4/21
++ delete monthly schedule 4/20
++ add monthly schedule 4/21
++ generate monthly sample schedule 4/21
++ delete monthly schedule 4/24
++ add monthly schedule 4/24
++ generate monthly sample schedule 4/24

@@ -9,6 +9,7 @@ import {ADD_MONTHLY_POST_SCHEDULE_MUTATION,
     DELETE_MONTHLY_POST_SCHEDULE_MUTATION,
     DELETE_WEEKLY_POST_SCHEDULE_MUTATION} from "../../graphql/schedules";
 import { ALL_SOCIAL_PROFILES_QUERY} from "../../graphql/socialProfiles"
+import {Tabs, Tab} from 'material-ui/Tabs'
 import MonthlyDatePostScheduler from './MonthlyDatePostScheduler'
 import MonthlyDayPostScheduler from './MonthlyDayPostScheduler'
 import Scheduler from './Scheduler'
@@ -47,23 +48,12 @@ class SchedulePage extends Component {
     render() {
         const Ribbon = () => {
             return(
-                <div className='c-ribbon'>
-                    <div className='flex items-center justify-end'>
-                        <div className='inline-flex'>
-                            <div className='self-center fw6 white mr3 '>
-                                <span className='mr2'>Schedule</span>
-                                <span>Type:</span>
-                            </div>
-                            {(this.state.scheduleType === 'monthly')?
-                                <div className='scheduletypebutton-chosen scheduletypebuttonleft fw6 pa2'>Monthly</div>
-                                :<div className='scheduletypebutton scheduletypebuttonleft fw6 pa2'
-                                      onClick={() => {this.setState({scheduleType:'monthly'})}}>Monthly</div>}
-                            {(this.state.scheduleType === 'weekly')?
-                                <div className='scheduletypebutton-chosen scheduletypebuttonright fw6 pa2 mr3'>Weekly</div>
-                                :<div className='scheduletypebutton scheduletypebuttonright fw6 pa2 mr3'
-                                      onClick={() => {this.setState({scheduleType: 'weekly'})}}>Weekly</div>}
-                        </div>
-                    </div>
+                <div className='sch-header'>
+                    <Tabs className='sch-tabs' value={this.state.scheduleType}
+                          onChange={(val)=>this.setState({scheduleType: val})}>
+                        <Tab label='Monthly' value='monthly'/>
+                        <Tab label='Weekly' value='weekly'/>
+                    </Tabs>
                 </div>
             )
         }
