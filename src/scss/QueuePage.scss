@@ -1,20 +1,27 @@
-.scheduletypebutton-chosen {
-    background-color: #ff3d46;
-    color: white;
-    cursor: default;
-}
-.scheduletypebutton {
-    background-color: #cccccc;
-    color: #777
-}
-.scheduletypebutton:hover {
-    background-color: #ff3d46;
-    color: white;
-    cursor: pointer;
-}
-.scheduletypebuttonleft {
-    border-radius: 15px 0px 0px 15px;
-}
-.scheduletypebuttonright {
-    border-radius: 0px 15px 15px 0px;
+#queue-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .queue {
+        &-header {
+            display: flex;
+            padding: 10px 5px;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $smodin-light-purple;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+            border-bottom: 1px solid $smodin-dark-purple;
+            text-align: center;
+        }
+        &-tabs {
+            width: 200px;
+        }
+        &-dropdown {
+            width: 150px;
+        }
+        &-button {
+            @include ButtonDark
+        }
+    }
 }

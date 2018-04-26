@@ -21,11 +21,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 class SchedulePage extends Component {
     constructor(props) {
         super(props)
-        const defaultScheduleType = this.props.scheduleType
         this.state = {
             weeklySchedules: [],
             monthlySchedules: [],
-            scheduleType: defaultScheduleType
         }
     }
     componentWillUpdate(nextProps, nextState){
@@ -49,10 +47,10 @@ class SchedulePage extends Component {
         const Ribbon = () => {
             return(
                 <div className='sch-header'>
-                    <Tabs className='sch-tabs' value={this.state.scheduleType}
-                          onChange={(val)=>this.setState({scheduleType: val})}>
-                        <Tab label='Monthly' value='monthly'/>
-                        <Tab label='Weekly' value='weekly'/>
+                    <Tabs className='sch-tabs' value={this.props.scheduleType}
+                          onChange={(val)=>this.props.setContext({scheduleType: val})}>
+                        <Tab label='Monthly' value='MONTHLY'/>
+                        <Tab label='Weekly' value='WEEKLY'/>
                     </Tabs>
                 </div>
             )
@@ -116,9 +114,9 @@ class SchedulePage extends Component {
         return (
             <div id='schedule-page'>
                 <Ribbon />
-                {(this.state.scheduleType === 'weekly')?
+                {(this.props.scheduleType === 'WEEKLY')?
                     <WeeklyScheduleType />: null}
-                {(this.state.scheduleType === 'monthly')?
+                {(this.props.scheduleType === 'MONTHLY')?
                     <MonthlyScheduleType />: null}
             </div>
         )
@@ -282,6 +280,8 @@ class SchedulePage extends Component {
 
 SchedulePage.propTypes = {
     spId: PropTypes.string,
+    setContext: PropTypes.func.isRequired,
+    scheduleType: PropTypes.string
 }
 
 export default compose(

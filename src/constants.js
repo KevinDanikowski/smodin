@@ -89,3 +89,43 @@ export const defaultMonthlyDayPostSchedules = [
     {monthlyScheduleType: 'monthDay', monthDate: '', monthDay: '27', hour: '09', minute: '34'},
     {monthlyScheduleType: 'monthDay', monthDate: '', monthDay: '37', hour: '13', minute: '15'}
     ]
+export const sampleEvents = [
+    {
+        title: 'All Day Event',
+        start: '2018-05-01'
+    },
+    {
+        title: 'Long Event',
+        start: '2018-05-07',
+        end: '2018-05-10'
+    },
+    {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2018-05-09T16:00:00'
+    },
+    {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2018-05-16T16:00:00'
+    },
+    {
+        title: 'Conference',
+        start: '2018-05-11',
+        end: '2018-05-13'
+    },
+    {
+        title: 'Meeting',
+        start: '2018-05-12T10:30:00',
+        end: '2018-05-12T12:30:00'
+    },
+    {
+        title: 'Birthday Party',
+        start: '2018-05-13T07:00:00'
+    },
+    {
+        title: 'Click for Google',
+        url: 'http://google.com/',
+        start: '2018-05-28'
+    }
+]

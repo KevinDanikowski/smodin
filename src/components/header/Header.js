@@ -96,9 +96,9 @@ class Header extends Component {
                             <FontAwesomeIcon className='sp-icon-site' style={{color: color}}
                                              icon={icon || faFacebookSquare}/>
                         </div>
-                        <span className='sp-name i flex justify-center items-center'>
+                        {(windowPath==='/console')?<span className='sp-name i flex justify-center items-center'>
                             {sp.name}
-                        </span>
+                        </span>: null}
                     </div>
                     <div className='left-header flex items-center  mr2'>
                         {(sp.id)?

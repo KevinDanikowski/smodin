@@ -20,6 +20,8 @@ import { Provider } from "./Context"
 
 
 const GRAPHCOOL_PROJECT_ID = process.env.GRAPHCOOL_PROJECT_ID
+export const SCHEDULED_POSTS_API_URL = process.env.SCHEDULED_POSTS_API_URL
+
 const cache = new InMemoryCache()
 const defaultState = { }
 
@@ -60,6 +62,9 @@ export const client = new ApolloClient({
         new HttpLink({ uri: graphCoolUrl })
     ]),
     cache
+})
+export const scheduledPostClient = new ApolloClient({
+    link: new HttpLink({ uri: SCHEDULED_POSTS_API_URL || 'http://localhost:3200/graphql' })
 })
 const muiTheme = getMuiTheme({
     palette: {

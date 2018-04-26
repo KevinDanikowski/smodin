@@ -8,8 +8,8 @@ export const defaultContext = {//exported to reference defaults
         postingPlatform: {id: null, platform: 'IFTTT', iftttEventName: '', iftttKey: '', zapierUrl: ''}
         },
     searchText: '',
-    tab: 'schedule',
-    scheduleType: 'monthly',
+    tab: 'posts',
+    scheduleType: 'MONTHLY',
 }
 
 //accepts defaultState if no value passed

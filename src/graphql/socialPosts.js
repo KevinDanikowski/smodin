@@ -76,3 +76,9 @@ export const ALL_SOCIAL_POST_IDEAS_QUERY = gql`
           id
           idea
         }}`
+//todo check if this works once API is running
+export const ALL_SCHEDULED_POSTS_QUERY = gql`
+    query AllScheduledPostsQuery ($socialProfileId: ID!) {
+        allScheduledPosts(socialProfileId: $socialProfileId){
+        id
+    }}`

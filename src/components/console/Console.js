@@ -66,9 +66,12 @@ class Console extends Component {
                     <SchedulePage
                         spId={sp.id}
                         scheduleType={scheduleType}
+                        setContext={setContext}
                         allSocialProfilesQuery={this.props.allSocialProfilesQuery}/> : null }
                     {(tab === 'queue')?
                     <QueuePage
+                        sp={sp}
+                        setContext={setContext}
                         scheduleType={scheduleType}/> : null }
                     {(tab === 'settings')?
                     <SettingsPage
