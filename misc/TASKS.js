@@ -8,11 +8,14 @@ todo pop up and out menus
 todo dragable resize
 todo > social post
     todo get keywords from post
-        > add image search based on keywords
+        > add image search based on keywords + other things
     todo post rewrites
 todo > queue page
     todo set up calendar to accept posts
     todo make query for scheduled posts
+todo > user settings page
+    todo complete update
+todo set up @mixins for inputs
 
  * after TESTING STARTS
 todo (do once ready to set up testing) once all schemas are done, go duplicate the database for testing purposes, create test data, keep that on hand to test deleting or something
