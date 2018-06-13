@@ -6,6 +6,14 @@
   "Owner": "Ota AI, Inc.",
   "private": true,
   "description": "Smodin was an idea created by Kevin Danikowski and incorporated into Ota AI, Inc. which aims to automate much of the social media processes while enhancing the content and marketing of a business though aided content creation. Project is owned by Ota AI, Inc. and reserves all rights to the code created by Ota AI, Inc. herein.",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "serve": "serve -s -p 3000 build",
+    "test": "set NODE_ENV=test&& mocha --compilers js:babel-register --require ./test/helpers.js --require ./test/dom.js --recursive",
+    "docker build": "docker build -t smodin .",
+    "deploy": "docker run -p 3000 smodin"
+  },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
     "@fortawesome/fontawesome-free-brands": "^5.0.8",
@@ -71,11 +79,6 @@
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3"
   },
-  "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "set NODE_ENV=test&& mocha --compilers js:babel-register --require ./test/helpers.js --require ./test/dom.js --recursive"
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
@@ -124,6 +127,7 @@
     "react-svg-loader": "^2.1.0",
     "react-test-renderer": "^16.1.1",
     "sass-loader": "^6.0.7",
+    "serve": "^6.5.8",
     "sinon": "^4.1.2"
   }
 }

@@ -29,7 +29,7 @@ class App extends Component {
         const userId = localStorage.getItem(GC_USER_ID)
         return (
             <Consumer>{(state)=>{
-                const { setContext, sp } = state//todo don't know if need
+                const { setContext, sp } = state // todo don't know if need
                 return(
             <div id='app' className='flexbox-parent'>
                 <Header/>

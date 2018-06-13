@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { GC_USER_ID } from '../../constants'
 import { graphql, compose } from 'react-apollo'
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton'
+import LoadingIcon from '../independent/LoadingIcon'
 import {USER_SETTINGS_QUERY,
     UPDATE_USER_NAME_MUTATION} from "../../graphql/users";
 
@@ -10,61 +13,38 @@ class UserSettings extends Component {
         this.state = {
             email: '',
             password: '',
-            name: ''
+            name: '',
+            nameChanged: false,
+            origionalName: ''
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        const query = nextProps.userSettingsQuery
+        if (query && !query.loading && !query.error) {
+            this.setState({name: query.User.name, origionalName: query.User.name, email: query.User.email})
         }
     }
     render(){
-        const userId = localStorage.getItem(GC_USER_ID)
-        if (!userId){
-            return(
-                <div>
-                    <h1 className="tc">Oops! You are not logged in!</h1>
-                    <button onClick={() => {
-                    this.props.history.push('/login')
-                    }}>Login
-                    </button>
-                </div>
-            )
-        }
-        if (!this.props.userSettingsQuery || this.props.userSettingsQuery.loading) {
-            return (
-                <div>
-                    <h1 className="tc">Settings</h1>
-                    Loading...
-                    <div>Name: Loading... </div>
-                </div>
-            )
-        }
-        if (this.props.userSettingsQuery.error) {
-            console.log(this.props.userSettingsQuery)
-            console.log(userId)
-            return (
-                <div>
-                    <h1 className="tc">Settings</h1>
-                    Error
-                    <div>Name: Error :(</div>
-                </div>
-            )
-        }
+        const query = this.props.userSettingsQuery
         return (
-            <div className='w-50'>
-                <h1 className="tc">Settings</h1>
-                <div className="flex ma3 justify-between items-center">
-                    <div className=''><strong>Name: </strong> {this.props.userSettingsQuery.User.name}</div>
-                    <div>
-                        <input
-                            className='ml3 pa1 br3 b--solid-ns b--black-40'
-                            type='text'
-                            placeholder='New Name...'
-                            onChange={(e) => this.setState({ name: e.target.value })}
-                            />
-                        <button
-                            className='ml3 mr3 bg-green b--dark-green br3 pr2 pl2 pb1 pt1 white-90 fw8'
-                            onClick={ this._updateName }>update</button>
-                    </div>
-                </div>
-                <div className="ma3"><strong>Email: </strong>{this.props.userSettingsQuery.User.email} </div>
-            </div>
+            <React.Fragment>
+                <h1>Settings</h1>
+                {(query && !query.loading && !query.error) ?
+                <React.Fragment>
+                        <TextField fullWidth={true}
+                            floatingLabelText="Name"
+                            value={this.state.name}
+                            onChange={(e) =>(e.target.value !== this.state.origionalName)?this.setState({name: e.target.value, nameChanged: true}):this.setState({name: e.target.value, nameChanged: false})}/>
+                        {(this.state.nameChanged)?
+                            <RaisedButton
+                                label="Update"
+                                fullWidth={false}
+                                onClick={this._updateName}/>
+                            :null}
+                    <div className="ma3"><strong>Email: </strong>{this.props.userSettingsQuery.User.email} </div>
+                </React.Fragment>
+                : <LoadingIcon />}
+            </React.Fragment>
         )
     }
     _updateName = async () => {
@@ -75,6 +55,8 @@ class UserSettings extends Component {
                 id: id,
                 name: name
             }
+        }).then(res => {
+            this.setState({name: name, origionalName: name})
         })
     }
 }
